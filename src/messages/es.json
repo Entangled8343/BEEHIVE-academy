@@ -1,0 +1,40 @@
+{
+  "roles": {
+    "padre": "Familia",
+    "maestro": "Docente",
+    "admin": "Dirección",
+    "porteria": "Portería"
+  },
+  "nav": {
+    "inicio": "Inicio",
+    "tareas": "Tareas",
+    "retiro": "Retiro",
+    "mensajes": "Mensajes",
+    "mas": "Más",
+    "calificaciones": "Notas",
+    "agenda": "Agenda diaria",
+    "comunicados": "Comunicados",
+    "calendario": "Calendario",
+    "galeria": "Galería",
+    "ausencias": "Ausencias",
+    "autorizaciones": "Permisos",
+    "insignias": "Insignias",
+    "hoy": "Hoy",
+    "asistencia": "Asistencia",
+    "temario": "Temario",
+    "actividades": "Actividades del mes",
+    "panel": "Panel",
+    "inscripciones": "Inscripciones",
+    "porteria": "Portería",
+    "estudiantes": "Estudiantes",
+    "personal": "Personal",
+    "ajustes": "Ajustes",
+    "extracurricular": "Extracurricular",
+    "salir": "Cerrar sesión"
+  },
+  "common": {
+    "notificaciones": "Notificaciones",
+    "verTodo": "Ver todo",
+    "hoy": "Hoy"
+  }
+}

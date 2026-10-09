@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-fredoka), ui-rounded, "Nunito", system-ui, sans-serif;
+  --font-sans: var(--font-nunito), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Marca Beehive Academy */
+  --color-navy-950: #13143a;
+  --color-navy-900: #1d1e55;
+  --color-navy-800: #2b2c6e;
+  --color-navy-700: #3a3c8c;
+  --color-navy-600: #5052a8;
+  --color-navy-400: #8d8fd0;
+  --color-navy-300: #b2b4e2;
+  --color-navy-200: #d2d3ef;
+  --color-navy-100: #e8e9f7;
+  --color-navy-50: #f4f4fc;
+
+  --color-honey-700: #8a6400;
+  --color-honey-600: #c79400;
+  --color-honey-500: #ffd200;
+  --color-honey-400: #f7d23e;
+  --color-honey-300: #fbe27a;
+  --color-honey-200: #fdedac;
+  --color-honey-100: #fef6d4;
+  --color-honey-50: #fffbea;
+
+  --color-cream: #fffdf6;
+
+  --radius-4xl: 2rem;
+
+  --shadow-soft: 0 1px 2px rgb(29 30 85 / 0.04), 0 4px 16px -4px rgb(29 30 85 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(29 30 85 / 0.05), 0 12px 32px -8px rgb(29 30 85 / 0.18);
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-cream font-sans text-navy-900 antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-navy-900;
+  }
+}
+
+@utility hex {
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+}
+
+@utility hex-flat {
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+}
+
+@utility honeycomb {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23F7D23E' stroke-opacity='0.35' stroke-width='2'/%3E%3Cpath d='M28 0L28 -34L0 -50L0 -84' fill='none' stroke='%23F7D23E' stroke-opacity='0.35' stroke-width='2'/%3E%3C/svg%3E");
+  background-size: 56px 98px;
+}
+
+@utility honeycomb-navy {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23FFFFFF' stroke-opacity='0.06' stroke-width='2'/%3E%3C/svg%3E");
+  background-size: 56px 98px;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+}
