@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"/>
+<title>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+@page { size: 1280px 720px; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #fbf7e2; }
+body { font-family: "Poppins", system-ui, sans-serif; color: #12321f; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+h1, h2, h3, .display { font-family: "Newsreader", Georgia, serif; font-weight: 500; }
+.page { width: 1280px; height: 720px; position: relative; overflow: hidden; page-break-after: always; break-after: page; padding: 48px 56px; }
+.accent { color: #8edcaa; }
+.dark-bg { background: #131d3b; color: #fbf7e2; }
+.pattern-dark { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.5'%3E%3Ccircle cx='12' cy='18' r='1.1'/%3E%3Ccircle cx='64' cy='40' r='0.9'/%3E%3Ccircle cx='118' cy='22' r='1.3'/%3E%3Cpath d='M98 92l1.2 3.4 3.4 1.2-3.4 1.2L98 101.2l-1.2-3.4-3.4-1.2 3.4-1.2z'/%3E%3Ccircle cx='30' cy='96' r='1'/%3E%3Ccircle cx='76' cy='124' r='1.2'/%3E%3Cpath d='M40 58l0.8 2.2 2.2 0.8-2.2 0.8L40 64l-0.8-2.2-2.2-0.8 2.2-0.8z'/%3E%3C/g%3E%3C/svg%3E"); background-size: 140px 140px; }
+.pattern-light { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%232F6A4B' fill-opacity='0.25'%3E%3Ccircle cx='12' cy='18' r='1.1'/%3E%3Ccircle cx='64' cy='40' r='0.9'/%3E%3Ccircle cx='118' cy='22' r='1.3'/%3E%3Cpath d='M98 92l1.2 3.4 3.4 1.2-3.4 1.2L98 101.2l-1.2-3.4-3.4-1.2 3.4-1.2z'/%3E%3Ccircle cx='30' cy='96' r='1'/%3E%3Ccircle cx='76' cy='124' r='1.2'/%3E%3Cpath d='M40 58l0.8 2.2 2.2 0.8-2.2 0.8L40 64l-0.8-2.2-2.2-0.8 2.2-0.8z'/%3E%3C/g%3E%3C/svg%3E"); background-size: 140px 140px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 13px; background: #8edcaa; color: #12321f; }
+.chip.soft { background: #e4eee7; color: #183f2b; }
+.footer { position: absolute; left: 56px; right: 56px; bottom: 22px; display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #2f6a4b; opacity: .75; }
+.dark-bg .footer { color: #cfe0d5; }
+
+.cover { display: grid; grid-template-columns: 1fr 520px; gap: 24px; align-items: center; }
+.cover-logo { width: 120px; height: 120px; }
+.cover h1 { font-size: 62px; line-height: 1.02; color: #fbf7e2; margin-top: 22px; }
+.cover h1 .accent { font-style: italic; }
+.cover .lead { font-size: 20px; color: #cfe0d5; margin-top: 18px; max-width: 560px; line-height: 1.45; }
+.cover .eyebrow { margin-top: 26px; }
+.cover-phones { position: relative; height: 620px; }
+.cover-phones .phone { position: absolute; }
+.cover-phones .p1 { left: 10px; top: 40px; transform: rotate(-6deg); }
+.cover-phones .p2 { left: 250px; top: 10px; transform: rotate(5deg); }
+.cover-phones img { width: 230px; height: 497px; object-fit: cover; object-position: top; }
+
+.phone { background: #0b2116; border-radius: 34px; padding: 9px; box-shadow: 0 20px 50px -12px rgba(0,0,0,.45); }
+.phone img { display: block; border-radius: 26px; }
+
+.mobile-page { padding-top: 40px; }
+.mobile-page .head { display: flex; align-items: center; gap: 14px; }
+.mobile-page h2 { font-size: 32px; }
+.mobile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 18px; }
+.mobile-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.mobile-item .phone img { width: 204px; height: 441px; object-fit: cover; object-position: top; }
+.mobile-item h3 { font-size: 19px; margin-top: 12px; }
+.mobile-item p { font-size: 13px; color: #2f6a4b; margin-top: 4px; max-width: 300px; line-height: 1.4; font-weight: 500; }
+
+.wide-page { display: grid; grid-template-columns: 300px 1fr; gap: 36px; align-items: center; }
+.wide-page h2 { font-size: 34px; line-height: 1.1; margin-top: 14px; }
+.wide-page .desc { font-size: 16px; line-height: 1.5; color: #2f6a4b; margin-top: 14px; font-weight: 500; }
+.wide-page .device-label { margin-top: 22px; }
+.browser { background: #fff; border-radius: 16px; box-shadow: 0 24px 60px -16px rgba(0,0,0,.3); overflow: hidden; border: 1px solid #e4eee7; }
+.browser .bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 14px; background: #e4eee7; }
+.browser .dot { width: 11px; height: 11px; border-radius: 50%; }
+.browser .url { margin-left: 14px; flex: 1; height: 22px; border-radius: 999px; background: #fff; font-size: 11px; font-weight: 600; color: #2f6a4b; display: flex; align-items: center; padding-left: 12px; }
+.browser img { display: block; width: 100%; }
+.tablet { background: #0b2116; border-radius: 30px; padding: 16px; box-shadow: 0 24px 60px -16px rgba(0,0,0,.45); }
+.tablet img { display: block; width: 100%; border-radius: 14px; }
+
+.overview h2 { font-size: 40px; margin-top: 10px; }
+.roles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; }
+.role { background: #fff; border-radius: 26px; padding: 22px; box-shadow: 0 4px 16px -4px rgba(0,0,0,.1); border: 1px solid #e4eee7; }
+.role h3 { font-size: 22px; }
+.role .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+.role ul { list-style: none; margin-top: 10px; display: grid; gap: 7px; }
+.role li { font-size: 13.5px; font-weight: 600; color: #183f2b; display: flex; gap: 8px; align-items: flex-start; }
+.role li::before { content: ""; flex: none; width: 9px; height: 9px; margin-top: 5px; border-radius: 3px; background: #8edcaa; }
+.ribbon { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+.ribbon span { background: #131d3b; color: #fbf7e2; border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 14px; }
+
+.steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 30px; }
+.step { background: rgba(255,255,255,.08); border-radius: 22px; padding: 18px; }
+.step .n { width: 40px; height: 40px; display: grid; place-items: center; background: #8edcaa; color: #12321f; font-family: "Newsreader", Georgia, serif; font-weight: 600; font-size: 20px; border-radius: 12px; }
+.step h3 { color: #fbf7e2; font-size: 18px; margin-top: 12px; line-height: 1.15; }
+.step p { color: #cfe0d5; font-size: 13px; margin-top: 6px; font-weight: 500; line-height: 1.4; }
+.dark-bg .ribbon span { background: rgba(255,255,255,.12); }
+.note { margin-top: 26px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.25); color: #8edcaa; padding: 14px 18px; border-radius: 18px; font-weight: 600; font-size: 14px; }
+</style></head>
+<body>
+  <section class="page cover dark-bg pattern-dark">
+    <div>
+      <img class="cover-logo" src="../../../public/brand/curie/sello.png" />
+      <div class="eyebrow"><span class="chip">Propuesta de plataforma · Octubre 2026</span></div>
+      <h1>Portal académico<br/><span class="accent">Curie‑verse</span></h1>
+      <p class="lead">Una web app para alumnos, familias, docentes y Dirección, de primaria y secundaria, en español e inglés. Se usa desde el celular o la computadora, sin descargar nada.</p>
+    </div>
+    <div class="cover-phones">
+      <div class="phone p1"><img src="movil/05-alumno-inicio.png" /></div>
+      <div class="phone p2"><img src="movil/14-familia-inicio.png" /></div>
+    </div>
+    <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>1</span></div>
+  </section>
+
+  <section class="page overview pattern-light">
+    <span class="chip soft">Resumen</span>
+    <h2>Un portal para cada protagonista</h2>
+    <div class="roles">
+      <div class="role"><span class="tag" style="background:#d2f2dc;color:#1f6b3f">Alumnos · 4° a 11°</span><h3>Estudiantes</h3>
+        <ul><li>Usuario propio, sin correo</li><li>Horario y clase en curso</li><li>Entregar tareas con archivos</li><li>Calificaciones por corte</li><li>Calendario de exámenes</li><li>Clubes: Science, Art, Sports, Humanism</li><li>Elementos Curie (insignias)</li><li>Español / English</li></ul></div><div class="role"><span class="tag" style="background:#fde7c7;color:#8a4b00">Familias</span><h3>Padres y tutores</h3>
+        <ul><li>Todos sus hijos en un lugar</li><li>Tareas, notas y horario</li><li>Estado de cuenta y comprobantes</li><li>Permisos con firma digital</li><li>Reportar ausencias</li><li>¿Quién recoge? (primaria)</li><li>Comunicados y calendario</li><li>Mensajes con docentes</li></ul></div><div class="role"><span class="tag" style="background:#dbeafe;color:#075985">60 docentes</span><h3>Docentes</h3>
+        <ul><li>Varias secciones y materias</li><li>Horario semanal</li><li>Asistencia en segundos</li><li>Libro de notas tipo Excel</li><li>Crear y revisar tareas</li><li>Temario y actividades</li><li>Otorgar elementos</li><li>Clubes que dirigen</li></ul></div><div class="role"><span class="tag" style="background:#e4eee7;color:#183f2b">Dirección</span><h3>Dirección y portería</h3>
+        <ul><li>Panel de 400 alumnos</li><li>Admisiones y pruebas</li><li>Cobros y pagos</li><li>Publicar y cerrar cortes</li><li>Horarios por sección</li><li>Comunicados con acuse</li><li>Portería con QR</li><li>Respaldos diarios</li></ul></div>
+    </div>
+    <div class="ribbon"><span>400 alumnos · 60 docentes</span><span>Español / English (listo para Français)</span><span>📱 Celular y 💻 PC</span><span>Sin App Store ni Play Store</span><span>🔒 Datos protegidos</span></div>
+    <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>2</span></div>
+  </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Portal y admisiones</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/01-portal-inicio.png" /></div><h3>Portal en el celular</h3><p>Funciona en Chrome o Safari con un link, sin descargar nada.</p></div><div class="mobile-item"><div class="phone "><img src="movil/02-pre-inscripcion.png" /></div><h3>Pre-inscripción en línea</h3><p>Formulario por pasos. Los documentos se suben con fotos del celular.</p></div><div class="mobile-item"><div class="phone "><img src="movil/03-agenda-tu-cita.png" /></div><h3>Prueba y entrevista</h3><p>La familia elige la fecha y recibe confirmación y recordatorio.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>3</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Portal y admisiones</span>
+          <h2>Portal Curie</h2>
+          <p class="desc">Portada del portal académico con acceso para familias, alumnos y docentes. El sitio curie.edu.ni se mantiene y enlaza al portal.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /</span></div><img src="escritorio/01-portal-inicio.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>4</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Portal y admisiones</span>
+          <h2>Admisiones 2027</h2>
+          <p class="desc">Cada solicitud tiene un código de seguimiento: recibida, en revisión, prueba y entrevista, y respuesta.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /inscripcion</span></div><img src="escritorio/02-pre-inscripcion.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>5</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Acceso</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/04-ingresar.png" /></div><h3>En español o en inglés</h3><p>Cada usuario elige su idioma. El francés se puede agregar después.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>6</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Acceso</span>
+          <h2>Inicio de sesión seguro</h2>
+          <p class="desc">Familias y docentes entran por invitación. Los alumnos, desde 4° grado, con el usuario que les da el colegio; no necesitan correo. Lo gestiona Clerk, un servicio especializado en seguridad.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /ingresar</span></div><img src="escritorio/03-ingresar.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>7</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Alumnos</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/05-alumno-inicio.png" /></div><h3>Inicio del alumno</h3><p>Clase en curso, tareas pendientes, próximo examen, promedio y racha de puntualidad.</p></div><div class="mobile-item"><div class="phone "><img src="movil/06-alumno-inicio-en.png" /></div><h3>Student home (English)</h3><p>La misma pantalla en inglés, con un toque en ES / EN.</p></div><div class="mobile-item"><div class="phone "><img src="movil/07-alumno-horario.png" /></div><h3>Mi horario</h3><p>Las clases del día con aula y docente. Marca la clase en curso.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>8</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Alumnos</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/08-alumno-entregar.png" /></div><h3>Entregar tareas</h3><p>El alumno sube fotos o archivos. Su familia también ve la entrega.</p></div><div class="mobile-item"><div class="phone "><img src="movil/09-alumno-calificaciones.png" /></div><h3>Mis calificaciones</h3><p>Notas por corte con la escala del MINED (AA, AS, AF, AI).</p></div><div class="mobile-item"><div class="phone "><img src="movil/10-alumno-examenes.png" /></div><h3>Calendario de exámenes</h3><p>Pruebas y exámenes por corte, con temas y aula.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>9</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Alumnos</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/11-alumno-clubes.png" /></div><h3>Clubes</h3><p>Science, Art, Sports y Humanism: el alumno se inscribe desde el celular.</p></div><div class="mobile-item"><div class="phone "><img src="movil/12-alumno-elementos.png" /></div><h3>Elementos Curie</h3><p>Cada logro es un elemento de la tabla periódica: Radiante (Ra), Curie-osidad (Cu), Francophone (Fr)…</p></div><div class="mobile-item"><div class="phone "><img src="movil/13-alumno-tareas.png" /></div><h3>Mis tareas</h3><p>Pendientes, entregadas y calificadas, con el comentario del docente.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>10</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Alumnos</span>
+          <h2>El portal del alumno en la computadora</h2>
+          <p class="desc">En PC el menú pasa a una barra lateral y la información se reparte en columnas.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /alumno</span></div><img src="escritorio/04-alumno-inicio.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>11</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Alumnos</span>
+          <h2>Horario semanal</h2>
+          <p class="desc">Toda la semana por materia, aula y docente. Los cambios se notifican a alumnos y familias.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /alumno/horario</span></div><img src="escritorio/05-alumno-horario.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>12</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/14-familia-inicio.png" /></div><h3>Inicio de la familia</h3><p>Primaria y secundaria juntos: llegada, tareas, pagos y pendientes de cada hijo.</p></div><div class="mobile-item"><div class="phone "><img src="movil/15-familia-estado-cuenta.png" /></div><h3>Estado de cuenta</h3><p>Saldo, mensualidades y recibos. La familia sube su comprobante desde el celular.</p></div><div class="mobile-item"><div class="phone "><img src="movil/16-familia-perfil.png" /></div><h3>Perfil del alumno</h3><p>Datos, salud, contactos de emergencia y los elementos que ha descubierto.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>13</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/17-familia-calificaciones.png" /></div><h3>Calificaciones</h3><p>Las mismas notas que ve el alumno, con boleta en PDF.</p></div><div class="mobile-item"><div class="phone "><img src="movil/18-familia-retiro.png" /></div><h3>¿Quién recoge hoy?</h3><p>Para primaria: aviso con QR o código. En secundaria se puede autorizar la salida sola.</p></div><div class="mobile-item"><div class="phone "><img src="movil/19-familia-permiso-firma.png" /></div><h3>Permisos con firma digital</h3><p>La familia firma con el dedo y queda registro con fecha y hora.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>14</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/20-familia-comunicados.png" /></div><h3>Comunicados</h3><p>Avisos de Dirección y docentes, con confirmación de lectura.</p></div><div class="mobile-item"><div class="phone "><img src="movil/21-familia-mensajes.png" /></div><h3>Mensajes con docentes</h3><p>Chat dentro de la plataforma, sin compartir números personales.</p></div><div class="mobile-item"><div class="phone "><img src="movil/22-familia-calendario.png" /></div><h3>Calendario</h3><p>Exámenes, giras, reuniones y actividades del mes.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>15</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Familias</span>
+          <h2>La familia en la computadora</h2>
+          <p class="desc">Todo lo de sus hijos en un solo lugar: tareas, notas, horario, pagos, permisos y mensajes.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /padres</span></div><img src="escritorio/06-familia-inicio.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>16</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Familias</span>
+          <h2>Pagos sin filas</h2>
+          <p class="desc">Movimientos, recibos descargables y recordatorios automáticos antes de cada vencimiento.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /padres/estado-cuenta</span></div><img src="escritorio/07-familia-estado-cuenta.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>17</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Docentes</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/23-docente-hoy.png" /></div><h3>El día del docente</h3><p>Sus secciones, entregas por revisar, ausencias reportadas y horario.</p></div><div class="mobile-item"><div class="phone "><img src="movil/24-docente-asistencia.png" /></div><h3>Pasar lista</h3><p>Un toque por alumno. Las ausencias reportadas por las familias ya aparecen justificadas.</p></div><div class="mobile-item"><div class="phone "><img src="movil/25-docente-revisar.png" /></div><h3>Revisar entregas</h3><p>Ver archivos, poner nota y comentario, y pasar al siguiente.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>18</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Docentes</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/26-docente-insignias.png" /></div><h3>Otorgar elementos</h3><p>Reconocer logros. Algunos elementos se entregan solos cada noche.</p></div><div class="mobile-item"><div class="phone "><img src="movil/27-docente-actividades.png" /></div><h3>Actividades del mes</h3><p>Publicar actividades y pedir permiso firmado cuando haga falta.</p></div><div class="mobile-item"><div class="phone "><img src="movil/28-docente-temario.png" /></div><h3>Temario</h3><p>Temas por semana con objetivos y materiales para alumnos y familias.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>19</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Docentes</span>
+          <h2>Libro de notas</h2>
+          <p class="desc">Funciona como Excel y se guarda solo. Al publicar el corte, las notas se bloquean y las ven alumnos y familias.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /maestro/calificaciones</span></div><img src="escritorio/08-docente-libro-notas.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>20</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Docentes</span>
+          <h2>Horario del docente</h2>
+          <p class="desc">Sus secciones, aulas y clubes de la semana, por colores.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /maestro/horario</span></div><img src="escritorio/09-docente-horario.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>21</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Docentes</span>
+          <h2>Revisión en la computadora</h2>
+          <p class="desc">Lista de entregas a la izquierda y revisión a la derecha. Se marcan las entregas tardías.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /maestro/tareas</span></div><img src="escritorio/10-docente-revisar.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>22</span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Dirección y portería</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/29-direccion-panel.png" /></div><h3>Dirección desde el celular</h3><p>Los indicadores del colegio, en cualquier lugar.</p></div>
+        </div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>23</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Dirección y portería</span>
+          <h2>Panel de Dirección</h2>
+          <p class="desc">400 alumnos y 60 docentes de un vistazo: asistencia por grado, admisiones, pagos y alertas del día.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /admin</span></div><img src="escritorio/11-direccion-panel.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>24</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Dirección y portería</span>
+          <h2>Cobros y pagos</h2>
+          <p class="desc">Familias al día, comprobantes por revisar, recordatorios masivos y exportación a Excel.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /admin/cuentas</span></div><img src="escritorio/12-direccion-cobros.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>25</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Dirección y portería</span>
+          <h2>Tablero de admisiones</h2>
+          <p class="desc">Cada solicitud avanza por etapas. Al aceptarla se crean el alumno y los accesos de la familia.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /admin/inscripciones</span></div><img src="escritorio/13-direccion-inscripciones.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>26</span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Dirección y portería</span>
+          <h2>Portería (tablet)</h2>
+          <p class="desc">Retiros del día al momento: QR o código, verificación de cédula, alumnos de secundaria que salen solos y aviso inmediato a la familia.</p>
+          <div class="device-label"><span class="chip soft">📟 Tablet</span></div>
+        </div>
+        <div><div class="tablet"><img src="tablet/01-porteria.png" /></div></div>
+        <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>27</span></div>
+      </section>
+
+  <section class="page dark-bg pattern-dark">
+    <img src="../../../public/brand/curie/sello.png" style="width:84px;height:84px" />
+    <h2 style="font-size:44px;color:#fbf7e2;margin-top:16px">Próximos pasos</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Revisión con Dirección</h3><p>Ajustes de pantallas, módulos y textos.</p></div><div class="step"><div class="n">2</div><h3>Configuración académica</h3><p>Grados, secciones, materias, docentes y horarios.</p></div><div class="step"><div class="n">3</div><h3>Construcción y datos</h3><p>Carga de 400 alumnos, familias y 60 docentes.</p></div><div class="step"><div class="n">4</div><h3>Piloto</h3><p>Una sección de primaria y una de secundaria.</p></div><div class="step"><div class="n">5</div><h3>Lanzamiento 2027</h3><p>Todo el colegio, con capacitación y guías.</p></div>
+    </div>
+    <div class="ribbon" style="margin-top:26px"><span>Web app en Vercel</span><span>Base de datos Turso</span><span>Acceso seguro con Clerk</span><span>Notificaciones push y correo</span></div>
+    <p class="note">Los nombres, montos e ilustraciones son de ejemplo. El sitio curie.edu.ni se mantiene; el portal vive en un subdominio (p. ej. portal.curie.edu.ni).</p>
+    <div class="footer"><span>Escuela Universal Pierre y Marie Curie · Propuesta de plataforma</span><span>28</span></div>
+  </section></body></html>

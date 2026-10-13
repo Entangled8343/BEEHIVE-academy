@@ -1,62 +1,78 @@
-# Beehive Academy · Plataforma escolar
+# Plataforma escolar (multi-colegio)
 
-Web app para **Beehive Academy** (preescolar y primaria, Masaya, Nicaragua — _Discover · Learn · Enjoy_).
-Une a familias, docentes y dirección en un solo lugar: tareas, notas, agenda diaria, asistencia,
-retiro seguro, comunicados, galería, insignias, pre-inscripción y más. Funciona desde el navegador,
-en celular y en computadora (no se publica en App Store ni Play Store).
+Web app para colegios: familias, alumnos, docentes y dirección en un solo lugar (tareas, notas, horario,
+asistencia, retiro seguro, comunicados, galería, insignias, pre-inscripción, estado de cuenta y más).
+Funciona desde el navegador, en celular y en computadora (no se publica en App Store ni Play Store).
+
+Es **un solo producto con una instalación por colegio**: cada colegio tiene su propia configuración
+(marca, módulos, idiomas), su base de datos, su acceso y su dominio.
+
+| Colegio | Config | Niveles | Idiomas | Alumnos con usuario |
+| --- | --- | --- | --- | --- |
+| Beehive Academy | `src/schools/beehive.ts` | Preescolar y primaria | ES | No (solo familias) |
+| Escuela Universal Pierre y Marie Curie | `src/schools/curie.ts` | Primaria y secundaria | ES / EN | Desde 4° grado |
 
 ## Estado actual: Fase 0 · prototipo visual
 
-Pantallas reales del proyecto alimentadas con datos de ejemplo (`src/mocks`) para que el cliente apruebe
-la interfaz antes de conectar la base de datos.
+Pantallas reales del proyecto con datos de ejemplo (`src/mocks/<colegio>.ts`), para que cada colegio
+apruebe la interfaz antes de conectar la base de datos.
 
-- Propuesta para el cliente: [`docs/mockups/Beehive-Academy-Propuesta-UI.pdf`](docs/mockups/Beehive-Academy-Propuesta-UI.pdf)
-- Capturas: `docs/mockups/{movil,escritorio,tablet}/`
+- Beehive: [`docs/mockups/beehive/Beehive-Academy-Propuesta-UI.pdf`](docs/mockups/beehive/Beehive-Academy-Propuesta-UI.pdf)
+- Curie: [`docs/mockups/curie/Curie-Propuesta-Plataforma.pdf`](docs/mockups/curie/Curie-Propuesta-Plataforma.pdf)
 
 | Rol | Rutas |
 | --- | --- |
-| Sitio público | `/`, `/inscripcion`, `/agenda-tu-cita`, `/ingresar` |
-| Familias | `/padres`, `/padres/hijos/[id]`, `/padres/tareas`, `/padres/calificaciones`, `/padres/retiro`, `/padres/ausencias`, `/padres/agenda`, `/padres/comunicados`, `/padres/calendario`, `/padres/galeria`, `/padres/mensajes`, `/padres/autorizaciones`, `/padres/mas` |
-| Docentes | `/maestro`, `/maestro/asistencia`, `/maestro/tareas`, `/maestro/calificaciones`, `/maestro/temario`, `/maestro/agenda`, `/maestro/actividades`, `/maestro/insignias` |
-| Dirección | `/admin`, `/admin/inscripciones`, `/porteria` |
+| Público | `/` (sitio web o portada del portal), `/inscripcion`, `/agenda-tu-cita`, `/ingresar` |
+| Familias | `/padres`, `/padres/hijos/[id]`, `/padres/tareas`, `/padres/calificaciones`, `/padres/horario`, `/padres/estado-cuenta`, `/padres/retiro`, `/padres/ausencias`, `/padres/agenda`, `/padres/comunicados`, `/padres/calendario`, `/padres/galeria`, `/padres/mensajes`, `/padres/autorizaciones`, `/padres/mas` |
+| Alumnos | `/alumno`, `/alumno/horario`, `/alumno/tareas`, `/alumno/calificaciones`, `/alumno/examenes`, `/alumno/clubes`, `/alumno/insignias`, `/alumno/mas` |
+| Docentes | `/maestro`, `/maestro/asistencia`, `/maestro/tareas`, `/maestro/calificaciones`, `/maestro/temario`, `/maestro/horario`, `/maestro/agenda`, `/maestro/actividades`, `/maestro/insignias`, `/maestro/mas` |
+| Dirección | `/admin`, `/admin/inscripciones`, `/admin/cuentas`, `/admin/mas`, `/porteria` |
+
+Las rutas de módulos desactivados para un colegio responden 404 (`requireModule` en `src/schools/guard.ts`)
+y no aparecen en los menús.
 
 ## Stack
 
 - Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4
-- next-intl (español; listo para activar inglés)
-- Fases siguientes: Turso (libSQL) + Drizzle ORM, Clerk (acceso por invitación), Vercel Blob,
-  notificaciones web push, Resend. Hosting en Vercel.
+- next-intl (idioma por cookie `NEXT_LOCALE`, limitado a los idiomas del colegio)
+- Fases siguientes: Turso (libSQL) + Drizzle ORM, Clerk (acceso por invitación; usuarios para alumnos),
+  Vercel Blob, notificaciones web push, Resend. Hosting en Vercel (un proyecto por colegio).
 
 ## Desarrollo
 
 ```bash
 pnpm install
-pnpm dev            # http://localhost:3000
+pnpm dev                                                          # Beehive (por defecto)
+NEXT_PUBLIC_SCHOOL=curie NEXT_DIST_DIR=.next-curie pnpm dev -p 3001   # Curie, en paralelo
 pnpm lint && pnpm typecheck && pnpm build
 ```
 
-### Regenerar capturas y PDF
+### Regenerar capturas y PDF de un colegio
 
 ```bash
-pnpm build && pnpm start -p 3100          # en otra terminal
-BASE_URL=http://localhost:3100 pnpm screenshots
+NEXT_PUBLIC_SCHOOL=curie NEXT_DIST_DIR=.next-curie pnpm build
+NEXT_PUBLIC_SCHOOL=curie NEXT_DIST_DIR=.next-curie pnpm start -p 3100     # en otra terminal
+SCHOOL=curie BASE_URL=http://localhost:3100 pnpm screenshots
 ```
 
-El script usa Chromium (`CHROMIUM_PATH`, por defecto `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`),
-verifica que no haya scroll horizontal en celular y genera `docs/mockups/`.
+El script usa Chromium (`CHROMIUM_PATH`), verifica que no haya scroll horizontal en celular y genera
+`docs/mockups/<colegio>/`. Catálogo de pantallas: `scripts/mockups/catalog.ts`; textos y colores del PDF:
+`scripts/mockups/proposal-content.ts`.
 
 ## Estructura
 
 ```
-src/app/                 rutas (público, padres, maestro, admin, porteria)
+src/schools/             configuración por colegio (marca, módulos, idiomas)
+src/app/                 rutas (público, padres, alumno, maestro, admin, porteria)
+src/app/globals.css      tokens de marca por colegio (html[data-school="…"])
 src/components/ui/       botones, tarjetas, campos, pills, avatares…
-src/components/brand/    logo, abejita, ilustraciones
-src/components/shell/    menú lateral (PC) y barra inferior (celular)
-src/features/            componentes por dominio (insignias, calendario, familia)
-src/mocks/               datos de ejemplo de la Fase 0
-src/messages/es.json     textos de la interfaz
+src/components/brand/    logo, abejita, cometa y estrellas, ilustraciones
+src/components/shell/    menú lateral (PC) y barra inferior (celular), filtrados por módulos
+src/features/            componentes por dominio (tareas, notas, horario, insignias, sitio…)
+src/mocks/               datos de ejemplo por colegio (Fase 0)
+src/messages/{es,en}.json
 scripts/                 capturas y propuesta PDF
 ```
 
-> Todos los nombres y datos del prototipo son ficticios. Las fotos reales del colegio se agregarán solo
-> con autorización de las familias.
+> Todos los nombres, montos y datos del prototipo son ficticios. Las fotos reales de cada colegio se
+> agregarán solo con autorización de las familias.
