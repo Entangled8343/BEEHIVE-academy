@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 export function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("rounded-3xl bg-white shadow-soft ring-1 ring-navy-100/70", className)}
+      className={cn("rounded-3xl bg-white shadow-soft ring-1 ring-primary-100/70", className)}
       {...props}
     />
   );
@@ -27,7 +27,7 @@ export function CardHeader({
       {icon}
       <div className="min-w-0 flex-1">
         <h3 className="text-[17px] leading-tight font-semibold">{title}</h3>
-        {subtitle ? <p className="mt-0.5 text-sm text-navy-600">{subtitle}</p> : null}
+        {subtitle ? <p className="mt-0.5 text-sm text-primary-600">{subtitle}</p> : null}
       </div>
       {action}
     </div>

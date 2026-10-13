@@ -6,8 +6,8 @@ export const pillVariants = cva(
   {
     variants: {
       tone: {
-        navy: "bg-navy-100 text-navy-800",
-        honey: "bg-honey-200 text-honey-700",
+        primary: "bg-primary-100 text-primary-800",
+        accent: "bg-accent-200 text-accent-700",
         green: "bg-emerald-100 text-emerald-800",
         red: "bg-rose-100 text-rose-700",
         blue: "bg-sky-100 text-sky-800",
@@ -15,15 +15,15 @@ export const pillVariants = cva(
         violet: "bg-violet-100 text-violet-700",
         orange: "bg-orange-100 text-orange-700",
         gray: "bg-slate-100 text-slate-600",
-        solid: "bg-navy-800 text-white",
-        "solid-honey": "bg-honey-400 text-navy-900",
+        solid: "bg-primary-800 text-white",
+        "solid-accent": "bg-accent-400 text-primary-900",
       },
       size: {
         sm: "px-2 py-0.5 text-[11px]",
         md: "px-2.5 py-1 text-xs",
       },
     },
-    defaultVariants: { tone: "navy", size: "md" },
+    defaultVariants: { tone: "primary", size: "md" },
   },
 );
 

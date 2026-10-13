@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Bee } from "./bee";
+import { Mascot } from "./mascot";
 
 /**
  * Ilustración de relleno para la galería y el sitio. En producción se reemplaza por
@@ -56,9 +56,9 @@ export function Scene({
           <rect x="117" y="86" width="14" height="20" rx="6" fill={t.accent} opacity="0.7" />
         </g>
       </svg>
-      <Bee className="absolute top-[18%] left-[62%] size-8 rotate-12 drop-shadow" />
+      <Mascot className="absolute top-[18%] left-[62%] size-8 rotate-12 drop-shadow" />
       {label ? (
-        <span className="absolute bottom-2 left-2 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-navy-800">
+        <span className="absolute bottom-2 left-2 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-primary-800">
           {label}
         </span>
       ) : null}

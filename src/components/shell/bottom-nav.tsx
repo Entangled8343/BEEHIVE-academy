@@ -2,31 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import type { Role } from "@/mocks";
 import { bottomActive, bottomNav } from "./nav-config";
 
 export function BottomNav({ role }: { role: Role }) {
   const pathname = usePathname();
+  const t = useTranslations("nav");
   const items = bottomNav[role];
   if (!items.length) return null;
   const current = bottomActive(pathname, items);
   return (
-    <nav className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-navy-100 bg-white/95 backdrop-blur lg:hidden">
+    <nav className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-primary-100 bg-white/95 backdrop-blur lg:hidden">
       <ul className="mx-auto grid max-w-md grid-cols-5 px-2 pt-1.5">
         {items.map((item) => {
           const active = item.href === current;
           const Icon = item.icon;
           return (
             <li key={item.href}>
-              <Link
-                href={item.href}
-                className="flex flex-col items-center gap-0.5 py-1 text-[11px] font-bold"
-              >
+              <Link href={item.href} className="flex flex-col items-center gap-0.5 py-1 text-[11px] font-bold">
                 <span
                   className={cn(
                     "relative grid h-8 w-14 place-items-center rounded-full transition-colors",
-                    active ? "bg-honey-400 text-navy-900" : "text-navy-400",
+                    active ? "bg-accent-400 text-primary-900" : "text-primary-400",
                   )}
                 >
                   <Icon className="size-[22px]" strokeWidth={active ? 2.4 : 2} />
@@ -36,7 +35,9 @@ export function BottomNav({ role }: { role: Role }) {
                     </span>
                   ) : null}
                 </span>
-                <span className={active ? "text-navy-900" : "text-navy-400"}>{item.label}</span>
+                <span className={cn("truncate", active ? "text-primary-900" : "text-primary-400")}>
+                  {t(item.key)}
+                </span>
               </Link>
             </li>
           );

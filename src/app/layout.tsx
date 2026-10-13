@@ -1,24 +1,42 @@
 import type { Metadata, Viewport } from "next";
-import { Fredoka, Nunito } from "next/font/google";
+import { Fredoka, Newsreader, Nunito, Poppins } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
+import { schoolConfig } from "@/schools";
 import "./globals.css";
 
 const fredoka = Fredoka({ subsets: ["latin"], variable: "--font-fredoka", display: "swap" });
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  style: ["normal", "italic"],
+  display: "swap",
+});
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
+});
+
+const fonts = {
+  beehive: `${fredoka.variable} ${nunito.variable}`,
+  curie: `${newsreader.variable} ${poppins.variable}`,
+};
 
 export const metadata: Metadata = {
   title: {
-    default: "Beehive Academy · Discover · Learn · Enjoy",
-    template: "%s · Beehive Academy",
+    default: `${schoolConfig.name} · ${schoolConfig.tagline}`,
+    template: `%s · ${schoolConfig.shortName}`,
   },
-  description:
-    "Preescolar y primaria en Masaya, Nicaragua. Educación integral e inclusiva. Plataforma para familias y docentes.",
-  applicationName: "Beehive Academy",
+  description: `${schoolConfig.levelsLabel}. Plataforma para familias, alumnos y docentes.`,
+  applicationName: schoolConfig.name,
+  icons: { icon: schoolConfig.brand.icon, apple: schoolConfig.brand.appleIcon },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2B2C6E",
+  themeColor: schoolConfig.brand.themeColor,
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -27,7 +45,7 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
   return (
-    <html lang={locale} className={`${fredoka.variable} ${nunito.variable}`}>
+    <html lang={locale} data-school={schoolConfig.id} className={fonts[schoolConfig.id]}>
       <body>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

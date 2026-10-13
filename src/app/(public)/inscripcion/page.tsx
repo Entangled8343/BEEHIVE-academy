@@ -1,21 +1,25 @@
 import { ArrowRight, CalendarDays, Check, FileText, Lock } from "lucide-react";
-import { Bee } from "@/components/brand/bee";
+import { Mascot } from "@/components/brand/mascot";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
+import { enrollmentForm as f } from "@/mocks";
+import { schoolConfig } from "@/schools";
+import { requireModule } from "@/schools/guard";
 
-export const metadata = { title: "Pre-inscripción 2027" };
+export const metadata = { title: "Pre-inscripción" };
 
 const steps = ["Alumno", "Familia", "Documentos", "Confirmar"];
 
 export default function EnrollmentForm() {
+  requireModule("preinscripcion");
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 lg:px-8 lg:py-12">
       <div className="mb-6 flex items-center gap-3">
-        <Bee className="size-12" />
+        <Mascot className="size-12" />
         <div>
-          <p className="text-sm font-bold tracking-widest text-honey-700 uppercase">Año escolar 2027</p>
+          <p className="text-sm font-bold tracking-widest text-accent-700 uppercase">Año escolar {f.year}</p>
           <h1 className="text-3xl leading-tight font-semibold lg:text-4xl">Pre-inscripción</h1>
         </div>
       </div>
@@ -28,48 +32,48 @@ export default function EnrollmentForm() {
                 <span
                   className={cn(
                     "hex grid size-10 place-items-center font-display font-semibold",
-                    i === 0 ? "bg-honey-400 text-navy-900" : "bg-navy-100 text-navy-400",
+                    i === 0 ? "bg-accent-400 text-primary-900" : "bg-primary-100 text-primary-400",
                   )}
                 >
                   {i + 1}
                 </span>
-                <span className={cn("text-xs font-bold", i === 0 ? "text-navy-900" : "text-navy-400")}>{s}</span>
+                <span className={cn("text-xs font-bold", i === 0 ? "text-primary-900" : "text-primary-400")}>{s}</span>
               </li>
             ))}
           </ol>
 
           <h2 className="text-xl font-semibold">Datos del alumno</h2>
-          <p className="mb-5 text-sm text-navy-600">Paso 1 de 4 · Toma unos 5 minutos</p>
+          <p className="mb-5 text-sm text-primary-600">Paso 1 de 4 · Toma unos 5 minutos</p>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Nombres">
-              <Input defaultValue="Lucía Valentina" />
+              <Input defaultValue={f.first} />
             </Field>
             <Field label="Apellidos">
-              <Input defaultValue="Ortega Ruiz" />
+              <Input defaultValue={f.last} />
             </Field>
             <Field label="Fecha de nacimiento">
               <div className="relative">
-                <Input defaultValue="14 / 03 / 2023" />
-                <CalendarDays className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-navy-400" />
+                <Input defaultValue={f.birth} />
+                <CalendarDays className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-primary-400" />
               </div>
             </Field>
-            <Field label="Grado al que aplica" hint="Según la edad al 1 de febrero de 2027">
+            <Field label="Grado al que aplica" hint={f.gradeHint}>
               <Select defaultValue="p1">
-                <option value="p1">Preescolar I (3 años)</option>
+                <option value="p1">{f.gradeOption}</option>
               </Select>
             </Field>
             <Field label="Colegio o CDI anterior (si aplica)" className="sm:col-span-2">
-              <Input placeholder="Ej. CDI Los Pinitos" />
+              <Input placeholder={f.previousSchool} />
             </Field>
             <div className="sm:col-span-2">
-              <p className="mb-1.5 text-sm font-bold text-navy-800">¿Tiene hermanos en Beehive?</p>
+              <p className="mb-1.5 text-sm font-bold text-primary-800">¿Tiene hermanos en {schoolConfig.shortName}?</p>
               <div className="flex gap-2">
                 {["No", "Sí"].map((o, i) => (
                   <span
                     key={o}
                     className={cn(
                       "rounded-full px-5 py-2 text-sm font-bold",
-                      i === 0 ? "bg-navy-800 text-white" : "bg-navy-50 text-navy-700",
+                      i === 0 ? "bg-primary-800 text-white" : "bg-primary-50 text-primary-700",
                     )}
                   >
                     {o}
@@ -78,11 +82,11 @@ export default function EnrollmentForm() {
               </div>
             </div>
             <Field label="Alergias, condiciones o necesidades especiales" className="sm:col-span-2">
-              <Textarea placeholder="Cuéntanos lo que debemos saber para cuidarla mejor" />
+              <Textarea placeholder="Cuéntanos lo que debemos saber para acompañarle mejor" />
             </Field>
           </div>
           <div className="mt-6 flex items-center justify-between gap-3">
-            <p className="flex items-center gap-1.5 text-xs font-semibold text-navy-500">
+            <p className="flex items-center gap-1.5 text-xs font-semibold text-primary-500">
               <Lock className="size-3.5" /> Tus datos están protegidos
             </p>
             <Button size="lg">
@@ -92,22 +96,17 @@ export default function EnrollmentForm() {
         </Card>
 
         <div className="space-y-4">
-          <Card className="honeycomb-navy bg-navy-800 p-5 text-white ring-0">
-            <p className="font-display text-lg font-semibold text-honey-400">¿Cómo funciona?</p>
+          <Card className="pattern-dark bg-primary-800 p-5 text-white ring-0">
+            <p className="font-display text-lg font-semibold text-accent-400">¿Cómo funciona?</p>
             <ol className="mt-3 space-y-3">
-              {[
-                ["Envía tu solicitud", "Recibes un código para ver el estado."],
-                ["Revisamos los documentos", "Te avisamos si falta algo."],
-                ["Visita y entrevista", "Agenda el día que te quede mejor."],
-                ["Respuesta y matrícula", "Te enviamos el acceso al portal."],
-              ].map(([t, d], i) => (
+              {f.steps.map(([t, d], i) => (
                 <li key={t} className="flex gap-3">
-                  <span className="grid size-7 shrink-0 place-items-center rounded-full bg-honey-400 text-sm font-bold text-navy-900">
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-400 text-sm font-bold text-primary-900">
                     {i + 1}
                   </span>
                   <span>
                     <span className="block font-bold">{t}</span>
-                    <span className="text-sm text-navy-200">{d}</span>
+                    <span className="text-sm text-primary-200">{d}</span>
                   </span>
                 </li>
               ))}
@@ -115,10 +114,10 @@ export default function EnrollmentForm() {
           </Card>
           <Card className="p-5">
             <p className="font-display text-lg font-semibold">Ten a mano</p>
-            <ul className="mt-3 space-y-2 text-sm font-semibold text-navy-700">
-              {["Partida de nacimiento", "Tarjeta de vacunas", "Cédula del padre, madre o tutor", "Foto del niño o niña"].map((d) => (
+            <ul className="mt-3 space-y-2 text-sm font-semibold text-primary-700">
+              {f.documents.map((d) => (
                 <li key={d} className="flex items-center gap-2">
-                  <FileText className="size-4 text-honey-600" /> {d}
+                  <FileText className="size-4 text-accent-600" /> {d}
                 </li>
               ))}
             </ul>

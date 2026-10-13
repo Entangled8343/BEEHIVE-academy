@@ -1,9 +1,14 @@
+import { cookies } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
+import { schoolConfig } from "@/schools";
 
-// Por ahora solo español. Para activar inglés se agrega routing por locale
-// (src/i18n/routing.ts) y src/messages/en.json, sin cambiar los componentes.
+/**
+ * Idioma por cookie (NEXT_LOCALE), limitado a los idiomas habilitados para el colegio.
+ * Curie: español e inglés. Beehive: solo español.
+ */
 export default getRequestConfig(async () => {
-  const locale = "es";
+  const requested = (await cookies()).get("NEXT_LOCALE")?.value;
+  const locale = schoolConfig.locales.find((l) => l === requested) ?? "es";
   return {
     locale,
     timeZone: "America/Managua",

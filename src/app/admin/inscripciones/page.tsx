@@ -6,15 +6,17 @@ import { PageHeader } from "@/components/ui/page-header";
 import { Pill } from "@/components/ui/pill";
 import { Tabs } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { enrollmentPipeline } from "@/mocks";
+import { enrollmentPipeline, school } from "@/mocks";
+import { requireModule } from "@/schools/guard";
 
 export const metadata = { title: "Inscripciones" };
 
 export default function EnrollmentBoard() {
+  requireModule("preinscripcion");
   return (
     <div>
       <PageHeader
-        title="Pre-inscripciones 2027"
+        title={`Pre-inscripciones ${school.year + 1}`}
         subtitle="Arrastra cada solicitud según avance el proceso"
         action={
           <div className="hidden gap-2 sm:flex">
@@ -38,27 +40,27 @@ export default function EnrollmentBoard() {
             <div className="mb-3 flex items-center gap-2">
               <span className={cn("size-3 rounded-full", col.tone)} />
               <p className="font-display text-lg font-semibold">{col.stage}</p>
-              <span className="rounded-full bg-navy-100 px-2 text-xs font-bold text-navy-700">{col.items.length}</span>
+              <span className="rounded-full bg-primary-100 px-2 text-xs font-bold text-primary-700">{col.items.length}</span>
             </div>
-            <div className="space-y-3 rounded-3xl bg-navy-50/70 p-2.5">
+            <div className="space-y-3 rounded-3xl bg-primary-50/70 p-2.5">
               {col.items.map((it) => (
                 <Card key={it.child} className="p-4">
                   <div className="flex items-start gap-3">
                     <Avatar name={it.child} size="sm" kid />
                     <div className="min-w-0 flex-1">
                       <p className="leading-tight font-bold">{it.child}</p>
-                      <p className="text-sm font-semibold text-navy-600">{it.grade}</p>
+                      <p className="text-sm font-semibold text-primary-600">{it.grade}</p>
                     </div>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-1.5">
-                    <Pill tone={it.docs === "3/3" ? "green" : "orange"} size="sm">
+                    <Pill tone={it.docs.split("/")[0] === it.docs.split("/")[1] ? "green" : "orange"} size="sm">
                       <FileCheck2 /> Docs {it.docs}
                     </Pill>
                     <Pill tone="gray" size="sm">
                       {it.when}
                     </Pill>
                   </div>
-                  <div className="mt-3 flex items-center gap-2 border-t border-navy-100 pt-3 text-xs font-bold text-navy-600">
+                  <div className="mt-3 flex items-center gap-2 border-t border-primary-100 pt-3 text-xs font-bold text-primary-600">
                     <Phone className="size-3.5" /> {it.guardian}
                   </div>
                 </Card>

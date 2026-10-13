@@ -1,4 +1,5 @@
-/** Catálogo de pantallas para la propuesta visual (Fase 0). */
+/** Catálogo de pantallas para la propuesta visual (Fase 0), por colegio. */
+import type { SchoolId } from "../../src/schools/types";
 
 export type Device = "movil" | "escritorio" | "tablet";
 
@@ -6,25 +7,20 @@ export type Shot = {
   slug: string;
   route: string;
   device: Device;
-  section: Section;
+  section: string;
   title: string;
   description: string;
   /** Captura de página completa (solo escritorio). */
   full?: boolean;
   /** Texto visible al que se desplaza la página antes de capturar. */
   scrollTo?: string;
+  /** Idioma de la captura (cookie NEXT_LOCALE). */
+  locale?: "es" | "en";
 };
 
-export const sections = [
-  "Sitio web público",
-  "Acceso",
-  "Familias",
-  "Docentes",
-  "Dirección y portería",
-] as const;
-export type Section = (typeof sections)[number];
+const beehiveSections = ["Sitio web público", "Acceso", "Familias", "Docentes", "Dirección y portería"];
 
-export const shots: Shot[] = [
+const beehiveShots: Shot[] = [
   // Sitio web público
   { slug: "sitio-inicio", route: "/", device: "escritorio", section: "Sitio web público", title: "Sitio web del colegio", description: "Página pública con niveles, galería, ubicación y botón de WhatsApp. Lleva directo a la pre-inscripción y a agendar visitas." },
   { slug: "sitio-inicio", route: "/", device: "movil", section: "Sitio web público", title: "Sitio web en el celular", description: "Diseñado primero para celular: rápido aunque haya poca señal." },
@@ -72,3 +68,67 @@ export const shots: Shot[] = [
   { slug: "porteria", route: "/porteria", device: "tablet", section: "Dirección y portería", title: "Portería (tablet)", description: "Lista de retiros del día actualizada al momento. Escanea el QR, verifica la cédula, confirma la entrega y la familia recibe el aviso al instante." },
   { slug: "direccion-panel", route: "/admin", device: "movil", section: "Dirección y portería", title: "Dirección desde el celular", description: "Los indicadores del colegio, en cualquier lugar." },
 ];
+
+const curieSections = ["Portal y admisiones", "Acceso", "Alumnos", "Familias", "Docentes", "Dirección y portería"];
+
+const curieShots: Shot[] = [
+  // Portal y admisiones
+  { slug: "portal-inicio", route: "/", device: "escritorio", section: "Portal y admisiones", title: "Portal Curie", description: "Portada del portal académico con acceso para familias, alumnos y docentes. El sitio curie.edu.ni se mantiene y enlaza al portal." },
+  { slug: "portal-inicio", route: "/", device: "movil", section: "Portal y admisiones", title: "Portal en el celular", description: "Funciona en Chrome o Safari con un link, sin descargar nada." },
+  { slug: "pre-inscripcion", route: "/inscripcion", device: "movil", section: "Portal y admisiones", title: "Pre-inscripción en línea", description: "Formulario por pasos. Los documentos se suben con fotos del celular." },
+  { slug: "agenda-tu-cita", route: "/agenda-tu-cita", device: "movil", section: "Portal y admisiones", title: "Prueba y entrevista", description: "La familia elige la fecha y recibe confirmación y recordatorio.", scrollTo: "1. Elige el día" },
+  { slug: "pre-inscripcion", route: "/inscripcion", device: "escritorio", section: "Portal y admisiones", title: "Admisiones 2027", description: "Cada solicitud tiene un código de seguimiento: recibida, en revisión, prueba y entrevista, y respuesta." },
+
+  // Acceso
+  { slug: "ingresar", route: "/ingresar", device: "escritorio", section: "Acceso", title: "Inicio de sesión seguro", description: "Familias y docentes entran por invitación. Los alumnos, desde 4° grado, con el usuario que les da el colegio; no necesitan correo. Lo gestiona Clerk, un servicio especializado en seguridad." },
+  { slug: "ingresar", route: "/ingresar", device: "movil", section: "Acceso", title: "En español o en inglés", description: "Cada usuario elige su idioma. El francés se puede agregar después." },
+
+  // Alumnos
+  { slug: "alumno-inicio", route: "/alumno", device: "movil", section: "Alumnos", title: "Inicio del alumno", description: "Clase en curso, tareas pendientes, próximo examen, promedio y racha de puntualidad." },
+  { slug: "alumno-inicio-en", route: "/alumno", device: "movil", locale: "en", section: "Alumnos", title: "Student home (English)", description: "La misma pantalla en inglés, con un toque en ES / EN." },
+  { slug: "alumno-horario", route: "/alumno/horario", device: "movil", section: "Alumnos", title: "Mi horario", description: "Las clases del día con aula y docente. Marca la clase en curso." },
+  { slug: "alumno-entregar", route: "/alumno/tareas/lab-densidad", device: "movil", section: "Alumnos", title: "Entregar tareas", description: "El alumno sube fotos o archivos. Su familia también ve la entrega.", scrollTo: "Mi entrega" },
+  { slug: "alumno-calificaciones", route: "/alumno/calificaciones", device: "movil", section: "Alumnos", title: "Mis calificaciones", description: "Notas por corte con la escala del MINED (AA, AS, AF, AI)." },
+  { slug: "alumno-examenes", route: "/alumno/examenes", device: "movil", section: "Alumnos", title: "Calendario de exámenes", description: "Pruebas y exámenes por corte, con temas y aula." },
+  { slug: "alumno-clubes", route: "/alumno/clubes", device: "movil", section: "Alumnos", title: "Clubes", description: "Science, Art, Sports y Humanism: el alumno se inscribe desde el celular." },
+  { slug: "alumno-elementos", route: "/alumno/insignias", device: "movil", section: "Alumnos", title: "Elementos Curie", description: "Cada logro es un elemento de la tabla periódica: Radiante (Ra), Curie-osidad (Cu), Francophone (Fr)…" },
+  { slug: "alumno-tareas", route: "/alumno/tareas", device: "movil", section: "Alumnos", title: "Mis tareas", description: "Pendientes, entregadas y calificadas, con el comentario del docente." },
+  { slug: "alumno-inicio", route: "/alumno", device: "escritorio", section: "Alumnos", title: "El portal del alumno en la computadora", description: "En PC el menú pasa a una barra lateral y la información se reparte en columnas." },
+  { slug: "alumno-horario", route: "/alumno/horario", device: "escritorio", section: "Alumnos", title: "Horario semanal", description: "Toda la semana por materia, aula y docente. Los cambios se notifican a alumnos y familias." },
+
+  // Familias
+  { slug: "familia-inicio", route: "/padres", device: "movil", section: "Familias", title: "Inicio de la familia", description: "Primaria y secundaria juntos: llegada, tareas, pagos y pendientes de cada hijo." },
+  { slug: "familia-estado-cuenta", route: "/padres/estado-cuenta", device: "movil", section: "Familias", title: "Estado de cuenta", description: "Saldo, mensualidades y recibos. La familia sube su comprobante desde el celular." },
+  { slug: "familia-perfil", route: "/padres/hijos/valeria", device: "movil", section: "Familias", title: "Perfil del alumno", description: "Datos, salud, contactos de emergencia y los elementos que ha descubierto." },
+  { slug: "familia-calificaciones", route: "/padres/calificaciones", device: "movil", section: "Familias", title: "Calificaciones", description: "Las mismas notas que ve el alumno, con boleta en PDF." },
+  { slug: "familia-retiro", route: "/padres/retiro", device: "movil", section: "Familias", title: "¿Quién recoge hoy?", description: "Para primaria: aviso con QR o código. En secundaria se puede autorizar la salida sola." },
+  { slug: "familia-permiso-firma", route: "/padres/autorizaciones", device: "movil", section: "Familias", title: "Permisos con firma digital", description: "La familia firma con el dedo y queda registro con fecha y hora.", scrollTo: "Mi respuesta" },
+  { slug: "familia-comunicados", route: "/padres/comunicados", device: "movil", section: "Familias", title: "Comunicados", description: "Avisos de Dirección y docentes, con confirmación de lectura." },
+  { slug: "familia-mensajes", route: "/padres/mensajes", device: "movil", section: "Familias", title: "Mensajes con docentes", description: "Chat dentro de la plataforma, sin compartir números personales." },
+  { slug: "familia-calendario", route: "/padres/calendario", device: "movil", section: "Familias", title: "Calendario", description: "Exámenes, giras, reuniones y actividades del mes." },
+  { slug: "familia-inicio", route: "/padres", device: "escritorio", section: "Familias", title: "La familia en la computadora", description: "Todo lo de sus hijos en un solo lugar: tareas, notas, horario, pagos, permisos y mensajes." },
+  { slug: "familia-estado-cuenta", route: "/padres/estado-cuenta", device: "escritorio", section: "Familias", title: "Pagos sin filas", description: "Movimientos, recibos descargables y recordatorios automáticos antes de cada vencimiento." },
+
+  // Docentes
+  { slug: "docente-hoy", route: "/maestro", device: "movil", section: "Docentes", title: "El día del docente", description: "Sus secciones, entregas por revisar, ausencias reportadas y horario." },
+  { slug: "docente-asistencia", route: "/maestro/asistencia", device: "movil", section: "Docentes", title: "Pasar lista", description: "Un toque por alumno. Las ausencias reportadas por las familias ya aparecen justificadas." },
+  { slug: "docente-revisar", route: "/maestro/tareas", device: "movil", section: "Docentes", title: "Revisar entregas", description: "Ver archivos, poner nota y comentario, y pasar al siguiente." },
+  { slug: "docente-insignias", route: "/maestro/insignias", device: "movil", section: "Docentes", title: "Otorgar elementos", description: "Reconocer logros. Algunos elementos se entregan solos cada noche." },
+  { slug: "docente-actividades", route: "/maestro/actividades", device: "movil", section: "Docentes", title: "Actividades del mes", description: "Publicar actividades y pedir permiso firmado cuando haga falta." },
+  { slug: "docente-temario", route: "/maestro/temario", device: "movil", section: "Docentes", title: "Temario", description: "Temas por semana con objetivos y materiales para alumnos y familias." },
+  { slug: "docente-libro-notas", route: "/maestro/calificaciones", device: "escritorio", section: "Docentes", title: "Libro de notas", description: "Funciona como Excel y se guarda solo. Al publicar el corte, las notas se bloquean y las ven alumnos y familias." },
+  { slug: "docente-horario", route: "/maestro/horario", device: "escritorio", section: "Docentes", title: "Horario del docente", description: "Sus secciones, aulas y clubes de la semana, por colores." },
+  { slug: "docente-revisar", route: "/maestro/tareas", device: "escritorio", section: "Docentes", title: "Revisión en la computadora", description: "Lista de entregas a la izquierda y revisión a la derecha. Se marcan las entregas tardías." },
+
+  // Dirección y portería
+  { slug: "direccion-panel", route: "/admin", device: "escritorio", section: "Dirección y portería", title: "Panel de Dirección", description: "400 alumnos y 60 docentes de un vistazo: asistencia por grado, admisiones, pagos y alertas del día." },
+  { slug: "direccion-cobros", route: "/admin/cuentas", device: "escritorio", section: "Dirección y portería", title: "Cobros y pagos", description: "Familias al día, comprobantes por revisar, recordatorios masivos y exportación a Excel." },
+  { slug: "direccion-inscripciones", route: "/admin/inscripciones", device: "escritorio", section: "Dirección y portería", title: "Tablero de admisiones", description: "Cada solicitud avanza por etapas. Al aceptarla se crean el alumno y los accesos de la familia." },
+  { slug: "porteria", route: "/porteria", device: "tablet", section: "Dirección y portería", title: "Portería (tablet)", description: "Retiros del día al momento: QR o código, verificación de cédula, alumnos de secundaria que salen solos y aviso inmediato a la familia." },
+  { slug: "direccion-panel", route: "/admin", device: "movil", section: "Dirección y portería", title: "Dirección desde el celular", description: "Los indicadores del colegio, en cualquier lugar." },
+];
+
+export const catalogs: Record<SchoolId, { sections: string[]; shots: Shot[] }> = {
+  beehive: { sections: beehiveSections, shots: beehiveShots },
+  curie: { sections: curieSections, shots: curieShots },
+};

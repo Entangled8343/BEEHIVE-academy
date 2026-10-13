@@ -1,31 +1,39 @@
 @import "tailwindcss";
 
+/*
+ * Tokens de marca. Los valores por defecto son de Beehive Academy; cada colegio los
+ * sobrescribe más abajo con html[data-school="…"]. Las clases usan nombres semánticos:
+ * primary (color institucional), accent (resaltado), night (secciones oscuras), surface (fondo).
+ */
 @theme {
-  --font-display: var(--font-fredoka), ui-rounded, "Nunito", system-ui, sans-serif;
-  --font-sans: var(--font-nunito), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--school-font-display);
+  --font-sans: var(--school-font-sans);
 
-  /* Marca Beehive Academy */
-  --color-navy-950: #13143a;
-  --color-navy-900: #1d1e55;
-  --color-navy-800: #2b2c6e;
-  --color-navy-700: #3a3c8c;
-  --color-navy-600: #5052a8;
-  --color-navy-400: #8d8fd0;
-  --color-navy-300: #b2b4e2;
-  --color-navy-200: #d2d3ef;
-  --color-navy-100: #e8e9f7;
-  --color-navy-50: #f4f4fc;
+  --color-primary-950: #13143a;
+  --color-primary-900: #1d1e55;
+  --color-primary-800: #2b2c6e;
+  --color-primary-700: #3a3c8c;
+  --color-primary-600: #5052a8;
+  --color-primary-500: #6d6fbe;
+  --color-primary-400: #8d8fd0;
+  --color-primary-300: #b2b4e2;
+  --color-primary-200: #d2d3ef;
+  --color-primary-100: #e8e9f7;
+  --color-primary-50: #f4f4fc;
 
-  --color-honey-700: #8a6400;
-  --color-honey-600: #c79400;
-  --color-honey-500: #ffd200;
-  --color-honey-400: #f7d23e;
-  --color-honey-300: #fbe27a;
-  --color-honey-200: #fdedac;
-  --color-honey-100: #fef6d4;
-  --color-honey-50: #fffbea;
+  --color-accent-700: #8a6400;
+  --color-accent-600: #c79400;
+  --color-accent-500: #ffd200;
+  --color-accent-400: #f7d23e;
+  --color-accent-300: #fbe27a;
+  --color-accent-200: #fdedac;
+  --color-accent-100: #fef6d4;
+  --color-accent-50: #fffbea;
 
-  --color-cream: #fffdf6;
+  --color-night-800: #2b2c6e;
+  --color-night-900: #1d1e55;
+  --color-sidebar: #1d1e55;
+  --color-surface: #fffdf6;
 
   --radius-4xl: 2rem;
 
@@ -33,18 +41,68 @@
   --shadow-lift: 0 2px 4px rgb(29 30 85 / 0.05), 0 12px 32px -8px rgb(29 30 85 / 0.18);
 }
 
+:root {
+  --school-font-display: var(--font-fredoka), ui-rounded, "Nunito", system-ui, sans-serif;
+  --school-font-sans: var(--font-nunito), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --pattern-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23F7D23E' stroke-opacity='0.35' stroke-width='2'/%3E%3Cpath d='M28 0L28 -34L0 -50L0 -84' fill='none' stroke='%23F7D23E' stroke-opacity='0.35' stroke-width='2'/%3E%3C/svg%3E");
+  --pattern-light-size: 56px 98px;
+  --pattern-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23FFFFFF' stroke-opacity='0.06' stroke-width='2'/%3E%3C/svg%3E");
+  --pattern-dark-size: 56px 98px;
+  --display-weight: 600;
+}
+
+/* Escuela Universal Pierre y Marie Curie: verde institucional, noche del Curie-verse y crema. */
+html[data-school="curie"] {
+  --school-font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --school-font-sans: var(--font-poppins), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display-weight: 500;
+
+  --color-primary-950: #0b2116;
+  --color-primary-900: #12321f;
+  --color-primary-800: #183f2b;
+  --color-primary-700: #215238;
+  --color-primary-600: #2f6a4b;
+  --color-primary-500: #4b8466;
+  --color-primary-400: #79a58c;
+  --color-primary-300: #a7c5b3;
+  --color-primary-200: #cfe0d5;
+  --color-primary-100: #e4eee7;
+  --color-primary-50: #f1f6f2;
+
+  --color-accent-700: #1f6b3f;
+  --color-accent-600: #2f8f56;
+  --color-accent-500: #59c27f;
+  --color-accent-400: #8edcaa;
+  --color-accent-300: #b2e8c4;
+  --color-accent-200: #d2f2dc;
+  --color-accent-100: #e6f8ec;
+  --color-accent-50: #f3fbf5;
+
+  --color-night-800: #1b2646;
+  --color-night-900: #131d3b;
+  --color-sidebar: #163a28;
+  --color-surface: #fbf7e2;
+
+  --pattern-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%232f6a4b' fill-opacity='0.16'%3E%3Cpath d='M20 14l1.6 4.4 4.4 1.6-4.4 1.6L20 26l-1.6-4.4L14 20l4.4-1.6z'/%3E%3Ccircle cx='86' cy='30' r='1.6'/%3E%3Ccircle cx='60' cy='76' r='1.2'/%3E%3Cpath d='M96 84l1.2 3.3 3.3 1.2-3.3 1.2L96 93l-1.2-3.3-3.3-1.2 3.3-1.2z'/%3E%3Ccircle cx='30' cy='100' r='1.4'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-light-size: 120px 120px;
+  --pattern-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23FFFFFF'%3E%3Ccircle cx='12' cy='18' r='1' fill-opacity='0.55'/%3E%3Ccircle cx='64' cy='40' r='0.8' fill-opacity='0.4'/%3E%3Ccircle cx='118' cy='22' r='1.2' fill-opacity='0.5'/%3E%3Cpath d='M98 92l1.2 3.4 3.4 1.2-3.4 1.2L98 101.2l-1.2-3.4-3.4-1.2 3.4-1.2z' fill-opacity='0.45'/%3E%3Ccircle cx='30' cy='96' r='0.9' fill-opacity='0.45'/%3E%3Ccircle cx='76' cy='124' r='1.1' fill-opacity='0.35'/%3E%3Ccircle cx='132' cy='70' r='0.7' fill-opacity='0.5'/%3E%3Cpath d='M40 58l0.8 2.2 2.2 0.8-2.2 0.8L40 64l-0.8-2.2-2.2-0.8 2.2-0.8z' fill-opacity='0.35'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-dark-size: 140px 140px;
+  --shadow-soft: 0 1px 2px rgb(18 50 31 / 0.05), 0 4px 16px -4px rgb(18 50 31 / 0.1);
+  --shadow-lift: 0 2px 4px rgb(18 50 31 / 0.06), 0 12px 32px -8px rgb(18 50 31 / 0.2);
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-cream font-sans text-navy-900 antialiased;
+    @apply bg-surface font-sans text-primary-900 antialiased;
   }
   h1,
   h2,
   h3,
   h4 {
-    @apply font-display text-navy-900;
+    @apply font-display text-primary-900;
   }
 }
 
@@ -56,14 +114,15 @@
   clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
 }
 
-@utility honeycomb {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23F7D23E' stroke-opacity='0.35' stroke-width='2'/%3E%3Cpath d='M28 0L28 -34L0 -50L0 -84' fill='none' stroke='%23F7D23E' stroke-opacity='0.35' stroke-width='2'/%3E%3C/svg%3E");
-  background-size: 56px 98px;
+/* Patrón de marca: panal (Beehive) o estrellas (Curie). */
+@utility pattern-light {
+  background-image: var(--pattern-light);
+  background-size: var(--pattern-light-size);
 }
 
-@utility honeycomb-navy {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23FFFFFF' stroke-opacity='0.06' stroke-width='2'/%3E%3C/svg%3E");
-  background-size: 56px 98px;
+@utility pattern-dark {
+  background-image: var(--pattern-dark);
+  background-size: var(--pattern-dark-size);
 }
 
 @utility scrollbar-none {
@@ -75,4 +134,9 @@
 
 @utility pb-safe {
   padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+}
+
+/* Curie usa la serif de su sitio en peso regular, como en curie.edu.ni. */
+html[data-school="curie"] :is(h1, h2, h3, h4, .font-display) {
+  font-weight: var(--display-weight);
 }

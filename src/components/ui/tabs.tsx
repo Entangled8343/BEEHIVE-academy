@@ -23,8 +23,8 @@ export function Tabs({
           className={cn(
             "inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-4 text-sm font-bold",
             i === active
-              ? "bg-navy-800 text-white"
-              : "bg-white text-navy-700 shadow-soft ring-1 ring-navy-100",
+              ? "bg-primary-800 text-white"
+              : "bg-white text-primary-700 shadow-soft ring-1 ring-primary-100",
           )}
         >
           {t.label}
@@ -32,7 +32,7 @@ export function Tabs({
             <span
               className={cn(
                 "rounded-full px-1.5 text-[11px]",
-                i === active ? "bg-honey-400 text-navy-900" : "bg-navy-100 text-navy-700",
+                i === active ? "bg-accent-400 text-primary-900" : "bg-primary-100 text-primary-700",
               )}
             >
               {t.count}

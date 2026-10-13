@@ -25,6 +25,9 @@ async function main() {
     hasTouch: v.hasTouch,
     locale: "es-NI",
   });
+  if (process.env.LOCALE) {
+    await context.addCookies([{ name: "NEXT_LOCALE", value: process.env.LOCALE, url: base }]);
+  }
   const page = await context.newPage();
   await page.goto(base + route, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);

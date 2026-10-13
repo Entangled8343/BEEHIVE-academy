@@ -1,7 +1,9 @@
 import {
+  Atom,
   Award,
   BarChart3,
   BookOpen,
+  CalendarClock,
   CalendarDays,
   CalendarHeart,
   Car,
@@ -20,126 +22,178 @@ import {
   Settings,
   Smile,
   Sparkles,
+  Table2,
   UserPlus,
   Users,
   UserX,
+  Wallet,
   type LucideIcon,
 } from "lucide-react";
-import type { Role } from "@/mocks";
+import { hasModule, schoolConfig, type ModuleKey } from "@/schools";
+import { focusChildId, type Role } from "@/mocks";
 
-export type NavItem = { href: string; label: string; icon: LucideIcon; badge?: number };
+/** `key` es la clave de traducción en messages/*.json → nav.* */
+export type NavItem = { href: string; key: string; icon: LucideIcon; badge?: number; module?: ModuleKey };
+type NavGroup = { titleKey?: string; items: NavItem[] };
 
-export const sidebarNav: Record<Role, { title?: string; items: NavItem[] }[]> = {
+const sidebarAll: Record<Role, NavGroup[]> = {
   padre: [
     {
       items: [
-        { href: "/padres", label: "Inicio", icon: Home },
-        { href: "/padres/tareas", label: "Tareas", icon: NotebookPen, badge: 4 },
-        { href: "/padres/calificaciones", label: "Calificaciones", icon: GraduationCap },
-        { href: "/padres/agenda", label: "Agenda diaria", icon: Smile },
-        { href: "/padres/hijos/mateo", label: "Insignias", icon: Award },
+        { href: "/padres", key: "inicio", icon: Home },
+        { href: "/padres/tareas", key: "tareas", icon: NotebookPen, badge: 4 },
+        { href: "/padres/calificaciones", key: "calificaciones", icon: GraduationCap },
+        { href: "/padres/horario", key: "horario", icon: Table2, module: "horario" },
+        { href: "/padres/agenda", key: "agenda", icon: Smile, module: "agendaDiaria" },
+        { href: `/padres/hijos/${focusChildId}`, key: "insignias", icon: Award, module: "insignias" },
       ],
     },
     {
-      title: "Día a día",
+      titleKey: "grupoDia",
       items: [
-        { href: "/padres/retiro", label: "¿Quién recoge?", icon: Car },
-        { href: "/padres/ausencias", label: "Reportar ausencia", icon: UserX },
-        { href: "/padres/autorizaciones", label: "Permisos", icon: FileSignature, badge: 1 },
-        { href: "/padres/mensajes", label: "Mensajes", icon: MessageCircle, badge: 2 },
+        { href: "/padres/retiro", key: "retiro", icon: Car, module: "retiro" },
+        { href: "/padres/ausencias", key: "ausencias", icon: UserX },
+        { href: "/padres/autorizaciones", key: "autorizaciones", icon: FileSignature, badge: 1, module: "permisos" },
+        { href: "/padres/estado-cuenta", key: "estadoCuenta", icon: Wallet, badge: 1, module: "estadoCuenta" },
+        { href: "/padres/mensajes", key: "mensajes", icon: MessageCircle, badge: 2, module: "mensajes" },
       ],
     },
     {
-      title: "Colegio",
+      titleKey: "grupoColegio",
       items: [
-        { href: "/padres/comunicados", label: "Comunicados", icon: Megaphone, badge: 1 },
-        { href: "/padres/calendario", label: "Calendario", icon: CalendarDays },
-        { href: "/padres/galeria", label: "Galería", icon: Images },
+        { href: "/padres/comunicados", key: "comunicados", icon: Megaphone, badge: 1 },
+        { href: "/padres/calendario", key: "calendario", icon: CalendarDays },
+        { href: "/padres/galeria", key: "galeria", icon: Images, module: "galeria" },
+      ],
+    },
+  ],
+  alumno: [
+    {
+      items: [
+        { href: "/alumno", key: "inicio", icon: Home },
+        { href: "/alumno/horario", key: "horario", icon: Table2, module: "horario" },
+        { href: "/alumno/tareas", key: "tareas", icon: NotebookPen, badge: 4 },
+        { href: "/alumno/calificaciones", key: "calificaciones", icon: GraduationCap },
+        { href: "/alumno/examenes", key: "examenes", icon: CalendarClock },
+      ],
+    },
+    {
+      titleKey: "grupoAlumno",
+      items: [
+        { href: "/alumno/clubes", key: "clubes", icon: Sparkles, module: "clubes" },
+        { href: "/alumno/insignias", key: "insignias", icon: Atom, module: "insignias" },
       ],
     },
   ],
   maestro: [
     {
       items: [
-        { href: "/maestro", label: "Hoy", icon: LayoutDashboard },
-        { href: "/maestro/asistencia", label: "Asistencia", icon: ClipboardCheck },
-        { href: "/maestro/tareas", label: "Tareas y entregas", icon: NotebookPen, badge: 7 },
-        { href: "/maestro/calificaciones", label: "Libro de notas", icon: GraduationCap },
-        { href: "/maestro/temario", label: "Temario", icon: BookOpen },
+        { href: "/maestro", key: "hoy", icon: LayoutDashboard },
+        { href: "/maestro/asistencia", key: "asistencia", icon: ClipboardCheck },
+        { href: "/maestro/tareas", key: "tareasEntregas", icon: NotebookPen, badge: 7 },
+        { href: "/maestro/calificaciones", key: "libroNotas", icon: GraduationCap },
+        { href: "/maestro/temario", key: "temario", icon: BookOpen },
+        { href: "/maestro/horario", key: "horario", icon: Table2, module: "horario" },
       ],
     },
     {
-      title: "Mi sección",
+      titleKey: "grupoSeccion",
       items: [
-        { href: "/maestro/agenda", label: "Agenda diaria", icon: Smile },
-        { href: "/maestro/actividades", label: "Actividades del mes", icon: CalendarHeart },
-        { href: "/maestro/insignias", label: "Insignias", icon: Award },
-        { href: "/maestro/extracurricular", label: "Extracurricular", icon: Sparkles },
-        { href: "/maestro/mensajes", label: "Mensajes", icon: MessageCircle, badge: 3 },
+        { href: "/maestro/agenda", key: "agenda", icon: Smile, module: "agendaDiaria" },
+        { href: "/maestro/actividades", key: "actividades", icon: CalendarHeart },
+        { href: "/maestro/insignias", key: "insignias", icon: Award, module: "insignias" },
+        { href: "/maestro/extracurricular", key: "extracurricular", icon: Sparkles, module: "extracurricular" },
+        { href: "/maestro/mensajes", key: "mensajes", icon: MessageCircle, badge: 3, module: "mensajes" },
       ],
     },
     {
-      title: "Colegio",
+      titleKey: "grupoColegio",
       items: [
-        { href: "/maestro/comunicados", label: "Comunicados", icon: Megaphone },
-        { href: "/maestro/galeria", label: "Galería", icon: Images },
+        { href: "/maestro/comunicados", key: "comunicados", icon: Megaphone },
+        { href: "/maestro/galeria", key: "galeria", icon: Images, module: "galeria" },
       ],
     },
   ],
   admin: [
     {
       items: [
-        { href: "/admin", label: "Panel", icon: LayoutDashboard },
-        { href: "/admin/inscripciones", label: "Inscripciones", icon: UserPlus, badge: 3 },
-        { href: "/admin/estudiantes", label: "Estudiantes", icon: Users },
-        { href: "/admin/personal", label: "Personal docente", icon: GraduationCap },
+        { href: "/admin", key: "panel", icon: LayoutDashboard },
+        { href: "/admin/inscripciones", key: "inscripciones", icon: UserPlus, badge: 3, module: "preinscripcion" },
+        { href: "/admin/estudiantes", key: "estudiantes", icon: Users },
+        { href: "/admin/personal", key: "personal", icon: GraduationCap },
       ],
     },
     {
-      title: "Académico",
+      titleKey: "grupoAcademico",
       items: [
-        { href: "/admin/calificaciones", label: "Calificaciones", icon: BarChart3 },
-        { href: "/admin/asistencia", label: "Asistencia", icon: ClipboardList },
-        { href: "/porteria", label: "Portería", icon: ScanLine },
+        { href: "/admin/calificaciones", key: "calificaciones", icon: BarChart3 },
+        { href: "/admin/asistencia", key: "asistencia", icon: ClipboardList },
+        { href: "/admin/horarios", key: "horarios", icon: Table2, module: "horario" },
+        { href: "/porteria", key: "porteria", icon: ScanLine, module: "retiro" },
       ],
     },
     {
-      title: "Comunicación",
+      titleKey: "grupoAdmin",
       items: [
-        { href: "/admin/comunicados", label: "Comunicados", icon: Megaphone },
-        { href: "/admin/calendario", label: "Calendario", icon: CalendarDays },
-        { href: "/admin/galeria", label: "Galería", icon: Images },
-        { href: "/admin/ajustes", label: "Ajustes", icon: Settings },
+        { href: "/admin/cuentas", key: "cuentas", icon: Wallet, module: "estadoCuenta" },
+        { href: "/admin/comunicados", key: "comunicados", icon: Megaphone },
+        { href: "/admin/calendario", key: "calendario", icon: CalendarDays },
+        { href: "/admin/galeria", key: "galeria", icon: Images, module: "galeria" },
+        { href: "/admin/ajustes", key: "ajustes", icon: Settings },
       ],
     },
   ],
-  porteria: [{ items: [{ href: "/porteria", label: "Retiros de hoy", icon: ScanLine }] }],
+  porteria: [{ items: [{ href: "/porteria", key: "retiros", icon: ScanLine }] }],
 };
 
-export const bottomNav: Record<Role, NavItem[]> = {
+const bottomAll: Record<Role, NavItem[]> = {
   padre: [
-    { href: "/padres", label: "Inicio", icon: Home },
-    { href: "/padres/tareas", label: "Tareas", icon: NotebookPen, badge: 4 },
-    { href: "/padres/retiro", label: "Retiro", icon: Car },
-    { href: "/padres/mensajes", label: "Mensajes", icon: MessageCircle, badge: 2 },
-    { href: "/padres/mas", label: "Más", icon: MoreHorizontal },
+    { href: "/padres", key: "inicio", icon: Home },
+    { href: "/padres/tareas", key: "tareas", icon: NotebookPen, badge: 4 },
+    hasModule("estadoCuenta")
+      ? { href: "/padres/estado-cuenta", key: "pagos", icon: Wallet, badge: 1 }
+      : { href: "/padres/retiro", key: "retiroCorto", icon: Car },
+    { href: "/padres/mensajes", key: "mensajes", icon: MessageCircle, badge: 2 },
+    { href: "/padres/mas", key: "mas", icon: MoreHorizontal },
+  ],
+  alumno: [
+    { href: "/alumno", key: "inicio", icon: Home },
+    { href: "/alumno/horario", key: "horario", icon: Table2 },
+    { href: "/alumno/tareas", key: "tareas", icon: NotebookPen, badge: 4 },
+    { href: "/alumno/calificaciones", key: "notas", icon: GraduationCap },
+    { href: "/alumno/mas", key: "mas", icon: MoreHorizontal },
   ],
   maestro: [
-    { href: "/maestro", label: "Hoy", icon: LayoutDashboard },
-    { href: "/maestro/asistencia", label: "Asistencia", icon: ClipboardCheck },
-    { href: "/maestro/tareas", label: "Tareas", icon: NotebookPen, badge: 7 },
-    { href: "/maestro/mensajes", label: "Mensajes", icon: MessageCircle, badge: 3 },
-    { href: "/maestro/mas", label: "Más", icon: MoreHorizontal },
+    { href: "/maestro", key: "hoy", icon: LayoutDashboard },
+    { href: "/maestro/asistencia", key: "asistencia", icon: ClipboardCheck },
+    { href: "/maestro/tareas", key: "tareas", icon: NotebookPen, badge: 7 },
+    { href: "/maestro/mensajes", key: "mensajes", icon: MessageCircle, badge: 3 },
+    { href: "/maestro/mas", key: "mas", icon: MoreHorizontal },
   ],
   admin: [
-    { href: "/admin", label: "Panel", icon: LayoutDashboard },
-    { href: "/admin/inscripciones", label: "Inscripción", icon: UserPlus, badge: 3 },
-    { href: "/admin/comunicados", label: "Avisos", icon: Megaphone },
-    { href: "/porteria", label: "Portería", icon: ScanLine },
-    { href: "/admin/mas", label: "Más", icon: MoreHorizontal },
+    { href: "/admin", key: "panel", icon: LayoutDashboard },
+    { href: "/admin/inscripciones", key: "inscripcion", icon: UserPlus, badge: 3 },
+    { href: "/admin/comunicados", key: "avisos", icon: Megaphone },
+    { href: "/porteria", key: "porteria", icon: ScanLine },
+    { href: "/admin/mas", key: "mas", icon: MoreHorizontal },
   ],
   porteria: [],
 };
+
+const enabled = (i: NavItem) => !i.module || hasModule(i.module);
+const badgesKey = schoolConfig.brand.badgeStyle === "element" ? "elementos" : "insignias";
+const localize = (i: NavItem): NavItem => (i.key === "insignias" ? { ...i, key: badgesKey } : i);
+
+export const sidebarNav: Record<Role, NavGroup[]> = Object.fromEntries(
+  Object.entries(sidebarAll).map(([role, groups]) => [
+    role,
+    groups.map((g) => ({ ...g, items: g.items.filter(enabled).map(localize) })).filter((g) => g.items.length),
+  ]),
+) as Record<Role, NavGroup[]>;
+
+export const bottomNav: Record<Role, NavItem[]> = Object.fromEntries(
+  Object.entries(bottomAll).map(([role, items]) => [role, items.filter(enabled).map(localize)]),
+) as Record<Role, NavItem[]>;
 
 /** Barra inferior: el inicio solo se marca en su ruta exacta (o el perfil del hijo);
  * las secciones que no tienen botón propio marcan "Más". */

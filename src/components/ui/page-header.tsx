@@ -22,7 +22,7 @@ export function PageHeader({
       {back ? (
         <Link
           href={back}
-          className="mb-0.5 grid size-10 shrink-0 place-items-center rounded-full bg-white text-navy-800 shadow-soft ring-1 ring-navy-100"
+          className="mb-0.5 grid size-10 shrink-0 place-items-center rounded-full bg-white text-primary-800 shadow-soft ring-1 ring-primary-100"
           aria-label="Volver"
         >
           <ChevronLeft className="size-5" />
@@ -30,10 +30,10 @@ export function PageHeader({
       ) : null}
       <div className="min-w-0 flex-1">
         {eyebrow ? (
-          <p className="mb-0.5 text-xs font-bold tracking-wide text-honey-700 uppercase">{eyebrow}</p>
+          <p className="mb-0.5 text-xs font-bold tracking-wide text-accent-700 uppercase">{eyebrow}</p>
         ) : null}
         <h1 className="text-2xl leading-tight font-semibold lg:text-3xl">{title}</h1>
-        {subtitle ? <p className="mt-1 text-[15px] text-navy-600">{subtitle}</p> : null}
+        {subtitle ? <p className="mt-1 text-[15px] text-primary-600">{subtitle}</p> : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </div>

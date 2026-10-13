@@ -1,19 +1,20 @@
 import { cn } from "@/lib/utils";
+import { schoolConfig } from "@/schools";
 
 const palette = [
-  "bg-honey-300 text-navy-900",
+  "bg-accent-300 text-primary-900",
   "bg-sky-200 text-sky-900",
   "bg-pink-200 text-pink-900",
   "bg-emerald-200 text-emerald-900",
   "bg-violet-200 text-violet-900",
   "bg-orange-200 text-orange-900",
   "bg-lime-200 text-lime-900",
-  "bg-navy-200 text-navy-900",
+  "bg-primary-200 text-primary-900",
 ];
 
 export function initials(name: string) {
   const parts = name
-    .replace(/^(Miss|Teacher|Prof\.|Lic\.|Don|Doña)\s+/i, "")
+    .replace(/^(Miss|Teacher|Prof\.|Profa\.|Lic\.|Dr\.|Dra\.|Mme\.|M\.|Ms\.|Mr\.|Don|Doña)\s+/i, "")
     .split(/\s+/)
     .filter(Boolean);
   return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();
@@ -34,7 +35,9 @@ const sizes = {
   "2xl": "size-28 text-4xl",
 };
 
-/** Adultos: círculo. Alumnos: hexágono (motivo de panal). */
+/** Adultos: círculo. Alumnos: hexágono (Beehive) o cuadrado redondeado (Curie). */
+const kidShape = schoolConfig.brand.kidAvatar === "hex" ? "hex" : "rounded-[32%]";
+
 export function Avatar({
   name,
   size = "md",
@@ -52,7 +55,7 @@ export function Avatar({
     <span
       className={cn(
         "grid shrink-0 place-items-center font-display font-semibold select-none",
-        kid ? "hex" : "rounded-full",
+        kid ? kidShape : "rounded-full",
         sizes[size],
         colorFor(name),
         !ring && className,
@@ -67,7 +70,7 @@ export function Avatar({
     <span
       className={cn(
         "grid shrink-0 place-items-center bg-white p-[3px]",
-        kid ? "hex" : "rounded-full",
+        kid ? kidShape : "rounded-full",
         className,
       )}
     >

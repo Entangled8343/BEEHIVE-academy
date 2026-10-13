@@ -1,25 +1,31 @@
 /**
- * Genera las capturas de la propuesta visual y el PDF para el cliente.
+ * Genera las capturas de la propuesta visual y el PDF para el cliente, por colegio.
  *
- * Uso:
- *   pnpm build && pnpm start -p 3100      (en otra terminal)
- *   BASE_URL=http://localhost:3100 pnpm screenshots
+ * Uso (el build debe ser del mismo colegio):
+ *   NEXT_PUBLIC_SCHOOL=curie pnpm build && pnpm start -p 3100      (en otra terminal)
+ *   SCHOOL=curie BASE_URL=http://localhost:3100 pnpm screenshots
  *
- * Salida: docs/mockups/{movil,escritorio,tablet}/NN-slug.png
- *         docs/mockups/propuesta.html
- *         docs/mockups/Beehive-Academy-Propuesta-UI.pdf
+ * Salida: docs/mockups/<colegio>/{movil,escritorio,tablet}/NN-slug.png
+ *         docs/mockups/<colegio>/propuesta.html
+ *         docs/mockups/<colegio>/<Colegio>-Propuesta.pdf
  */
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { chromium, type Browser } from "playwright-core";
-import { shots, type Device } from "./mockups/catalog";
+import type { SchoolId } from "../src/schools/types";
+import { catalogs, type Device } from "./mockups/catalog";
+import { contents, themes } from "./mockups/proposal-content";
 import { buildProposalHtml, type RenderedShot } from "./mockups/proposal-html";
 
 const base = process.env.BASE_URL ?? "http://localhost:3100";
 const executablePath =
   process.env.CHROMIUM_PATH ?? "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
-const outDir = path.resolve("docs/mockups");
+const school = (process.env.SCHOOL ?? "beehive") as SchoolId;
+const { sections, shots } = catalogs[school];
+const outDir = path.resolve("docs/mockups", school);
+const logos: Record<SchoolId, string> = { beehive: "public/brand/logo-circle.png", curie: "public/brand/curie/sello.png" };
+const pdfNames: Record<SchoolId, string> = { beehive: "Beehive-Academy-Propuesta-UI.pdf", curie: "Curie-Propuesta-Plataforma.pdf" };
 
 const viewports: Record<
   Device,
@@ -44,6 +50,9 @@ async function capture(browser: Browser) {
       hasTouch: v.isMobile,
       locale: "es-NI",
     });
+    if (shot.locale) {
+      await context.addCookies([{ name: "NEXT_LOCALE", value: shot.locale, url: base }]);
+    }
     const page = await context.newPage();
     page.on("pageerror", (e) => problems.push(`${shot.route} (${shot.device}): ${e.message}`));
     await page.goto(base + shot.route, { waitUntil: "load" });
@@ -83,15 +92,15 @@ async function main() {
   const browser = await chromium.launch({ executablePath });
   const { rendered, problems } = await capture(browser);
 
-  const logo = path.relative(outDir, path.resolve("public/brand/logo-circle.png"));
+  const logo = path.relative(outDir, path.resolve(logos[school]));
   const htmlPath = path.join(outDir, "propuesta.html");
-  await writeFile(htmlPath, buildProposalHtml(rendered, logo));
+  await writeFile(htmlPath, buildProposalHtml(rendered, sections, logo, themes[school], contents[school]));
 
   const page = await browser.newPage();
   await page.goto(pathToFileURL(htmlPath).href, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
   await page.pdf({
-    path: path.join(outDir, "Beehive-Academy-Propuesta-UI.pdf"),
+    path: path.join(outDir, pdfNames[school]),
     width: "1280px",
     height: "720px",
     printBackground: true,

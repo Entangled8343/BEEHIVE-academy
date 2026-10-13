@@ -28,11 +28,11 @@ export default function GalleryPage() {
           <div className="flex items-center justify-between gap-3 p-4">
             <div>
               <p className="font-display text-xl font-semibold">{featured.title}</p>
-              <p className="text-sm font-semibold text-navy-600">
+              <p className="text-sm font-semibold text-primary-600">
                 {featured.date} · {featured.count} fotos
               </p>
             </div>
-            <Pill tone="navy">
+            <Pill tone="primary">
               <Images /> Ver álbum
             </Pill>
           </div>
@@ -44,14 +44,14 @@ export default function GalleryPage() {
             <Scene name={a.scene} className="aspect-square" />
             <div className="p-3">
               <p className="leading-tight font-bold">{a.title}</p>
-              <p className="text-xs font-semibold text-navy-500">
+              <p className="text-xs font-semibold text-primary-500">
                 {a.date} · {a.count} fotos
               </p>
             </div>
           </Card>
         ))}
       </div>
-      <p className="mt-5 flex items-start gap-2 rounded-2xl bg-navy-50 p-4 text-sm font-semibold text-navy-700">
+      <p className="mt-5 flex items-start gap-2 rounded-2xl bg-primary-50 p-4 text-sm font-semibold text-primary-700">
         <Lock className="mt-0.5 size-4 shrink-0" />
         Galería privada: solo las familias del colegio pueden verla. Las fotos se publican en el sitio web
         únicamente con autorización de los padres.

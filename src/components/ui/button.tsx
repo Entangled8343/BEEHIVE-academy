@@ -3,16 +3,16 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-bold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600 disabled:opacity-50 [&_svg]:size-[1.15em] [&_svg]:shrink-0",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-bold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:opacity-50 [&_svg]:size-[1.15em] [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        primary: "bg-navy-800 text-white shadow-soft hover:bg-navy-700",
-        honey: "bg-honey-400 text-navy-900 shadow-soft hover:bg-honey-500",
-        outline: "border-2 border-navy-200 bg-white text-navy-800 hover:border-navy-300 hover:bg-navy-50",
-        soft: "bg-navy-50 text-navy-800 hover:bg-navy-100",
-        ghost: "text-navy-700 hover:bg-navy-50",
-        white: "bg-white text-navy-900 shadow-soft hover:bg-honey-50",
+        primary: "bg-primary-800 text-white shadow-soft hover:bg-primary-700",
+        accent: "bg-accent-400 text-primary-900 shadow-soft hover:bg-accent-500",
+        outline: "border-2 border-primary-200 bg-white text-primary-800 hover:border-primary-300 hover:bg-primary-50",
+        soft: "bg-primary-50 text-primary-800 hover:bg-primary-100",
+        ghost: "text-primary-700 hover:bg-primary-50",
+        white: "bg-white text-primary-900 shadow-soft hover:bg-accent-50",
         danger: "bg-rose-600 text-white hover:bg-rose-700",
         success: "bg-emerald-600 text-white hover:bg-emerald-700",
       },

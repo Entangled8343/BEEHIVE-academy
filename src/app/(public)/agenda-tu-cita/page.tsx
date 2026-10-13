@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Field, Input } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
-import { school } from "@/mocks";
+import { appointment as ap, school } from "@/mocks";
+import { requireModule } from "@/schools/guard";
 
 export const metadata = { title: "Agenda tu cita" };
 
@@ -20,6 +21,7 @@ const slots = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "1:00", "1:30",
 const taken = new Set(["8:30", "10:00", "1:30"]);
 
 export default function AppointmentPage() {
+  requireModule("preinscripcion");
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 lg:px-8 lg:py-12">
       <div className="grid gap-6 lg:grid-cols-[380px_1fr]">
@@ -27,16 +29,18 @@ export default function AppointmentPage() {
           <Scene name="aula" className="h-40" label="Visita guiada · 30 min" />
           <div className="p-5">
             <h1 className="text-3xl leading-tight font-semibold">Agenda tu cita</h1>
-            <p className="mt-2 text-navy-700">
-              Conoce nuestras instalaciones, a las maestras y resuelve tus dudas sobre la matrícula 2027.
+            <p className="mt-2 text-primary-700">
+              Conoce nuestras instalaciones y docentes, y resuelve tus dudas sobre la matrícula {school.year + 1}.
             </p>
-            <div className="mt-4 space-y-2 text-sm font-semibold text-navy-700">
+            <div className="mt-4 space-y-2 text-sm font-semibold text-primary-700">
               <p className="flex gap-2">
-                <Clock className="size-4 shrink-0 text-honey-600" /> Duración aproximada: 30 minutos
+                <Clock className="size-4 shrink-0 text-accent-600" /> Duración aproximada: 30 minutos
               </p>
-              <p className="flex gap-2">
-                <MapPin className="size-4 shrink-0 text-honey-600" /> {school.address}
-              </p>
+              {school.address ? (
+                <p className="flex gap-2">
+                  <MapPin className="size-4 shrink-0 text-accent-600" /> {school.address}
+                </p>
+              ) : null}
             </div>
           </div>
         </Card>
@@ -49,7 +53,7 @@ export default function AppointmentPage() {
                 key={d.n}
                 className={cn(
                   "grid w-16 shrink-0 place-items-center rounded-2xl py-2.5",
-                  i === 1 ? "bg-navy-800 text-white" : "bg-navy-50 text-navy-800",
+                  i === 1 ? "bg-primary-800 text-white" : "bg-primary-50 text-primary-800",
                 )}
               >
                 <span className="text-xs font-bold uppercase opacity-80">{d.d}</span>
@@ -65,7 +69,7 @@ export default function AppointmentPage() {
             { label: "Tarde", items: slots.filter((s) => s.startsWith("1:") || s.startsWith("2:")) },
           ].map((g) => (
             <div key={g.label} className="mt-3">
-              <p className="mb-2 text-xs font-bold tracking-wide text-navy-500 uppercase">{g.label}</p>
+              <p className="mb-2 text-xs font-bold tracking-wide text-primary-500 uppercase">{g.label}</p>
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
                 {g.items.map((s) => (
                   <span
@@ -73,10 +77,10 @@ export default function AppointmentPage() {
                     className={cn(
                       "grid h-11 place-items-center rounded-full font-display font-semibold",
                       taken.has(s)
-                        ? "bg-navy-50 text-navy-300 line-through"
+                        ? "bg-primary-50 text-primary-300 line-through"
                         : s === "9:00"
-                          ? "bg-honey-400 text-navy-900 ring-2 ring-navy-800"
-                          : "bg-white text-navy-800 ring-2 ring-navy-100",
+                          ? "bg-accent-400 text-primary-900 ring-2 ring-primary-800"
+                          : "bg-white text-primary-800 ring-2 ring-primary-100",
                     )}
                   >
                     {s}
@@ -89,24 +93,24 @@ export default function AppointmentPage() {
           <p className="mt-6 font-display text-lg font-semibold">3. Tus datos</p>
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
             <Field label="Nombre completo">
-              <Input defaultValue="Gabriela Vega" />
+              <Input defaultValue={ap.contact} />
             </Field>
             <Field label="WhatsApp">
-              <Input defaultValue="8890-1122" />
+              <Input defaultValue={ap.phone} />
             </Field>
             <Field label="Correo electrónico">
-              <Input defaultValue="gabriela.vega@correo.com" />
+              <Input defaultValue={ap.email} />
             </Field>
             <Field label="¿Para qué grado?">
-              <Input defaultValue="Preescolar I" />
+              <Input defaultValue={ap.grade} />
             </Field>
           </div>
-          <div className="mt-6 flex flex-col gap-3 rounded-3xl bg-honey-100 p-4 sm:flex-row sm:items-center">
-            <CalendarCheck className="size-6 shrink-0 text-navy-800" />
+          <div className="mt-6 flex flex-col gap-3 rounded-3xl bg-accent-100 p-4 sm:flex-row sm:items-center">
+            <CalendarCheck className="size-6 shrink-0 text-primary-800" />
             <p className="flex-1 font-bold">Martes 13 de octubre · 9:00 a. m.</p>
             <Button>Confirmar cita</Button>
           </div>
-          <p className="mt-3 text-xs font-semibold text-navy-500">
+          <p className="mt-3 text-xs font-semibold text-primary-500">
             Te enviaremos la confirmación por correo y un recordatorio un día antes.
           </p>
         </Card>

@@ -4,14 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 import { cn } from "@/lib/utils";
+import { agendaRoster } from "@/mocks";
+import { requireModule } from "@/schools/guard";
 
 export const metadata = { title: "Agenda diaria" };
 
-const kids = [
-  "Sofía Martínez", "Lucas Aráuz", "Emma Bermúdez", "Gabriel Cerda", "Olivia Duarte",
-  "Benjamín Estrada", "Zoe Fonseca", "Martín Guerrero", "Alma Herrera", "Nicolás Ibarra",
-];
-const moods = ["😄", "🙂", "😄", "😴", "😄", "🙂", "😢", "😄", "🙂", "😄"];
+const kids = agendaRoster ?? [];const moods = ["😄", "🙂", "😄", "😴", "😄", "🙂", "😢", "😄", "🙂", "😄"];
 const meal = ["Todo", "Mitad", "Todo", "Poco", "Todo", "Todo", "Mitad", "Todo", "Casi todo", "Todo"];
 const nap = ["45m", "30m", "50m", "1h", "—", "40m", "35m", "45m", "50m", "30m"];
 
@@ -33,13 +31,14 @@ function Chip({ value, tone }: { value: string; tone: "green" | "amber" | "rose"
 const toneOf = (v: string) => (v === "Todo" || v === "Casi todo" ? "green" : v === "Mitad" ? "amber" : "rose");
 
 export default function TeacherAgendaPage() {
+  requireModule("agendaDiaria");
   return (
     <div>
       <PageHeader
         title="Agenda diaria"
         subtitle="Preescolar II A · Llénala rápido para toda la clase"
         action={
-          <Button variant="honey" size="sm" className="hidden sm:inline-flex">
+          <Button variant="accent" size="sm" className="hidden sm:inline-flex">
             <Send /> Publicar a familias
           </Button>
         }
@@ -48,7 +47,7 @@ export default function TeacherAgendaPage() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-sm">
             <thead>
-              <tr className="border-b border-navy-100 bg-navy-50/70 text-left text-xs font-bold text-navy-600 uppercase">
+              <tr className="border-b border-primary-100 bg-primary-50/70 text-left text-xs font-bold text-primary-600 uppercase">
                 <th className="px-4 py-3">Alumno</th>
                 <th className="px-2 py-3 text-center">Ánimo</th>
                 <th className="px-2 py-3 text-center">Merienda</th>
@@ -58,7 +57,7 @@ export default function TeacherAgendaPage() {
                 <th className="px-4 py-3">Nota</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-navy-100">
+            <tbody className="divide-y divide-primary-100">
               {kids.map((k, i) => (
                 <tr key={k}>
                   <td className="px-4 py-2.5">
@@ -74,9 +73,9 @@ export default function TeacherAgendaPage() {
                   <td className="px-2 text-center">
                     <Chip value={meal[i]!} tone={toneOf(meal[i]!)} />
                   </td>
-                  <td className="px-2 text-center font-bold text-navy-700">{nap[i]}</td>
-                  <td className="px-2 text-center font-bold text-navy-700">{(i % 3) + 1}</td>
-                  <td className="px-4 text-navy-500">
+                  <td className="px-2 text-center font-bold text-primary-700">{nap[i]}</td>
+                  <td className="px-2 text-center font-bold text-primary-700">{(i % 3) + 1}</td>
+                  <td className="px-4 text-primary-500">
                     {i === 0 ? "Ayudó a recoger los juguetes 💛" : i === 6 ? "Extrañó a mamá en la mañana" : "—"}
                   </td>
                 </tr>
@@ -87,11 +86,11 @@ export default function TeacherAgendaPage() {
       </Card>
       <Card className="mt-4 p-4">
         <p className="mb-2 text-sm font-bold">Actividad del día (para todos)</p>
-        <p className="rounded-2xl bg-navy-50 p-3 text-[15px] text-navy-800">
+        <p className="rounded-2xl bg-primary-50 p-3 text-[15px] text-primary-800">
           Pintamos con esponjas y aprendimos la letra M de mamá. Cantamos la canción de los colores en inglés.
         </p>
       </Card>
-      <Button block size="lg" variant="honey" className="mt-4 sm:hidden">
+      <Button block size="lg" variant="accent" className="mt-4 sm:hidden">
         <Send /> Publicar a familias
       </Button>
     </div>

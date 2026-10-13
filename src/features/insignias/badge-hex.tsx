@@ -51,23 +51,23 @@ export function BadgeHex({
         <div
           className={cn(
             "hex grid size-full place-items-center",
-            badge.earned ? badge.color : "bg-navy-100",
+            badge.earned ? badge.color : "bg-primary-100",
           )}
         >
           <div className="hex grid size-[78%] place-items-center bg-white/25">
-            <Icon className={cn(icon, badge.earned ? "text-white drop-shadow" : "text-navy-300")} strokeWidth={2.4} />
+            <Icon className={cn(icon, badge.earned ? "text-white drop-shadow" : "text-primary-300")} strokeWidth={2.4} />
           </div>
         </div>
       </div>
       {showLabel ? (
         <>
-          <p className={cn("mt-2 text-[13px] leading-tight font-bold", badge.earned ? "text-navy-900" : "text-navy-400")}>
+          <p className={cn("mt-2 text-[13px] leading-tight font-bold", badge.earned ? "text-primary-900" : "text-primary-400")}>
             {badge.name}
           </p>
           {!showStatus ? null : badge.earned && badge.earnedOn ? (
-            <p className="text-[11px] font-semibold text-navy-400">{badge.earnedOn}</p>
+            <p className="text-[11px] font-semibold text-primary-400">{badge.earnedOn}</p>
           ) : (
-            <p className="text-[11px] font-semibold text-navy-300">Por lograr</p>
+            <p className="text-[11px] font-semibold text-primary-300">Por lograr</p>
           )}
         </>
       ) : null}
