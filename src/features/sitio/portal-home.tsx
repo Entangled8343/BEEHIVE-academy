@@ -31,7 +31,11 @@ const audiences = [
     icon: Backpack,
     href: "/alumno",
     cls: "bg-sky-100 text-sky-800",
-    items: [`Usuario propio desde ${schoolConfig.studentLoginFromGrade ?? 4}° grado`, "Entregar tareas y ver sus notas", "Horario, exámenes, clubes y elementos"],
+    items: [
+      schoolConfig.microsoftSignIn ? "Entran con su cuenta de Office 365" : `Usuario propio desde ${schoolConfig.studentLoginFromGrade ?? 4}° grado`,
+      "Entregar tareas y ver sus notas",
+      "Horario, exámenes, clubes y elementos",
+    ],
   },
   {
     title: "Docentes",

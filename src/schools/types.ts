@@ -30,6 +30,8 @@ export type SchoolConfig = {
   locales: Locale[];
   /** Grado desde el cual los alumnos tienen usuario propio (null = solo familias). */
   studentLoginFromGrade: number | null;
+  /** Alumnos y docentes pueden entrar con su cuenta de Microsoft 365 (Office 365) del colegio. */
+  microsoftSignIn: boolean;
   modules: Record<ModuleKey, boolean>;
   brand: {
     logo: string;

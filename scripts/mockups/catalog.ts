@@ -80,8 +80,8 @@ const curieShots: Shot[] = [
   { slug: "pre-inscripcion", route: "/inscripcion", device: "escritorio", section: "Portal y admisiones", title: "Admisiones 2027", description: "Cada solicitud tiene un código de seguimiento: recibida, en revisión, prueba y entrevista, y respuesta." },
 
   // Acceso
-  { slug: "ingresar", route: "/ingresar", device: "escritorio", section: "Acceso", title: "Inicio de sesión seguro", description: "Familias y docentes entran por invitación. Los alumnos, desde 4° grado, con el usuario que les da el colegio; no necesitan correo. Lo gestiona Clerk, un servicio especializado en seguridad." },
-  { slug: "ingresar", route: "/ingresar", device: "movil", section: "Acceso", title: "En español o en inglés", description: "Cada usuario elige su idioma. El francés se puede agregar después." },
+  { slug: "ingresar", route: "/ingresar", device: "escritorio", section: "Acceso", title: "Una sola cuenta: la de Office 365", description: "Alumnos y docentes entran con el mismo correo de Office 365 que ya usan en Teams: sin contraseñas nuevas. Si alguien deja el colegio, al desactivarlo en Office 365 ya no puede entrar. Las familias entran por invitación. Lo gestiona Clerk, un servicio especializado en seguridad." },
+  { slug: "ingresar", route: "/ingresar", device: "movil", section: "Acceso", title: "Un toque para entrar", description: "«Continuar con Microsoft» y listo. Cada usuario elige español o inglés; el francés se puede agregar después." },
 
   // Alumnos
   { slug: "alumno-inicio", route: "/alumno", device: "movil", section: "Alumnos", title: "Inicio del alumno", description: "Clase en curso, tareas pendientes, próximo examen, promedio y racha de puntualidad." },

@@ -2,6 +2,7 @@ import { Eye, Globe, ShieldCheck } from "lucide-react";
 import { Comet, Star } from "@/components/brand/comet";
 import { LogoCircle, LogoWordmark, Tagline } from "@/components/brand/logo";
 import { Mascot } from "@/components/brand/mascot";
+import { MicrosoftIcon } from "@/components/brand/social-icons";
 import { Button } from "@/components/ui/button";
 import { Field, Input } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,7 @@ export const metadata = { title: "Ingresar" };
 export default function SignInPage() {
   const students = schoolConfig.studentLoginFromGrade !== null;
   const curie = schoolConfig.id === "curie";
+  const microsoft = schoolConfig.microsoftSignIn;
   return (
     <main className="grid min-h-dvh lg:grid-cols-2">
       <section
@@ -73,7 +75,22 @@ export default function SignInPage() {
           <h2 className="mt-4 text-center text-2xl font-semibold">Inicia sesión</h2>
           <p className="mt-1 text-center text-sm text-primary-600">¡Bienvenido de nuevo! Ingresa para continuar.</p>
 
-          <div className="mt-6 space-y-4">
+          {microsoft ? (
+            <div className="mt-6">
+              <Button variant="outline" block size="lg">
+                <MicrosoftIcon />
+                Continuar con Microsoft
+              </Button>
+              <p className="mt-2 text-center text-xs font-semibold text-primary-600">
+                Alumnos y docentes: con la misma cuenta de Office 365 que usan en Teams.
+              </p>
+              <div className="mt-5 flex items-center gap-3 text-xs font-bold text-primary-400">
+                <span className="h-px flex-1 bg-primary-100" />o con tu correo<span className="h-px flex-1 bg-primary-100" />
+              </div>
+            </div>
+          ) : null}
+
+          <div className={cn("space-y-4", microsoft ? "mt-5" : "mt-6")}>
             <Field label={students ? "Correo o usuario" : "Correo electrónico"}>
               <Input defaultValue={users.padre.email} />
             </Field>
@@ -90,7 +107,9 @@ export default function SignInPage() {
           </div>
 
           <div className="mt-6 rounded-2xl bg-accent-50 p-3 text-center text-xs font-semibold text-primary-700">
-            {students
+            {microsoft
+              ? "Alumnos y docentes entran con su cuenta de Office 365 del colegio. Familias: acceso por invitación."
+              : students
               ? `Familias y docentes: acceso por invitación. Alumnos desde ${schoolConfig.studentLoginFromGrade}° grado: usuario entregado por el colegio.`
               : "El acceso es solo por invitación del colegio. ¿No recibiste la tuya? Escríbenos por WhatsApp."}
           </div>

@@ -35,6 +35,8 @@ export type ProposalContent = {
   steps: [string, string][];
   tech: string[];
   note: string;
+  /** Crédito discreto en el pie de cada página. */
+  credit?: string;
 };
 
 const honeycomb = (color: string, opacity: number) =>
@@ -125,12 +127,12 @@ export const contents: Record<SchoolId, ProposalContent> = {
     coverPhones: ["alumno-inicio", "familia-inicio"],
     overviewTitle: "Un portal para cada protagonista",
     roles: [
-      { tag: "Alumnos · 4° a 11°", tagBg: "#d2f2dc", tagFg: "#1f6b3f", title: "Estudiantes", items: ["Usuario propio, sin correo", "Horario y clase en curso", "Entregar tareas con archivos", "Calificaciones por corte", "Calendario de exámenes", "Clubes: Science, Art, Sports, Humanism", "Elementos Curie (insignias)", "Español / English"] },
+      { tag: "Alumnos · 4° a 11°", tagBg: "#d2f2dc", tagFg: "#1f6b3f", title: "Estudiantes", items: ["Entran con su cuenta de Office 365", "Horario y clase en curso", "Entregar tareas con archivos", "Calificaciones por corte", "Calendario de exámenes", "Clubes: Science, Art, Sports, Humanism", "Elementos Curie (insignias)", "Español / English"] },
       { tag: "Familias", tagBg: "#fde7c7", tagFg: "#8a4b00", title: "Padres y tutores", items: ["Todos sus hijos en un lugar", "Tareas, notas y horario", "Estado de cuenta y comprobantes", "Permisos con firma digital", "Reportar ausencias", "¿Quién recoge? (primaria)", "Comunicados y calendario", "Mensajes con docentes"] },
       { tag: "60 docentes", tagBg: "#dbeafe", tagFg: "#075985", title: "Docentes", items: ["Varias secciones y materias", "Horario semanal", "Asistencia en segundos", "Libro de notas tipo Excel", "Crear y revisar tareas", "Temario y actividades", "Otorgar elementos", "Clubes que dirigen"] },
       { tag: "Dirección", tagBg: "#e4eee7", tagFg: "#183f2b", title: "Dirección y portería", items: ["Panel de 400 alumnos", "Admisiones y pruebas", "Cobros y pagos", "Publicar y cerrar cortes", "Horarios por sección", "Comunicados con acuse", "Portería con QR", "Respaldos diarios"] },
     ],
-    ribbon: ["400 alumnos · 60 docentes", "Español / English (listo para Français)", "📱 Celular y 💻 PC", "Sin App Store ni Play Store", "🔒 Datos protegidos"],
+    ribbon: ["400 alumnos · 60 docentes", "🔑 Misma cuenta de Office 365", "Español / English (listo para Français)", "📱 Celular y 💻 PC", "🔒 Datos protegidos"],
     steps: [
       ["Revisión con Dirección", "Ajustes de pantallas, módulos y textos."],
       ["Configuración académica", "Grados, secciones, materias, docentes y horarios."],
@@ -138,7 +140,8 @@ export const contents: Record<SchoolId, ProposalContent> = {
       ["Piloto", "Una sección de primaria y una de secundaria."],
       ["Lanzamiento 2027", "Todo el colegio, con capacitación y guías."],
     ],
-    tech: ["Web app en Vercel", "Base de datos Turso", "Acceso seguro con Clerk", "Notificaciones push y correo"],
+    tech: ["Web app en Vercel", "Base de datos Turso", "Acceso con Clerk y Office 365", "Notificaciones push y correo"],
     note: "Los nombres, montos e ilustraciones son de ejemplo. El sitio curie.edu.ni se mantiene; el portal vive en un subdominio (p. ej. portal.curie.edu.ni).",
+    credit: "Desarrollado por ia360.work",
   },
 };

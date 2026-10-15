@@ -20,7 +20,9 @@ h1, h2, h3, .display { font-family: ${t.display}; font-weight: ${t.displayWeight
 .pattern-light { background-image: ${t.patternLight}; background-size: ${t.patternLight.includes("140") ? "140px 140px" : "56px 98px"}; }
 .chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 13px; background: ${t.accent}; color: ${t.accentText}; }
 .chip.soft { background: ${t.soft}; color: ${t.softText}; }
-.footer { position: absolute; left: 56px; right: 56px; bottom: 22px; display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: ${t.muted}; opacity: .75; }
+.footer { position: absolute; left: 56px; right: 56px; bottom: 22px; display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; font-weight: 600; color: ${t.muted}; opacity: .75; }
+.footer .end { display: flex; align-items: baseline; gap: 16px; }
+.footer .credit { font-size: 10.5px; font-weight: 500; letter-spacing: .02em; opacity: .7; }
 .dark-bg .footer { color: ${t.darkMuted}; }
 
 .cover { display: grid; grid-template-columns: 1fr 520px; gap: 24px; align-items: center; }
@@ -93,7 +95,8 @@ export function buildProposalHtml(
 ) {
   const pages: string[] = [];
   let n = 1;
-  const footer = () => `<div class="footer"><span>${esc(c.footer)}</span><span>${n++}</span></div>`;
+  const credit = c.credit ? `<span class="credit">${esc(c.credit)}</span>` : "";
+  const footer = () => `<div class="footer"><span>${esc(c.footer)}</span><span class="end">${credit}<span>${n++}</span></span></div>`;
   const byKey = (slug: string) => rendered.find((r) => r.slug === slug && r.device === "movil");
 
   const [s1, s2] = c.coverPhones.map(byKey);

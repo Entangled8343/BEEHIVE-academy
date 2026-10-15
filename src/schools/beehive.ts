@@ -10,6 +10,7 @@ export const beehive: SchoolConfig = {
   levelsLabel: "Preescolar y Primaria · Masaya",
   locales: ["es"],
   studentLoginFromGrade: null,
+  microsoftSignIn: false,
   modules: {
     sitioPublico: true,
     preinscripcion: true,
