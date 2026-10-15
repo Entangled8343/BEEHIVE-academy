@@ -5,6 +5,9 @@
  *   NEXT_PUBLIC_SCHOOL=curie pnpm build && pnpm start -p 3100      (en otra terminal)
  *   SCHOOL=curie BASE_URL=http://localhost:3100 pnpm screenshots
  *
+ * Solo rehacer el PDF con las capturas que ya existen (sin servidor):
+ *   SCHOOL=curie PDF_ONLY=1 pnpm screenshots
+ *
  * Salida: docs/mockups/<colegio>/{movil,escritorio,tablet}/NN-slug.png
  *         docs/mockups/<colegio>/propuesta.html
  *         docs/mockups/<colegio>/<Colegio>-Propuesta.pdf
@@ -85,12 +88,24 @@ async function capture(browser: Browser) {
   return { rendered, problems };
 }
 
+/** Mismos nombres de archivo que `capture`, sin abrir las páginas. */
+function existingShots(): RenderedShot[] {
+  const counters: Record<Device, number> = { movil: 0, escritorio: 0, tablet: 0 };
+  return shots.map((shot) => {
+    const nn = String(++counters[shot.device]).padStart(2, "0");
+    return { ...shot, file: `${shot.device}/${nn}-${shot.slug}.png` };
+  });
+}
+
 async function main() {
-  await rm(outDir, { recursive: true, force: true });
-  for (const d of Object.keys(viewports)) await mkdir(path.join(outDir, d), { recursive: true });
+  const pdfOnly = Boolean(process.env.PDF_ONLY);
+  if (!pdfOnly) {
+    await rm(outDir, { recursive: true, force: true });
+    for (const d of Object.keys(viewports)) await mkdir(path.join(outDir, d), { recursive: true });
+  }
 
   const browser = await chromium.launch({ executablePath });
-  const { rendered, problems } = await capture(browser);
+  const { rendered, problems } = pdfOnly ? { rendered: existingShots(), problems: [] } : await capture(browser);
 
   const logo = path.relative(outDir, path.resolve(logos[school]));
   const htmlPath = path.join(outDir, "propuesta.html");

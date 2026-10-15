@@ -37,7 +37,9 @@ h1, h2, h3, .display { font-family: ${t.display}; font-weight: ${t.displayWeight
 .cover-phones .p2 { left: 250px; top: 10px; transform: rotate(5deg); }
 .cover-phones img { width: 230px; height: 497px; object-fit: cover; object-position: top; }
 
-.phone { background: ${t.phoneFrame}; border-radius: 34px; padding: 9px; box-shadow: 0 20px 50px -12px rgba(0,0,0,.45); }
+/* Sin box-shadow con desenfoque: Chrome lo exporta al PDF como imagen con máscara y algunos visores
+   (p. ej. Vista Previa de macOS) lo pintan como un rectángulo gris. */
+.phone { background: ${t.phoneFrame}; border-radius: 34px; padding: 9px; }
 .phone img { display: block; border-radius: 26px; }
 
 .mobile-page { padding-top: 40px; }
@@ -53,17 +55,17 @@ h1, h2, h3, .display { font-family: ${t.display}; font-weight: ${t.displayWeight
 .wide-page h2 { font-size: 34px; line-height: 1.1; margin-top: 14px; }
 .wide-page .desc { font-size: 16px; line-height: 1.5; color: ${t.muted}; margin-top: 14px; font-weight: 500; }
 .wide-page .device-label { margin-top: 22px; }
-.browser { background: #fff; border-radius: 16px; box-shadow: 0 24px 60px -16px rgba(0,0,0,.3); overflow: hidden; border: 1px solid ${t.soft}; }
+.browser { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid ${t.soft}; }
 .browser .bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 14px; background: ${t.soft}; }
 .browser .dot { width: 11px; height: 11px; border-radius: 50%; }
 .browser .url { margin-left: 14px; flex: 1; height: 22px; border-radius: 999px; background: #fff; font-size: 11px; font-weight: 600; color: ${t.muted}; display: flex; align-items: center; padding-left: 12px; }
 .browser img { display: block; width: 100%; }
-.tablet { background: ${t.phoneFrame}; border-radius: 30px; padding: 16px; box-shadow: 0 24px 60px -16px rgba(0,0,0,.45); }
+.tablet { background: ${t.phoneFrame}; border-radius: 30px; padding: 16px; }
 .tablet img { display: block; width: 100%; border-radius: 14px; }
 
 .overview h2 { font-size: 40px; margin-top: 10px; }
 .roles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; }
-.role { background: #fff; border-radius: 26px; padding: 22px; box-shadow: 0 4px 16px -4px rgba(0,0,0,.1); border: 1px solid ${t.soft}; }
+.role { background: #fff; border-radius: 26px; padding: 22px; border: 1px solid ${t.soft}; }
 .role h3 { font-size: 22px; }
 .role .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
 .role ul { list-style: none; margin-top: 10px; display: grid; gap: 7px; }
