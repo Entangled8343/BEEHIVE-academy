@@ -1,4 +1,4 @@
-import { BarChart3, CalendarDays, ClipboardList, GraduationCap, Images, Settings, Table2, Users, Wallet } from "lucide-react";
+import { BarChart3, CalendarDays, ClipboardList, GraduationCap, Images, Settings, Table2, Users, UtensilsCrossed, Wallet } from "lucide-react";
 import { MoreMenu, type MoreItem } from "@/features/menu/more-menu";
 import { users } from "@/mocks";
 
@@ -11,6 +11,7 @@ const items: MoreItem[] = [
   { href: "/admin/asistencia", label: "Asistencia", icon: ClipboardList, cls: "bg-emerald-100 text-emerald-700" },
   { href: "/admin/horarios", label: "Horarios", icon: Table2, cls: "bg-indigo-100 text-indigo-700", module: "horario" },
   { href: "/admin/cuentas", label: "Cobros y pagos", icon: Wallet, cls: "bg-accent-200 text-accent-700", module: "estadoCuenta" },
+  { href: "/cafeteria", label: "Cafetería", icon: UtensilsCrossed, cls: "bg-orange-100 text-orange-700", module: "cafeteria" },
   { href: "/admin/calendario", label: "Calendario", icon: CalendarDays, cls: "bg-pink-100 text-pink-700" },
   { href: "/admin/galeria", label: "Galería", icon: Images, cls: "bg-orange-100 text-orange-700", module: "galeria" },
   { href: "/admin/ajustes", label: "Ajustes", icon: Settings, cls: "bg-slate-100 text-slate-700" },

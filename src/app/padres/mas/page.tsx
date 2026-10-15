@@ -10,6 +10,7 @@ import {
   Sparkles,
   Table2,
   UserX,
+  UtensilsCrossed,
   Wallet,
 } from "lucide-react";
 import { MoreMenu, type MoreItem } from "@/features/menu/more-menu";
@@ -30,6 +31,7 @@ const items: MoreItem[] = [
   { href: "/padres/autorizaciones", label: "Permisos", icon: FileSignature, cls: "bg-orange-100 text-orange-700", module: "permisos" },
   { href: "/padres/ausencias", label: "Ausencias", icon: UserX, cls: "bg-slate-100 text-slate-700" },
   { href: "/padres/estado-cuenta", label: "Estado de cuenta", icon: Wallet, cls: "bg-emerald-100 text-emerald-700", module: "estadoCuenta" },
+  { href: "/padres/cafeteria", label: "Cafetería", icon: UtensilsCrossed, cls: "bg-orange-100 text-orange-700", module: "cafeteria" },
   { href: "/padres/tareas", label: "Extracurricular", icon: Sparkles, cls: "bg-lime-100 text-lime-800", module: "extracurricular" },
 ];
 

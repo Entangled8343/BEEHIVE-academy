@@ -25,6 +25,7 @@ export const beehive: SchoolConfig = {
     horario: false,
     clubes: false,
     estadoCuenta: false,
+    cafeteria: false,
   },
   brand: {
     logo: "/brand/logo-circle.png",

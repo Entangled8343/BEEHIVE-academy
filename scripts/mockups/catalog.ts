@@ -69,7 +69,7 @@ const beehiveShots: Shot[] = [
   { slug: "direccion-panel", route: "/admin", device: "movil", section: "Dirección y portería", title: "Dirección desde el celular", description: "Los indicadores del colegio, en cualquier lugar." },
 ];
 
-const curieSections = ["Portal y admisiones", "Acceso", "Alumnos", "Familias", "Docentes", "Dirección y portería"];
+const curieSections = ["Portal y admisiones", "Acceso", "Alumnos", "Familias", "Docentes", "Dirección y portería", "Cafetería · módulo opcional"];
 
 const curieShots: Shot[] = [
   // Portal y admisiones
@@ -126,6 +126,12 @@ const curieShots: Shot[] = [
   { slug: "direccion-inscripciones", route: "/admin/inscripciones", device: "escritorio", section: "Dirección y portería", title: "Tablero de admisiones", description: "Cada solicitud avanza por etapas. Al aceptarla se crean el alumno y los accesos de la familia." },
   { slug: "porteria", route: "/porteria", device: "tablet", section: "Dirección y portería", title: "Portería (tablet)", description: "Retiros del día al momento: QR o código, verificación de cédula, alumnos de secundaria que salen solos y aviso inmediato a la familia." },
   { slug: "direccion-panel", route: "/admin", device: "movil", section: "Dirección y portería", title: "Dirección desde el celular", description: "Los indicadores del colegio, en cualquier lugar." },
+
+  // Cafetería (módulo opcional)
+  { slug: "familia-cafeteria", route: "/padres/cafeteria", device: "movil", section: "Cafetería · módulo opcional", title: "Saldo de cafetería", description: "Cada hijo con saldo prepago o con cuenta del día. La familia recarga o paga por transferencia." },
+  { slug: "familia-cafeteria-hoy", route: "/padres/cafeteria", device: "movil", section: "Cafetería · módulo opcional", title: "Lo que consumió hoy", description: "Cada compra con hora y monto, y las recargas y pagos confirmados.", scrollTo: "Consumos de hoy" },
+  { slug: "familia-cafeteria-controles", route: "/padres/cafeteria", device: "movil", section: "Cafetería · módulo opcional", title: "Controles de la familia", description: "Límite diario, productos bloqueados y avisos de cada compra o de saldo bajo.", scrollTo: "Controles de la familia" },
+  { slug: "cafeteria-caja", route: "/cafeteria", device: "tablet", section: "Cafetería · módulo opcional", title: "Caja de la cafetería (tablet)", description: "Se escanea el carné y aparecen el saldo, lo que puede gastar hoy, alergias y productos bloqueados por la familia. Un toque por producto y se cobra del saldo o a la cuenta del día." },
 ];
 
 export const catalogs: Record<SchoolId, { sections: string[]; shots: Shot[] }> = {

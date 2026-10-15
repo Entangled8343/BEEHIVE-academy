@@ -7,7 +7,7 @@ import { beehiveData } from "./beehive";
 import { curieData } from "./curie";
 import type { MockData } from "./types";
 
-export type { BadgeDef, Child, GradeRow, Homework, MockData, Role, TodoItem } from "./types";
+export type { BadgeDef, CafeteriaCategory, Child, GradeRow, Homework, MockData, Role, TodoItem } from "./types";
 export { band } from "./shared";
 
 const data: MockData = schoolConfig.id === "curie" ? curieData : beehiveData;
@@ -57,6 +57,7 @@ export const {
   exams,
   clubs,
   account,
+  cafeteria,
   financeOverview,
   studentHome,
 } = data;

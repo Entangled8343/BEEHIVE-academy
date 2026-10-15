@@ -25,6 +25,7 @@ export const curie: SchoolConfig = {
     horario: true,
     clubes: true,
     estadoCuenta: true,
+    cafeteria: true, // saldo prepago o cuenta del día; caja en tablet
   },
   brand: {
     logo: "/brand/curie/sello.png",

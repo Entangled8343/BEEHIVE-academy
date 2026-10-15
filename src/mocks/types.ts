@@ -41,6 +41,8 @@ export type Child = {
   leavesAlone?: boolean;
 };
 
+export type CafeteriaCategory = "Almuerzos" | "Bebidas" | "Snacks" | "Frutas";
+
 export type TodoIcon = "permiso" | "comunicado" | "agenda" | "tarea" | "pago" | "examen";
 export type TodoItem = {
   href: string;
@@ -290,6 +292,34 @@ export type MockData = {
     children: string[];
     rows: { concept: string; due: string; amount: string; status: "pagado" | "pendiente" | "vencido"; receipt?: string }[];
     bank: { name: string; account: string; holder: string };
+  };
+  cafeteria?: {
+    currency: string;
+    /** Prepago: consume de un saldo que la familia recarga. Cuenta del día: se acumula y la familia la paga ese día. */
+    wallets: {
+      childId: string;
+      name: string;
+      grade: string;
+      mode: "prepago" | "cuenta-del-dia";
+      balance?: number;
+      dayAccount?: number;
+      spentToday: number;
+      dailyLimit: number;
+    }[];
+    today: { time: string; child: string; item: string; amount: number; category: CafeteriaCategory; onAccount?: boolean }[];
+    controls: { kind: "limite" | "bloqueo" | "aviso" | "cuenta"; title: string; detail: string }[];
+    movements: { date: string; concept: string; amount: number; status: "confirmada" | "por-confirmar" }[];
+    bank: { name: string; account: string; holder: string };
+    pos: {
+      station: string;
+      cashier: string;
+      stats: { label: string; value: string; tone: "accent" | "green" | "orange" }[];
+      categories: CafeteriaCategory[];
+      products: { name: string; price: number; category: CafeteriaCategory; flag?: "bloqueado" | "alergia"; flagNote?: string }[];
+      student: { name: string; grade: string; balance: number; spentToday: number; dailyLimit: number; allergy?: string; blocked: string[] };
+      ticket: { item: string; qty: number; price: number }[];
+      recent: { name: string; grade: string; detail: string; amount?: number; status: "saldo" | "cuenta" | "rechazado" }[];
+    };
   };
   financeOverview?: { collected: string; rate: number; overdueFamilies: number; months: { m: string; v: number }[] };
   studentHome?: {

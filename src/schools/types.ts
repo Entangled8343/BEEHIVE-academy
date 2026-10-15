@@ -15,7 +15,8 @@ export type ModuleKey =
   | "portalAlumno"
   | "horario"
   | "clubes"
-  | "estadoCuenta";
+  | "estadoCuenta"
+  | "cafeteria";
 
 export type SchoolConfig = {
   id: SchoolId;

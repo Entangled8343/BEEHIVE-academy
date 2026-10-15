@@ -26,6 +26,7 @@ import {
   UserPlus,
   Users,
   UserX,
+  UtensilsCrossed,
   Wallet,
   type LucideIcon,
 } from "lucide-react";
@@ -55,6 +56,7 @@ const sidebarAll: Record<Role, NavGroup[]> = {
         { href: "/padres/ausencias", key: "ausencias", icon: UserX },
         { href: "/padres/autorizaciones", key: "autorizaciones", icon: FileSignature, badge: 1, module: "permisos" },
         { href: "/padres/estado-cuenta", key: "estadoCuenta", icon: Wallet, badge: 1, module: "estadoCuenta" },
+        { href: "/padres/cafeteria", key: "cafeteria", icon: UtensilsCrossed, module: "cafeteria" },
         { href: "/padres/mensajes", key: "mensajes", icon: MessageCircle, badge: 2, module: "mensajes" },
       ],
     },
@@ -136,6 +138,7 @@ const sidebarAll: Record<Role, NavGroup[]> = {
       titleKey: "grupoAdmin",
       items: [
         { href: "/admin/cuentas", key: "cuentas", icon: Wallet, module: "estadoCuenta" },
+        { href: "/cafeteria", key: "cafeteria", icon: UtensilsCrossed, module: "cafeteria" },
         { href: "/admin/comunicados", key: "comunicados", icon: Megaphone },
         { href: "/admin/calendario", key: "calendario", icon: CalendarDays },
         { href: "/admin/galeria", key: "galeria", icon: Images, module: "galeria" },

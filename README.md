@@ -23,10 +23,10 @@ apruebe la interfaz antes de conectar la base de datos.
 | Rol | Rutas |
 | --- | --- |
 | Público | `/` (sitio web o portada del portal), `/inscripcion`, `/agenda-tu-cita`, `/ingresar` |
-| Familias | `/padres`, `/padres/hijos/[id]`, `/padres/tareas`, `/padres/calificaciones`, `/padres/horario`, `/padres/estado-cuenta`, `/padres/retiro`, `/padres/ausencias`, `/padres/agenda`, `/padres/comunicados`, `/padres/calendario`, `/padres/galeria`, `/padres/mensajes`, `/padres/autorizaciones`, `/padres/mas` |
+| Familias | `/padres`, `/padres/hijos/[id]`, `/padres/tareas`, `/padres/calificaciones`, `/padres/horario`, `/padres/estado-cuenta`, `/padres/cafeteria`, `/padres/retiro`, `/padres/ausencias`, `/padres/agenda`, `/padres/comunicados`, `/padres/calendario`, `/padres/galeria`, `/padres/mensajes`, `/padres/autorizaciones`, `/padres/mas` |
 | Alumnos | `/alumno`, `/alumno/horario`, `/alumno/tareas`, `/alumno/calificaciones`, `/alumno/examenes`, `/alumno/clubes`, `/alumno/insignias`, `/alumno/mas` |
 | Docentes | `/maestro`, `/maestro/asistencia`, `/maestro/tareas`, `/maestro/calificaciones`, `/maestro/temario`, `/maestro/horario`, `/maestro/agenda`, `/maestro/actividades`, `/maestro/insignias`, `/maestro/mas` |
-| Dirección | `/admin`, `/admin/inscripciones`, `/admin/cuentas`, `/admin/mas`, `/porteria` |
+| Dirección | `/admin`, `/admin/inscripciones`, `/admin/cuentas`, `/admin/mas`, `/porteria`, `/cafeteria` |
 
 Las rutas de módulos desactivados para un colegio responden 404 (`requireModule` en `src/schools/guard.ts`)
 y no aparecen en los menús.
