@@ -40,7 +40,7 @@ const navs: Record<"familia" | "admin", { user: { name: string; label: string };
       { href: "/cafe/admin/cierre", label: "Cierre de caja", icon: Calculator },
       { href: "/cafe/admin/inventario", label: "Inventario", icon: Package, badge: 2 },
       { href: "/cafe/admin/productos", label: "Productos", icon: UtensilsCrossed },
-      { href: "/cafe/admin/seguridad", label: "Seguridad y DGI", icon: ShieldCheck },
+      { href: "/cafe/admin/seguridad", label: "Seguridad", icon: ShieldCheck },
       { href: "/cafe/caja", label: "Abrir la caja", icon: ScanLine },
     ],
   },

@@ -60,10 +60,7 @@ export default function InvoiceRegister() {
                 <tr key={r.number} className={cn(voided && "bg-rose-50/70 text-primary-400")}>
                   <td className={cn("px-4 py-3 font-bold", voided ? "line-through" : "text-primary-900")}>{r.number}</td>
                   <td className="px-4 py-3">{r.time}</td>
-                  <td className="px-4 py-3">
-                    <p className="font-semibold">{r.customer}</p>
-                    <p className="text-xs">{r.student}</p>
-                  </td>
+                  <td className="px-4 py-3 font-semibold">{r.customer}</td>
                   <td className="px-4 py-3">{r.payment}</td>
                   <td className="px-4 py-3 text-right">{n(t.base)}</td>
                   <td className="px-4 py-3 text-right">{n(t.iva)}</td>

@@ -6,7 +6,7 @@ import { Pill } from "@/components/ui/pill";
 import { IconTile } from "@/components/ui/tiles";
 import { cafe } from "@/mocks/cafe";
 
-export const metadata = { title: "Seguridad y DGI" };
+export const metadata = { title: "Seguridad y cumplimiento" };
 
 function Head({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle: string }) {
   return (
@@ -22,12 +22,12 @@ function Head({ icon, title, subtitle }: { icon: React.ReactNode; title: string;
   );
 }
 
-/** Control de acceso, respaldos diarios, bitácora y versiones del sistema con aviso previo a la DGI. */
+/** Control de acceso, respaldos diarios, bitácora y versiones del sistema con aviso previo de cambios. */
 export default function Security() {
   const s = cafe.security;
   return (
     <div>
-      <PageHeader title="Seguridad y DGI" subtitle="Accesos, respaldos, bitácora y cambios del sistema" />
+      <PageHeader title="Seguridad y cumplimiento" subtitle="Accesos, respaldos, bitácora y cambios del sistema" />
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card className="overflow-hidden">
           <Head icon={<Users />} title="Usuarios y permisos" subtitle="Cada persona entra con su usuario y clave" />
@@ -79,7 +79,7 @@ export default function Security() {
         </Card>
 
         <Card className="overflow-hidden">
-          <Head icon={<FileText />} title="Versiones y avisos a la DGI" subtitle="Ningún cambio importante se activa sin el aviso previo" />
+          <Head icon={<FileText />} title="Versiones del sistema" subtitle="Ningún cambio importante se activa sin aviso previo" />
           <div className="divide-y divide-primary-100">
             {s.versions.map((v) => (
               <div key={v.version} className="flex items-start gap-3 px-5 py-3.5">
@@ -92,7 +92,7 @@ export default function Security() {
               </div>
             ))}
             <p className="flex items-start gap-2 bg-primary-50 px-5 py-3 text-xs font-semibold text-primary-700">
-              <Lock className="mt-0.5 size-4 shrink-0" /> Los cambios en el formato de la factura, la numeración o los impuestos quedan bloqueados hasta registrar la fecha del aviso a la DGI.
+              <Lock className="mt-0.5 size-4 shrink-0" /> Los cambios en el formato de la factura, la numeración o los impuestos quedan bloqueados hasta registrar el aviso previo.
             </p>
           </div>
         </Card>

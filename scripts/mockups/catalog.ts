@@ -137,7 +137,7 @@ const curieShots: Shot[] = [
   { slug: "cafeteria-caja", route: "/cafeteria", device: "tablet", section: "Cafetería · módulo opcional", title: "Caja de la cafetería (tablet)", description: "Se escanea el carné y aparecen el saldo, lo que puede gastar hoy, alergias y productos bloqueados por la familia. Un toque por producto y se cobra del saldo o a la cuenta del día." },
 ];
 
-const cafeSections = ["Familias", "Caja (tablet)", "Administración y DGI"];
+const cafeSections = ["Familias", "Caja (tablet)", "Administración y cumplimiento"];
 
 const cafeShots: Shot[] = [
   // Familias
@@ -155,14 +155,14 @@ const cafeShots: Shot[] = [
   { slug: "cafe-caja-venta", route: "/cafe/caja/venta", device: "tablet", section: "Caja (tablet)", title: "2. Cobrar y facturar", description: "Lo que queda de cada producto, lo que la familia no permite, el límite del día, el IVA desglosado y el número de factura consecutivo." },
   { slug: "cafe-caja-factura", route: "/cafe/caja/factura", device: "tablet", section: "Caja (tablet)", title: "3. Factura emitida", description: "El original se imprime para el cliente, la copia queda en el archivo y la familia la ve en la app." },
 
-  // Administración y DGI
-  { slug: "cafe-admin-panel", route: "/cafe/admin", device: "escritorio", section: "Administración y DGI", title: "Panel de la cafetería", description: "Ventas e IVA del día, facturas emitidas y anuladas, pendientes y estado de los controles fiscales." },
-  { slug: "cafe-admin-facturas", route: "/cafe/admin/facturas", device: "escritorio", section: "Administración y DGI", title: "Libro de ventas", description: "Numeración consecutiva por serie, con gravado, IVA y exento por separado. Se exporta a Excel para el contador." },
-  { slug: "cafe-admin-anulada", route: "/cafe/admin/facturas/anulada", device: "escritorio", section: "Administración y DGI", title: "Anulaciones correctas", description: "Se conservan el original y la copia con el sello ANULADO, el motivo y la supervisora que autorizó." },
-  { slug: "cafe-admin-inventario", route: "/cafe/admin/inventario", device: "escritorio", section: "Administración y DGI", title: "Inventario", description: "Cada factura descuenta lo vendido y cada anulación lo devuelve. Entradas y ajustes con motivo, y aviso de productos por agotarse." },
-  { slug: "cafe-admin-cierre", route: "/cafe/admin/cierre", device: "escritorio", section: "Administración y DGI", title: "Cierre de caja", description: "Rango de facturas del día, desglose fiscal, formas de pago y arqueo del efectivo." },
-  { slug: "cafe-admin-productos", route: "/cafe/admin/productos", device: "escritorio", section: "Administración y DGI", title: "Productos y precios", description: "IVA 15 % o exento por producto, y características como lactosa o alto en azúcar para respetar lo que cada familia no permite." },
-  { slug: "cafe-admin-seguridad", route: "/cafe/admin/seguridad", device: "escritorio", section: "Administración y DGI", title: "Seguridad y DGI", description: "Usuario y clave por persona, respaldo diario, bitácora y versiones del sistema con aviso previo a la DGI." },
+  // Administración y cumplimiento
+  { slug: "cafe-admin-panel", route: "/cafe/admin", device: "escritorio", section: "Administración y cumplimiento", title: "Panel de la cafetería", description: "Ventas e IVA del día, facturas emitidas y anuladas, pendientes y estado de los controles fiscales." },
+  { slug: "cafe-admin-facturas", route: "/cafe/admin/facturas", device: "escritorio", section: "Administración y cumplimiento", title: "Libro de ventas", description: "Numeración consecutiva por serie, con gravado, IVA y exento por separado. Se exporta a Excel para el contador." },
+  { slug: "cafe-admin-anulada", route: "/cafe/admin/facturas/anulada", device: "escritorio", section: "Administración y cumplimiento", title: "Anulaciones correctas", description: "Se conservan el original y la copia con el sello ANULADO, el motivo y la supervisora que autorizó." },
+  { slug: "cafe-admin-inventario", route: "/cafe/admin/inventario", device: "escritorio", section: "Administración y cumplimiento", title: "Inventario", description: "Cada factura descuenta lo vendido y cada anulación lo devuelve. Entradas y ajustes con motivo, y aviso de productos por agotarse." },
+  { slug: "cafe-admin-cierre", route: "/cafe/admin/cierre", device: "escritorio", section: "Administración y cumplimiento", title: "Cierre de caja", description: "Rango de facturas del día, desglose fiscal, formas de pago y arqueo del efectivo." },
+  { slug: "cafe-admin-productos", route: "/cafe/admin/productos", device: "escritorio", section: "Administración y cumplimiento", title: "Productos y precios", description: "IVA 15 % o exento por producto, y características como lactosa o alto en azúcar para respetar lo que cada familia no permite." },
+  { slug: "cafe-admin-seguridad", route: "/cafe/admin/seguridad", device: "escritorio", section: "Administración y cumplimiento", title: "Seguridad y cumplimiento", description: "Usuario y clave por persona, respaldo diario, bitácora y versiones del sistema con aviso previo de cambios." },
 ];
 
 export const catalogs: Record<ProposalId, { sections: string[]; shots: Shot[] }> = {

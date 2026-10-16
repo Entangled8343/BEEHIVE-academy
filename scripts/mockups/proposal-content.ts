@@ -166,21 +166,21 @@ export const contents: Record<ProposalId, ProposalContent> = {
     coverTitle: "Cafetería",
     coverTitleAccent: "Curie",
     coverLead:
-      "Las familias pagan con saldo o con la cuenta del día, cada compra se factura como lo pide la DGI y la caja identifica a cada alumno sin carné.",
+      "Las familias pagan con saldo o con la cuenta del día, cada compra se factura con controles de seguridad y cumplimiento, y la caja identifica a cada alumno sin carné.",
     coverPhones: ["cafe-familia-inicio", "cafe-controles"],
     overviewTitle: "Una plataforma solo para la cafetería",
     roles: [
       { tag: "Familias", tagBg: "#fde7c7", tagFg: "#8a4b00", title: "Padres y tutores", items: ["Prepago o cuenta del día", "Recargas por transferencia", "Factura de cada compra", "Foto y clave de cada hijo", "Límite diario", "Sin lactosa, sin azúcar…: lo que elija", "Almuerzo pedido con anticipación", "Aviso en cada compra"] },
       { tag: "Caja · tablet", tagBg: "#d2f2dc", tagFg: "#1f6b3f", title: "Cajeras", items: ["Sin carné: sección, foto y clave", "Cobro en segundos", "Factura consecutiva por serie", "IVA desglosado", "Respeta lo que la familia no permite", "Muestra lo que queda de cada producto", "Sigue facturando sin internet", "Ventas a docentes en efectivo"] },
       { tag: "Administración", tagBg: "#dbeafe", tagFg: "#075985", title: "Cafetería", items: ["Panel de ventas e IVA", "Inventario que se descuenta al facturar", "Entradas y ajustes con motivo", "Confirmar recargas", "Cuentas del día pendientes", "Cierre de caja y arqueo", "Productos, precios e impuestos", "Menú de la semana"] },
-      { tag: "Cumplimiento", tagBg: "#e4eee7", tagFg: "#183f2b", title: "DGI y contador", items: ["Usuario y clave por persona", "Respaldo diario automático", "Numeración inalterable", "Anulaciones con sello", "Bitácora de cada acción", "Aviso previo a la DGI", "Libro de ventas para el contador"] },
+      { tag: "Cumplimiento", tagBg: "#e4eee7", tagFg: "#183f2b", title: "Seguridad y contador", items: ["Usuario y clave por persona", "Respaldo diario automático", "Numeración inalterable", "Anulaciones con sello", "Bitácora de cada acción", "Aviso previo de cambios", "Libro de ventas para el contador"] },
     ],
     ribbon: ["📱 Celular, 📟 tablet y 💻 PC", "Sin carné ni celular para los alumnos", "IVA 15 % desglosado", "Inventario al día", "Prepago o cuenta del día"],
     featurePages: [
       {
-        chip: "Facturación computarizada",
-        title: "Lo que pide la DGI, resuelto",
-        lead: "Cada requisito del sistema de facturación computarizada tiene su lugar en la plataforma.",
+        chip: "Seguridad y cumplimiento",
+        title: "Parámetros de seguridad y cumplimiento",
+        lead: "La facturación trae estos controles desde el primer día.",
         columns: 4,
         items: [
           { title: "Usuario y clave", text: "Cada cajera, supervisora y administrador entra con su propio usuario y clave. Cada acción queda a su nombre." },
@@ -189,10 +189,10 @@ export const contents: Record<ProposalId, ProposalContent> = {
           { title: "IVA por separado", text: "Cada factura y cada cierre muestran lo gravado, el IVA 15 % y lo exento por separado." },
           { title: "Anulaciones", text: "Se conserva el original y las copias con el sello ANULADO, el motivo y quién autorizó." },
           { title: "Si se cae el internet", text: "Cada caja sigue facturando con su propia serie y se sincroniza al volver la conexión, sin repetir números." },
-          { title: "Cambios del sistema", text: "Ningún cambio en la factura, la numeración o los impuestos se activa sin registrar antes el aviso a la DGI." },
+          { title: "Cambios del sistema", text: "Ningún cambio en la factura, la numeración o los impuestos se activa sin registrar antes el aviso previo." },
           { title: "Formalidades", text: "Emisor y RUC, dirección, número, fecha, cliente, detalle, totales y leyenda de autorización." },
         ],
-        note: "El formato final de la factura, las series y el tratamiento del IVA de cada producto se definen con su contador antes de solicitar la autorización.",
+        note: "El formato final de la factura, las series y el tratamiento del IVA de cada producto se definen con su contador.",
       },
       {
         chip: "Sin carné",
@@ -211,13 +211,13 @@ export const contents: Record<ProposalId, ProposalContent> = {
     ],
     steps: [
       ["Datos fiscales", "Razón social, RUC, series y formato de factura con su contador."],
-      ["Autorización DGI", "Solicitud de autorización del sistema de facturación computarizada."],
+      ["Autorización", "Trámite de autorización del sistema de facturación."],
       ["Construcción", "Familias, caja, administración y reportes."],
       ["Piloto", "Una semana con un grado y la caja real."],
       ["Lanzamiento", "Fotos y claves de los alumnos, y capacitación a las cajeras."],
     ],
     tech: ["Web app en Vercel", "Base de datos Turso", "Acceso seguro con Clerk", "Respaldo diario cifrado"],
-    note: "Los nombres, montos, RUC y números de factura son de ejemplo. Los requisitos de facturación se validan con su contador y con la DGI antes de la autorización.",
+    note: "Los nombres, montos, RUC y números de factura son de ejemplo. Los requisitos de facturación se validan con su contador.",
     credit: "Desarrollado por ia360.work",
   },
 };

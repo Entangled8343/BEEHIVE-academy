@@ -24,6 +24,7 @@ export type CafeInvoice = {
   date: string;
   time: string;
   customer: string;
+  /** Alumno que consumió: solo para la app de la familia y la caja; no se imprime en la factura. */
   student?: string;
   cashier: string;
   payment: CafePayment;
@@ -81,9 +82,9 @@ export const cafe = {
     tradeName: "Cafetería Curie",
     legalName: "Razón social de la cafetería (ejemplo)",
     ruc: "J0000000000001",
-    address: "Dirección registrada ante la DGI",
+    address: "Dirección del negocio (ejemplo)",
     phone: "Tel. 2200-0000",
-    authorization: "Sistema de facturación computarizada autorizado por la DGI · Resolución No. (en trámite)",
+    authorization: "Sistema de facturación computarizada · Autorización No. 0000-0000 (ejemplo)",
   },
   family: { name: "Andrea Solís", label: "Mamá de Valeria y Diego", family: "Familia Castillo Solís" },
   children: [
@@ -123,7 +124,7 @@ export const cafe = {
   ],
   invoices: [
     { number: "A-001245", date: "16/10/2026", time: "12:10 p. m.", customer: "Familia Castillo Solís", student: "Valeria Castillo · 9° A", cashier: "Martha G.", payment: "Saldo prepago", lines: lunch, status: "emitida" },
-    { number: "A-001244", date: "16/10/2026", time: "12:09 p. m.", customer: "Consumidor final", student: "Docente", cashier: "Martha G.", payment: "Efectivo", lines: [{ qty: 1, item: "Sándwich de pollo", price: 55 }, { qty: 1, item: "Banano", price: 10, exempt: true }], status: "emitida" },
+    { number: "A-001244", date: "16/10/2026", time: "12:09 p. m.", customer: "Consumidor final", cashier: "Martha G.", payment: "Efectivo", lines: [{ qty: 1, item: "Sándwich de pollo", price: 55 }, { qty: 1, item: "Banano", price: 10, exempt: true }], status: "emitida" },
     { number: "A-001243", date: "16/10/2026", time: "12:08 p. m.", customer: "Familia Rivas Torres", student: "Mateo Rivas · 6° B", cashier: "Martha G.", payment: "Cuenta del día", lines: [{ qty: 1, item: "Almuerzo del día", price: 95 }], status: "emitida" },
     { number: "A-001242", date: "16/10/2026", time: "12:07 p. m.", customer: "Familia Ortega Ruiz", student: "Camila Ortega · 3° C", cashier: "Martha G.", payment: "Saldo prepago", lines: [{ qty: 1, item: "Fruta picada", price: 30 }], status: "emitida" },
     { number: "A-001241", date: "16/10/2026", time: "12:05 p. m.", customer: "Familia Castillo Solís", student: "Diego Castillo · 5° B", cashier: "Martha G.", payment: "Cuenta del día", lines: [{ qty: 1, item: "Sándwich de pollo", price: 55 }, { qty: 1, item: "Banano", price: 10, exempt: true }], status: "emitida" },
@@ -248,8 +249,8 @@ export const cafe = {
       { time: "2:00 a. m.", who: "Sistema", what: "Respaldo diario completado (48 MB)" },
     ],
     versions: [
-      { version: "1.1", change: "Agrega el teléfono del cliente en la factura", status: "pendiente" as const, note: "Se activa después de notificar a la DGI" },
-      { version: "1.0", change: "Versión inicial del sistema de facturación", status: "autorizada" as const, note: "Autorizada por la DGI · formato y series registrados" },
+      { version: "1.1", change: "Agrega el teléfono del cliente en la factura", status: "pendiente" as const, note: "Se activa después de registrar el aviso previo" },
+      { version: "1.0", change: "Versión inicial del sistema de facturación", status: "autorizada" as const, note: "Versión aprobada · formato y series registrados" },
     ],
   },
 };

@@ -5,8 +5,9 @@ import { cafe, invoiceTotals, type CafeInvoice } from "@/mocks/cafe";
 const num = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 /**
- * Factura con las formalidades que pide la DGI: datos del emisor y RUC, número consecutivo por serie,
- * fecha, cliente, detalle, IVA desglosado aparte de lo exento, forma de pago y leyenda de autorización.
+ * Factura con las formalidades fiscales: datos del emisor y RUC, número consecutivo por serie, fecha,
+ * cliente, detalle, IVA desglosado aparte de lo exento, forma de pago y leyenda de autorización.
+ * No lleva el nombre del alumno.
  */
 export function Invoice({
   invoice,
@@ -43,7 +44,6 @@ export function Invoice({
         <span className="text-right">Cajera: {invoice.cashier}</span>
       </div>
       <p className="mt-1">Cliente: {invoice.customer}</p>
-      {invoice.student ? <p>Alumno: {invoice.student}</p> : null}
 
       <div className="my-3 border-t border-dashed border-slate-300" />
       <div className="grid grid-cols-[28px_1fr_auto] gap-x-2 font-bold">
