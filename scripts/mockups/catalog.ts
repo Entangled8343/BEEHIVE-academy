@@ -21,7 +21,7 @@ export type Shot = {
   locale?: "es" | "en";
 };
 
-const beehiveSections = ["Sitio web público", "Acceso", "Familias", "Docentes", "Dirección y portería"];
+const beehiveSections = ["Sitio web público", "Acceso", "Familias", "Estado de cuenta y mensualidades", "Docentes", "Dirección y portería"];
 
 const beehiveShots: Shot[] = [
   // Sitio web público
@@ -52,6 +52,13 @@ const beehiveShots: Shot[] = [
   { slug: "familia-mas", route: "/padres/mas", device: "movil", section: "Familias", title: "Todos los módulos", description: "Menú con todas las secciones y ajustes de notificaciones." },
   { slug: "familia-inicio", route: "/padres", device: "escritorio", section: "Familias", title: "La misma plataforma en la computadora", description: "En PC el menú pasa a una barra lateral y la información se reparte en columnas." },
   { slug: "familia-calificaciones", route: "/padres/calificaciones", device: "escritorio", section: "Familias", title: "Calificaciones en la computadora", description: "Resumen del corte, avance respecto al anterior y descarga de la boleta." },
+
+  // Estado de cuenta y mensualidades (sin pasarela de pago: comprobante + validación de contabilidad)
+  { slug: "familia-estado-cuenta", route: "/padres/estado-cuenta", device: "movil", section: "Estado de cuenta y mensualidades", title: "Estado de cuenta", description: "Saldo, mensualidad de cada hijo y otros cobros como excursiones, con recibos descargables." },
+  { slug: "familia-subir-comprobante", route: "/padres/estado-cuenta/comprobante", device: "movil", section: "Estado de cuenta y mensualidades", title: "Subir el comprobante", description: "La familia elige qué paga, anota la referencia y sube la foto de la transferencia o del depósito." },
+  { slug: "familia-comprobantes", route: "/padres/estado-cuenta", device: "movil", section: "Estado de cuenta y mensualidades", title: "Seguimiento del pago", description: "En revisión, aprobado con su recibo, o rechazado con el motivo para enviar otro.", scrollTo: "Comprobantes enviados" },
+  { slug: "direccion-cobros", route: "/admin/cuentas", device: "escritorio", section: "Estado de cuenta y mensualidades", title: "Cobros y pagos", description: "Familias al día y con saldo pendiente, comprobantes por revisar, recordatorios y exportación a Excel." },
+  { slug: "contabilidad-comprobantes", route: "/admin/cuentas/comprobantes", device: "escritorio", section: "Estado de cuenta y mensualidades", title: "Validación de contabilidad", description: "El equipo contable compara el comprobante con lo pendiente y lo aprueba, con envío del recibo, o lo rechaza con el motivo." },
 
   // Docentes
   { slug: "docente-hoy", route: "/maestro", device: "movil", section: "Docentes", title: "El día de la maestra", description: "Pasar lista, entregas por revisar, ausencias reportadas y horario." },

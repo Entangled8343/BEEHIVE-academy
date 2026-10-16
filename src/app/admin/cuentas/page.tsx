@@ -1,6 +1,7 @@
 import { BellRing, Download, FileCheck2, Search } from "lucide-react";
+import Link from "next/link";
 import { Avatar } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 import { Pill } from "@/components/ui/pill";
@@ -11,19 +12,12 @@ import { requireModule } from "@/schools/guard";
 
 export const metadata = { title: "Cobros y pagos" };
 
-const families = [
-  { family: "Familia Castillo Solís", students: "Valeria 9° A · Diego 5° B", balance: "385.00", status: "pendiente", proof: true },
-  { family: "Familia Arguello Mena", students: "Sofía 9° A", balance: "185.00", status: "pendiente", proof: false },
-  { family: "Familia Navas Ortiz", students: "Santiago 9° A · Julia 1° A", balance: "740.00", status: "vencido", proof: false },
-  { family: "Familia Rivas Montiel", students: "Camila 9° A", balance: "0.00", status: "al día", proof: false },
-  { family: "Familia Mejía Rocha", students: "Andrés 9° A", balance: "185.00", status: "pendiente", proof: true },
-  { family: "Familia Delgado Paz", students: "Gabriel 9° A · Emma 4° B", balance: "0.00", status: "al día", proof: false },
-] as const;
-
 const tone = { pendiente: "orange", vencido: "red", "al día": "green" } as const;
 
 export default function AdminBilling() {
   requireModule("estadoCuenta");
+  const fo = financeOverview;
+  if (!fo) return null;
   return (
     <div>
       <PageHeader
@@ -34,16 +28,21 @@ export default function AdminBilling() {
             <Button variant="outline" size="sm">
               <Download /> Exportar a Excel
             </Button>
-            <Button variant="accent" size="sm">
+            <Button variant="outline" size="sm">
               <BellRing /> Enviar recordatorio
             </Button>
+            <ButtonLink href="/admin/cuentas/comprobantes" variant="accent" size="sm">
+              <FileCheck2 /> Revisar comprobantes ({fo.pendingProofs})
+            </ButtonLink>
           </div>
         }
       />
       <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatTile label="Familias al día" value={`${financeOverview?.rate ?? 0}%`} hint="Promedio de los últimos 3 meses" />
-        <StatTile label="Con saldo pendiente" value={String(financeOverview?.overdueFamilies ?? 0)} hint="Vencen el 15 de octubre" />
-        <StatTile label="Comprobantes por revisar" value="14" hint="Subidos por las familias" icon={<IconTile size="sm" className="bg-sky-100 text-sky-700"><FileCheck2 /></IconTile>} />
+        <StatTile label="Familias al día" value={`${fo.rate}%`} hint="Promedio de los últimos 3 meses" />
+        <StatTile label="Con saldo pendiente" value={String(fo.overdueFamilies)} hint="Vencen el 15 de octubre" />
+        <Link href="/admin/cuentas/comprobantes">
+          <StatTile label="Comprobantes por revisar" value={String(fo.pendingProofs)} hint="Subidos por las familias" icon={<IconTile size="sm" className="bg-sky-100 text-sky-700"><FileCheck2 /></IconTile>} />
+        </Link>
         <StatTile label="Recordatorios enviados" value="138" hint="Push y correo, esta semana" />
       </div>
       <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -51,10 +50,10 @@ export default function AdminBilling() {
           <Search className="size-4" />
           <span className="text-sm">Buscar familia o alumno…</span>
         </div>
-        <Tabs active={0} items={[{ label: "Todas" }, { label: "Pendientes", count: 52 }, { label: "Vencidas", count: 9 }, { label: "Con comprobante", count: 14 }]} />
+        <Tabs active={0} items={[{ label: "Todas" }, { label: "Pendientes", count: fo.overdueFamilies }, { label: "Con comprobante", count: fo.pendingProofs }]} />
       </div>
       <Card className="divide-y divide-primary-100 overflow-hidden">
-        {families.map((f) => (
+        {fo.families.map((f) => (
           <div key={f.family} className="flex items-center gap-3 px-4 py-3.5">
             <Avatar name={f.family.replace("Familia ", "")} size="sm" />
             <div className="min-w-0 flex-1">
@@ -66,8 +65,10 @@ export default function AdminBilling() {
                 <FileCheck2 /> Comprobante
               </Pill>
             ) : null}
-            <div className="w-28 text-right">
-              <p className="font-display text-lg">US$ {f.balance}</p>
+            <div className="w-32 text-right">
+              <p className="font-display text-lg whitespace-nowrap">
+                {fo.currency} {f.balance}
+              </p>
               <Pill tone={tone[f.status]} size="sm">
                 {f.status}
               </Pill>

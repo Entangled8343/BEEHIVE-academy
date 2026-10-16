@@ -33,6 +33,8 @@ export type SchoolConfig = {
   studentLoginFromGrade: number | null;
   /** Alumnos y docentes pueden entrar con su cuenta de Microsoft 365 (Office 365) del colegio. */
   microsoftSignIn: boolean;
+  /** Botón central de la barra inferior de las familias en el celular. */
+  parentQuickTab: "pagos" | "retiro";
   modules: Record<ModuleKey, boolean>;
   brand: {
     logo: string;

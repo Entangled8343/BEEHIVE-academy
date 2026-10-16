@@ -153,7 +153,7 @@ const bottomAll: Record<Role, NavItem[]> = {
   padre: [
     { href: "/padres", key: "inicio", icon: Home },
     { href: "/padres/tareas", key: "tareas", icon: NotebookPen, badge: 4 },
-    hasModule("estadoCuenta")
+    hasModule("estadoCuenta") && schoolConfig.parentQuickTab === "pagos"
       ? { href: "/padres/estado-cuenta", key: "pagos", icon: Wallet, badge: 1 }
       : { href: "/padres/retiro", key: "retiroCorto", icon: Car },
     { href: "/padres/mensajes", key: "mensajes", icon: MessageCircle, badge: 2 },

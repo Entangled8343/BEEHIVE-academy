@@ -11,6 +11,7 @@ export const curie: SchoolConfig = {
   locales: ["es", "en"],
   studentLoginFromGrade: 4,
   microsoftSignIn: true, // el colegio ya usa Teams y Office 365
+  parentQuickTab: "pagos",
   modules: {
     sitioPublico: false, // ya tienen curie.edu.ni: el portal vive en un subdominio
     preinscripcion: true,

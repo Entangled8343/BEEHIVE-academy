@@ -115,9 +115,9 @@ export const contents: Record<ProposalId, ProposalContent> = {
     coverPhones: ["familia-inicio", "docente-hoy"],
     overviewTitle: "¿Qué incluye la plataforma?",
     roles: [
-      { tag: "Familias", tagBg: "#fdedac", tagFg: "#8a6400", title: "Padres y tutores", items: ["Tareas y entrega con fotos", "Notas por corte y boleta PDF", "Agenda diaria de preescolar", "¿Quién recoge? con QR", "Reportar ausencias", "Comunicados, calendario y galería", "Chat con la maestra", "Permisos con firma digital", "Insignias de sus hijos"] },
+      { tag: "Familias", tagBg: "#fdedac", tagFg: "#8a6400", title: "Padres y tutores", items: ["Tareas y entrega con fotos", "Notas por corte y boleta PDF", "Agenda diaria de preescolar", "¿Quién recoge? con QR", "Reportar ausencias", "Estado de cuenta y comprobantes", "Comunicados, calendario y galería", "Chat con la maestra", "Permisos con firma digital", "Insignias de sus hijos"] },
       { tag: "Docentes", tagBg: "#dbeafe", tagFg: "#075985", title: "Maestras", items: ["Su perfil y sus secciones", "Subir temario", "Crear y revisar tareas", "Libro de notas tipo Excel", "Pasar lista", "Actividades del mes", "Tareas extracurriculares", "Otorgar insignias", "Agenda diaria de la clase"] },
-      { tag: "Dirección", tagBg: "#e8e9f7", tagFg: "#2b2c6e", title: "Administración", items: ["Panel con indicadores", "Pre-inscripciones y citas", "Alumnos, familias y personal", "Publicar y cerrar cortes", "Comunicados con acuse", "Galería y permisos de fotos", "Invitaciones a familias"] },
+      { tag: "Dirección", tagBg: "#e8e9f7", tagFg: "#2b2c6e", title: "Administración", items: ["Panel con indicadores", "Pre-inscripciones y citas", "Alumnos, familias y personal", "Mensualidades y cobros", "Validación de pagos (contabilidad)", "Publicar y cerrar cortes", "Comunicados con acuse", "Galería y permisos de fotos", "Invitaciones a familias"] },
       { tag: "Portería y web", tagBg: "#dcfce7", tagFg: "#166534", title: "Seguridad y sitio", items: ["Retiros del día en vivo", "Verificación por QR o código", "Personas restringidas en rojo", "Bitácora de entregas", "Sitio web público", "Pre-inscripción en línea", "Agenda tu visita"] },
     ],
     ribbon: ["📱 Celular y 💻 PC", "Sin App Store ni Play Store", "🔔 Notificaciones", "Español (listo para inglés)", "🔒 Datos protegidos"],

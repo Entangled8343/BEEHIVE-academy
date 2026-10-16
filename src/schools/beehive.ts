@@ -11,6 +11,7 @@ export const beehive: SchoolConfig = {
   locales: ["es"],
   studentLoginFromGrade: null,
   microsoftSignIn: false,
+  parentQuickTab: "retiro", // en preescolar el retiro es diario; los pagos quedan en el menú
   modules: {
     sitioPublico: true,
     preinscripcion: true,
@@ -24,7 +25,7 @@ export const beehive: SchoolConfig = {
     portalAlumno: false,
     horario: false,
     clubes: false,
-    estadoCuenta: false,
+    estadoCuenta: true, // mensualidades con comprobante que valida contabilidad (sin pasarela de pago)
     cafeteria: false,
   },
   brand: {

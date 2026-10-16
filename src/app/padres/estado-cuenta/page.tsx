@@ -1,5 +1,5 @@
-import { BellRing, Download, Landmark, Receipt, Upload } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { BellRing, CheckCircle2, Clock, Download, FileImage, Landmark, Receipt, Upload, XCircle } from "lucide-react";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageHeader, SectionTitle } from "@/components/ui/page-header";
 import { Pill } from "@/components/ui/pill";
@@ -14,6 +14,13 @@ const status = {
   pagado: { tone: "green", label: "Pagado" },
   pendiente: { tone: "orange", label: "Pendiente" },
   vencido: { tone: "red", label: "Vencido" },
+  revision: { tone: "blue", label: "En revisión" },
+} as const;
+
+const proofStatus = {
+  revision: { tone: "blue", label: "En revisión", icon: Clock },
+  aprobado: { tone: "green", label: "Aprobado", icon: CheckCircle2 },
+  rechazado: { tone: "red", label: "Rechazado", icon: XCircle },
 } as const;
 
 export default function AccountStatement() {
@@ -30,9 +37,9 @@ export default function AccountStatement() {
             <p className="mt-1 font-display text-5xl text-white">{acc.balance}</p>
             <p className="mt-2 text-sm font-semibold text-accent-300">Vence el {acc.dueDate}</p>
             <div className="mt-5 grid gap-2 sm:flex">
-              <Button variant="accent">
+              <ButtonLink href="/padres/estado-cuenta/comprobante" variant="accent">
                 <Upload /> Subir comprobante
-              </Button>
+              </ButtonLink>
               <Button className="bg-white/10 text-white ring-2 ring-white/30 hover:bg-white/20">
                 <Landmark /> Cómo pagar
               </Button>
@@ -74,6 +81,40 @@ export default function AccountStatement() {
               })}
             </Card>
           </section>
+
+          {acc.proofs?.length ? (
+            <section>
+              <SectionTitle>Comprobantes enviados</SectionTitle>
+              <Card className="divide-y divide-primary-100 overflow-hidden">
+                {acc.proofs.map((p) => {
+                  const ps = proofStatus[p.status];
+                  return (
+                    <div key={p.date + p.concept} className="flex items-start gap-3 px-4 py-3.5">
+                      <IconTile size="sm" className="bg-sky-100 text-sky-700">
+                        <FileImage />
+                      </IconTile>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-bold leading-snug">{p.concept}</p>
+                        <p className="text-xs font-semibold text-primary-500">
+                          Enviado el {p.date}
+                          {p.receipt ? ` · Recibo ${p.receipt}` : ""}
+                        </p>
+                        {p.note ? (
+                          <p className={cn("mt-1 text-xs font-semibold", p.status === "rechazado" ? "text-rose-700" : "text-primary-600")}>{p.note}</p>
+                        ) : null}
+                      </div>
+                      <div className="shrink-0 text-right">
+                        <p className="font-display text-base whitespace-nowrap">{p.amount}</p>
+                        <Pill tone={ps.tone} size="sm">
+                          <ps.icon /> {ps.label}
+                        </Pill>
+                      </div>
+                    </div>
+                  );
+                })}
+              </Card>
+            </section>
+          ) : null}
         </div>
 
         <div className="space-y-5">
@@ -82,7 +123,7 @@ export default function AccountStatement() {
             <p className="mt-2 text-sm font-semibold text-primary-700">{acc.bank.name}</p>
             <p className="mt-1 text-sm text-primary-600">{acc.bank.account}</p>
             <p className="mt-3 rounded-2xl bg-primary-50 p-3 text-xs font-semibold text-primary-700">
-              Sube la foto de tu comprobante y el colegio lo confirma. El recibo llega a tu correo.
+              Sube la foto de tu comprobante y el equipo contable lo valida. El recibo llega a tu correo y queda aquí.
             </p>
           </Card>
           <Card className="flex items-start gap-3 p-5">

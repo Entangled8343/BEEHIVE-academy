@@ -290,8 +290,30 @@ export type MockData = {
     dueDate: string;
     monthly: string;
     children: string[];
-    rows: { concept: string; due: string; amount: string; status: "pagado" | "pendiente" | "vencido"; receipt?: string }[];
+    rows: { concept: string; due: string; amount: string; status: "pagado" | "pendiente" | "vencido" | "revision"; receipt?: string }[];
     bank: { name: string; account: string; holder: string };
+    /** Comprobantes que subió la familia y su estado de revisión en contabilidad. */
+    proofs?: { date: string; amount: string; concept: string; status: "revision" | "aprobado" | "rechazado"; note?: string; receipt?: string }[];
+    /** Valores de ejemplo del formulario para subir un comprobante. */
+    proofDraft?: { method: "Transferencia" | "Depósito"; bank: string; date: string; reference: string; file: string };
+  };
+  /** Cola de comprobantes que valida el equipo contable. */
+  proofReview?: {
+    reviewer: string;
+    queue: { id: string; family: string; students: string; amount: string; method: "Transferencia" | "Depósito"; bank: string; reference: string; uploaded: string; flag?: string }[];
+    detail: {
+      family: string;
+      parent: string;
+      students: string;
+      amount: string;
+      method: "Transferencia" | "Depósito";
+      bank: string;
+      reference: string;
+      date: string;
+      file: string;
+      concepts: { concept: string; amount: string }[];
+      checks: { label: string; ok: boolean }[];
+    };
   };
   cafeteria?: {
     currency: string;
@@ -321,7 +343,15 @@ export type MockData = {
       recent: { name: string; grade: string; detail: string; amount?: number; status: "saldo" | "cuenta" | "rechazado" }[];
     };
   };
-  financeOverview?: { collected: string; rate: number; overdueFamilies: number; months: { m: string; v: number }[] };
+  financeOverview?: {
+    collected: string;
+    rate: number;
+    overdueFamilies: number;
+    months: { m: string; v: number }[];
+    currency: string;
+    pendingProofs: number;
+    families: { family: string; students: string; balance: string; status: "pendiente" | "vencido" | "al día"; proof: boolean }[];
+  };
   studentHome?: {
     nextClass: { subject: string; time: string; room: string; teacher: string };
     streak: number;

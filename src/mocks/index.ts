@@ -59,6 +59,7 @@ export const {
   account,
   cafeteria,
   financeOverview,
+  proofReview,
   studentHome,
 } = data;
 
