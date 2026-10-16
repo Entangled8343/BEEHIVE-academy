@@ -8,6 +8,17 @@ export type CafeMode = "prepago" | "cuenta-del-dia";
 export type CafeInvoiceStatus = "emitida" | "anulada";
 export type CafePayment = "Saldo prepago" | "Cuenta del día" | "Efectivo";
 
+/** Lo que una familia puede pedir que su hijo no consuma; los productos llevan las mismas etiquetas. */
+export type CafeRestriction = "Lactosa" | "Altos en azúcar" | "Gaseosas" | "Frituras" | "Cafeína";
+
+export const restrictionLabels: Record<CafeRestriction, string> = {
+  Lactosa: "Con lactosa (intolerancia)",
+  "Altos en azúcar": "Altos en azúcar",
+  Gaseosas: "Gaseosas",
+  Frituras: "Frituras",
+  Cafeína: "Con cafeína",
+};
+
 export type CafeInvoice = {
   number: string;
   date: string;
@@ -20,10 +31,47 @@ export type CafeInvoice = {
   status: CafeInvoiceStatus;
 };
 
+export type CafeProduct = {
+  name: string;
+  price: number;
+  category: CafeteriaCategory;
+  tags: CafeRestriction[];
+  tax: "IVA 15 %" | "Exento";
+  unit: string;
+  /** Inventario del día: inicial + entradas − facturado + ajustes. */
+  opening: number;
+  received: number;
+  sold: number;
+  adjusted: number;
+  min: number;
+};
+
 const lunch: CafeInvoice["lines"] = [
-  { qty: 1, item: "Almuerzo del día", price: 90 },
-  { qty: 1, item: "Refresco de cacao", price: 25 },
+  { qty: 1, item: "Almuerzo del día", price: 95 },
+  { qty: 1, item: "Agua 600 ml", price: 20 },
 ];
+
+const products: CafeProduct[] = [
+  { name: "Almuerzo del día", price: 95, category: "Almuerzos", tags: [], tax: "IVA 15 %", unit: "porciones", opening: 120, received: 0, sold: 86, adjusted: 0, min: 15 },
+  { name: "Gallo pinto con huevo", price: 60, category: "Almuerzos", tags: ["Frituras"], tax: "IVA 15 %", unit: "porciones", opening: 60, received: 0, sold: 41, adjusted: 0, min: 10 },
+  { name: "Sándwich de pollo", price: 55, category: "Almuerzos", tags: [], tax: "IVA 15 %", unit: "unidades", opening: 40, received: 0, sold: 40, adjusted: 0, min: 8 },
+  { name: "Refresco de cacao", price: 25, category: "Bebidas", tags: ["Lactosa", "Altos en azúcar"], tax: "IVA 15 %", unit: "vasos", opening: 80, received: 0, sold: 52, adjusted: 0, min: 15 },
+  { name: "Agua 600 ml", price: 20, category: "Bebidas", tags: [], tax: "IVA 15 %", unit: "botellas", opening: 96, received: 48, sold: 63, adjusted: 0, min: 24 },
+  { name: "Gaseosa", price: 30, category: "Bebidas", tags: ["Gaseosas", "Altos en azúcar"], tax: "IVA 15 %", unit: "latas", opening: 48, received: 0, sold: 19, adjusted: 0, min: 12 },
+  { name: "Tajadas con queso", price: 35, category: "Snacks", tags: ["Lactosa", "Frituras"], tax: "IVA 15 %", unit: "porciones", opening: 40, received: 0, sold: 23, adjusted: 0, min: 8 },
+  { name: "Galleta de chocolate", price: 15, category: "Snacks", tags: ["Altos en azúcar"], tax: "IVA 15 %", unit: "paquetes", opening: 50, received: 0, sold: 41, adjusted: 0, min: 10 },
+  { name: "Fruta picada", price: 30, category: "Frutas", tags: [], tax: "IVA 15 %", unit: "vasos", opening: 30, received: 0, sold: 26, adjusted: 0, min: 6 },
+  { name: "Banano", price: 10, category: "Frutas", tags: [], tax: "Exento", unit: "unidades", opening: 50, received: 0, sold: 18, adjusted: 0, min: 10 },
+  { name: "Jugo de naranja", price: 30, category: "Bebidas", tags: [], tax: "IVA 15 %", unit: "vasos", opening: 40, received: 0, sold: 17, adjusted: 0, min: 10 },
+  { name: "Yogur", price: 28, category: "Snacks", tags: ["Lactosa"], tax: "IVA 15 %", unit: "unidades", opening: 36, received: 0, sold: 22, adjusted: -2, min: 10 },
+];
+
+/** Existencia disponible y estado de un producto. */
+export function stockOf(p: CafeProduct) {
+  const available = p.opening + p.received - p.sold + p.adjusted;
+  const status = available <= 0 ? "agotado" : available <= p.min ? "por-agotarse" : "ok";
+  return { available: Math.max(0, available), status } as const;
+}
 
 export const cafe = {
   currency: "C$",
@@ -36,11 +84,6 @@ export const cafe = {
     address: "Dirección registrada ante la DGI",
     phone: "Tel. 2200-0000",
     authorization: "Sistema de facturación computarizada autorizado por la DGI · Resolución No. (en trámite)",
-    series: [
-      { name: "Serie A", station: "Caja 1", next: "A-001246" },
-      { name: "Serie B", station: "Caja 2", next: "B-000412" },
-      { name: "Serie C", station: "Talonario de contingencia", next: "C-0013" },
-    ],
   },
   family: { name: "Andrea Solís", label: "Mamá de Valeria y Diego", family: "Familia Castillo Solís" },
   children: [
@@ -54,8 +97,8 @@ export const cafe = {
       dayAccount: 0,
       spentToday: 115,
       dailyLimit: 150,
-      allergies: "Sin alergias registradas",
-      blocked: ["Gaseosas"],
+      restrictions: ["Gaseosas", "Altos en azúcar"] as CafeRestriction[],
+      blockedProducts: [] as string[],
       notify: "Cada compra",
     },
     {
@@ -68,24 +111,24 @@ export const cafe = {
       dayAccount: 95,
       spentToday: 95,
       dailyLimit: 100,
-      allergies: "Alergia al maní",
-      blocked: ["Gaseosas", "Golosinas"],
+      restrictions: ["Lactosa", "Altos en azúcar"] as CafeRestriction[],
+      blockedProducts: ["Gallo pinto con huevo"],
       notify: "Cada compra y resumen a las 3:00 p. m.",
     },
   ],
   todayItems: [
-    { time: "12:10 p. m.", child: "Valeria", item: "Almuerzo del día y refresco de cacao", amount: 115, category: "Almuerzos" as CafeteriaCategory, invoice: "A-001245" },
-    { time: "12:05 p. m.", child: "Diego", item: "Gallo pinto con huevo", amount: 60, category: "Almuerzos" as CafeteriaCategory, invoice: "A-001241", onAccount: true },
-    { time: "9:45 a. m.", child: "Diego", item: "Tajadas con queso", amount: 35, category: "Snacks" as CafeteriaCategory, invoice: "A-001098", onAccount: true },
+    { time: "12:10 p. m.", child: "Valeria", item: "Almuerzo del día y agua", amount: 115, category: "Almuerzos" as CafeteriaCategory, invoice: "A-001245" },
+    { time: "12:05 p. m.", child: "Diego", item: "Sándwich de pollo y banano", amount: 65, category: "Almuerzos" as CafeteriaCategory, invoice: "A-001241", onAccount: true },
+    { time: "9:45 a. m.", child: "Diego", item: "Fruta picada", amount: 30, category: "Frutas" as CafeteriaCategory, invoice: "A-001098", onAccount: true },
   ],
   invoices: [
     { number: "A-001245", date: "16/10/2026", time: "12:10 p. m.", customer: "Familia Castillo Solís", student: "Valeria Castillo · 9° A", cashier: "Martha G.", payment: "Saldo prepago", lines: lunch, status: "emitida" },
     { number: "A-001244", date: "16/10/2026", time: "12:09 p. m.", customer: "Consumidor final", student: "Docente", cashier: "Martha G.", payment: "Efectivo", lines: [{ qty: 1, item: "Sándwich de pollo", price: 55 }, { qty: 1, item: "Banano", price: 10, exempt: true }], status: "emitida" },
-    { number: "A-001243", date: "16/10/2026", time: "12:08 p. m.", customer: "Familia Rivas Torres", student: "Mateo Rivas · 6° B", cashier: "Martha G.", payment: "Cuenta del día", lines: [{ qty: 1, item: "Almuerzo del día", price: 90 }], status: "emitida" },
+    { number: "A-001243", date: "16/10/2026", time: "12:08 p. m.", customer: "Familia Rivas Torres", student: "Mateo Rivas · 6° B", cashier: "Martha G.", payment: "Cuenta del día", lines: [{ qty: 1, item: "Almuerzo del día", price: 95 }], status: "emitida" },
     { number: "A-001242", date: "16/10/2026", time: "12:07 p. m.", customer: "Familia Ortega Ruiz", student: "Camila Ortega · 3° C", cashier: "Martha G.", payment: "Saldo prepago", lines: [{ qty: 1, item: "Fruta picada", price: 30 }], status: "emitida" },
-    { number: "A-001241", date: "16/10/2026", time: "12:05 p. m.", customer: "Familia Castillo Solís", student: "Diego Castillo · 5° B", cashier: "Martha G.", payment: "Cuenta del día", lines: [{ qty: 1, item: "Gallo pinto con huevo", price: 60 }], status: "emitida" },
-    { number: "A-001187", date: "16/10/2026", time: "11:58 a. m.", customer: "Familia Pineda Lacayo", student: "Andrés Pineda · 10° A", cashier: "Martha G.", payment: "Saldo prepago", lines: [{ qty: 1, item: "Almuerzo del día", price: 90 }], status: "anulada" },
-    { number: "A-001098", date: "16/10/2026", time: "9:45 a. m.", customer: "Familia Castillo Solís", student: "Diego Castillo · 5° B", cashier: "Martha G.", payment: "Cuenta del día", lines: [{ qty: 1, item: "Tajadas con queso", price: 35 }], status: "emitida" },
+    { number: "A-001241", date: "16/10/2026", time: "12:05 p. m.", customer: "Familia Castillo Solís", student: "Diego Castillo · 5° B", cashier: "Martha G.", payment: "Cuenta del día", lines: [{ qty: 1, item: "Sándwich de pollo", price: 55 }, { qty: 1, item: "Banano", price: 10, exempt: true }], status: "emitida" },
+    { number: "A-001187", date: "16/10/2026", time: "11:58 a. m.", customer: "Familia Pineda Lacayo", student: "Andrés Pineda · 10° A", cashier: "Martha G.", payment: "Saldo prepago", lines: [{ qty: 1, item: "Almuerzo del día", price: 95 }], status: "anulada" },
+    { number: "A-001098", date: "16/10/2026", time: "9:45 a. m.", customer: "Familia Castillo Solís", student: "Diego Castillo · 5° B", cashier: "Martha G.", payment: "Cuenta del día", lines: [{ qty: 1, item: "Fruta picada", price: 30 }], status: "emitida" },
     { number: "A-001019", date: "15/10/2026", time: "12:14 p. m.", customer: "Familia Castillo Solís", student: "Valeria Castillo · 9° A", cashier: "Karen L.", payment: "Saldo prepago", lines: [{ qty: 1, item: "Sándwich de pollo", price: 55 }, { qty: 1, item: "Agua 600 ml", price: 20 }], status: "emitida" },
   ] satisfies CafeInvoice[],
   voided: {
@@ -101,6 +144,7 @@ export const cafe = {
     { number: "R-000083", date: "12 oct", concept: "Recarga · Valeria", amount: 500, status: "confirmada" as const },
   ],
   bank: { name: "Transferencia a la cuenta de la cafetería", detail: "Los datos bancarios se configuran en Ajustes" },
+  lunchPrice: 95,
   menu: [
     { day: "Lunes 19", dish: "Pollo en salsa, arroz y ensalada", ordered: ["Diego"] },
     { day: "Martes 20", dish: "Carne desmenuzada, gallo pinto y maduro", ordered: ["Diego", "Valeria"] },
@@ -108,6 +152,7 @@ export const cafe = {
     { day: "Jueves 22", dish: "Pescado empanizado, puré y ensalada", ordered: [] as string[] },
     { day: "Viernes 23", dish: "Indio viejo con arroz", ordered: ["Valeria"] },
   ],
+  products,
   pos: {
     station: "Caja 1 · Serie A",
     cashier: "Doña Martha Gutiérrez",
@@ -118,22 +163,16 @@ export const cafe = {
       "Gabriela Herrera", "Isabella Jarquín", "José Martínez", "Lucía Morales",
       "Nicolás Pérez", "Renata Quiroz", "Sebastián Rocha", "Valeria Castillo Solís",
     ],
-    student: { name: "Valeria Castillo Solís", short: "Valeria", grade: "9° A", balance: 420, spentToday: 0, dailyLimit: 150, blocked: ["Gaseosas"] },
+    student: {
+      name: "Valeria Castillo Solís",
+      short: "Valeria",
+      grade: "9° A",
+      balance: 420,
+      spentToday: 0,
+      dailyLimit: 150,
+      restrictions: ["Gaseosas", "Altos en azúcar"] as CafeRestriction[],
+    },
     ticket: lunch,
-    products: [
-      { name: "Almuerzo del día", price: 90, category: "Almuerzos" as CafeteriaCategory },
-      { name: "Gallo pinto con huevo", price: 60, category: "Almuerzos" as CafeteriaCategory },
-      { name: "Sándwich de pollo", price: 55, category: "Almuerzos" as CafeteriaCategory },
-      { name: "Refresco de cacao", price: 25, category: "Bebidas" as CafeteriaCategory },
-      { name: "Agua 600 ml", price: 20, category: "Bebidas" as CafeteriaCategory },
-      { name: "Gaseosa", price: 30, category: "Bebidas" as CafeteriaCategory, blocked: true },
-      { name: "Tajadas con queso", price: 35, category: "Snacks" as CafeteriaCategory },
-      { name: "Galleta de maní", price: 15, category: "Snacks" as CafeteriaCategory },
-      { name: "Fruta picada", price: 30, category: "Frutas" as CafeteriaCategory },
-      { name: "Banano", price: 10, category: "Frutas" as CafeteriaCategory },
-      { name: "Jugo de naranja", price: 30, category: "Bebidas" as CafeteriaCategory },
-      { name: "Yogur", price: 28, category: "Snacks" as CafeteriaCategory },
-    ],
   },
   dashboard: {
     stats: [
@@ -152,12 +191,13 @@ export const cafe = {
     pending: [
       { label: "Recargas por confirmar", value: "3", tone: "orange" as const },
       { label: "Cuentas del día sin pagar", value: "12", tone: "red" as const },
+      { label: "Productos por agotarse", value: "2", tone: "orange" as const },
       { label: "Pedidos de almuerzo para el lunes", value: "86", tone: "green" as const },
     ],
     checks: [
-      { label: "Respaldo de hoy", detail: "Completado a las 2:00 a. m.", ok: true },
-      { label: "Numeración", detail: "Sin saltos en las series A y B", ok: true },
-      { label: "Contingencia", detail: "Talonario C con 488 facturas disponibles", ok: true },
+      { label: "Respaldo de hoy", detail: "Completado a las 2:00 a. m." },
+      { label: "Numeración", detail: "Sin saltos en las series A y B" },
+      { label: "Inventario", detail: "Cuadra con las facturas del día" },
     ],
   },
   closing: {
@@ -179,34 +219,32 @@ export const cafe = {
     cash: { expected: 1880, counted: 1880 },
     closedBy: "Lic. Rosa Méndez · 3:45 p. m.",
   },
-  contingency: {
-    book: { series: "Serie C", range: "C-0001 a C-0500", printer: "Imprenta autorizada por la DGI (pie de imprenta en cada factura)", used: 12, registered: 12 },
-    lastOutage: "2 de septiembre · 25 minutos · tablet de la Caja 2 sin batería",
-    entries: [
-      { number: "C-0012", date: "02/09/2026", customer: "Familia Gómez Arana", total: 90, registered: "Registrada 02/09 · 1:10 p. m." },
-      { number: "C-0011", date: "02/09/2026", customer: "Consumidor final", total: 55, registered: "Registrada 02/09 · 1:09 p. m." },
-      { number: "C-0010", date: "02/09/2026", customer: "Familia Pérez Lugo", total: 115, registered: "Registrada 02/09 · 1:08 p. m." },
-    ],
-  },
+  inventoryMoves: [
+    { time: "12:32 p. m.", kind: "Anulación A-001187", detail: "+1 Almuerzo del día vuelve al inventario", tone: "green" as const },
+    { time: "12:10 p. m.", kind: "Factura A-001245", detail: "−1 Almuerzo del día · −1 Agua 600 ml", tone: "gray" as const },
+    { time: "12:09 p. m.", kind: "Factura A-001244", detail: "−1 Sándwich de pollo (el último) · −1 Banano", tone: "gray" as const },
+    { time: "10:15 a. m.", kind: "Entrada", detail: "+48 Agua 600 ml · compra al proveedor · Karen López", tone: "green" as const },
+    { time: "9:00 a. m.", kind: "Ajuste", detail: "−2 Yogur · vencidos · Lic. Rosa Méndez", tone: "orange" as const },
+  ],
   security: {
     users: [
       { name: "Doña Martha Gutiérrez", role: "Cajera · Caja 1", can: "Vender y facturar", last: "Hoy 7:02 a. m." },
-      { name: "Karen López", role: "Cajera · Caja 2", can: "Vender y facturar", last: "Hoy 7:05 a. m." },
-      { name: "Lic. Rosa Méndez", role: "Supervisora", can: "Anular facturas y cerrar caja", last: "Hoy 12:30 p. m." },
+      { name: "Karen López", role: "Cajera · Caja 2", can: "Vender, facturar y recibir mercadería", last: "Hoy 7:05 a. m." },
+      { name: "Lic. Rosa Méndez", role: "Supervisora", can: "Anular facturas, ajustar inventario y cerrar caja", last: "Hoy 12:30 p. m." },
       { name: "Administración", role: "Administrador", can: "Precios, usuarios y ajustes", last: "Ayer 4:10 p. m." },
       { name: "Contador externo", role: "Solo lectura", can: "Reportes y libro de ventas", last: "13 oct" },
     ],
     backups: [
-      { date: "Hoy 2:00 a. m.", size: "48 MB", ok: true },
-      { date: "Jueves 15 · 2:00 a. m.", size: "47 MB", ok: true },
-      { date: "Miércoles 14 · 2:00 a. m.", size: "47 MB", ok: true },
-      { date: "Martes 13 · 2:00 a. m.", size: "46 MB", ok: true },
+      { date: "Hoy 2:00 a. m.", size: "48 MB" },
+      { date: "Jueves 15 · 2:00 a. m.", size: "47 MB" },
+      { date: "Miércoles 14 · 2:00 a. m.", size: "47 MB" },
+      { date: "Martes 13 · 2:00 a. m.", size: "46 MB" },
     ],
     log: [
       { time: "12:32 p. m.", who: "Lic. Rosa Méndez", what: "Anuló la factura A-001187 · motivo: se cobró dos veces" },
       { time: "11:05 a. m.", who: "Administración", what: "Cambió el precio de «Refresco de cacao» de C$ 22 a C$ 25" },
+      { time: "9:00 a. m.", who: "Lic. Rosa Méndez", what: "Ajustó el inventario: −2 Yogur, vencidos" },
       { time: "7:05 a. m.", who: "Karen López", what: "Inició sesión en la Caja 2" },
-      { time: "7:02 a. m.", who: "Doña Martha Gutiérrez", what: "Inició sesión en la Caja 1" },
       { time: "2:00 a. m.", who: "Sistema", what: "Respaldo diario completado (48 MB)" },
     ],
     versions: [
@@ -214,16 +252,6 @@ export const cafe = {
       { version: "1.0", change: "Versión inicial del sistema de facturación", status: "autorizada" as const, note: "Autorizada por la DGI · formato y series registrados" },
     ],
   },
-  catalog: [
-    { name: "Almuerzo del día", category: "Almuerzos" as CafeteriaCategory, price: 90, tax: "IVA 15 %", allergens: "Lácteos", available: "120 porciones" },
-    { name: "Gallo pinto con huevo", category: "Almuerzos" as CafeteriaCategory, price: 60, tax: "IVA 15 %", allergens: "Huevo", available: "60 porciones" },
-    { name: "Sándwich de pollo", category: "Almuerzos" as CafeteriaCategory, price: 55, tax: "IVA 15 %", allergens: "Gluten", available: "40" },
-    { name: "Refresco de cacao", category: "Bebidas" as CafeteriaCategory, price: 25, tax: "IVA 15 %", allergens: "Lácteos", available: "Sí" },
-    { name: "Gaseosa", category: "Bebidas" as CafeteriaCategory, price: 30, tax: "IVA 15 %", allergens: "—", available: "48" },
-    { name: "Galleta de maní", category: "Snacks" as CafeteriaCategory, price: 15, tax: "IVA 15 %", allergens: "Maní", available: "35" },
-    { name: "Tajadas con queso", category: "Snacks" as CafeteriaCategory, price: 35, tax: "IVA 15 %", allergens: "Lácteos", available: "Sí" },
-    { name: "Banano", category: "Frutas" as CafeteriaCategory, price: 10, tax: "Exento", allergens: "—", available: "50" },
-  ],
 };
 
 /** Desglose de una factura con precios que ya incluyen IVA. */

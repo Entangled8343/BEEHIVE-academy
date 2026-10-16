@@ -10,8 +10,6 @@ import { cafe } from "@/mocks/cafe";
 
 export const metadata = { title: "Menú de la semana" };
 
-const lunchPrice = 90;
-
 /** Menú de la próxima semana con pedido anticipado del almuerzo por hijo. */
 export default function WeeklyMenu() {
   const orders = cafe.menu.reduce((n, d) => n + d.ordered.length, 0);
@@ -32,7 +30,7 @@ export default function WeeklyMenu() {
                 <p className="text-xs font-bold tracking-wide text-primary-500 uppercase">{d.day}</p>
                 <p className="font-bold leading-snug">{d.dish}</p>
               </div>
-              <p className="font-display text-base whitespace-nowrap">{money(lunchPrice, cafe.currency)}</p>
+              <p className="font-display text-base whitespace-nowrap">{money(cafe.lunchPrice, cafe.currency)}</p>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {cafe.children.map((c) => {
@@ -58,7 +56,7 @@ export default function WeeklyMenu() {
       <Card className="mt-4 flex flex-wrap items-center gap-3 p-4">
         <div className="min-w-0 flex-1">
           <p className="font-bold">
-            {orders} almuerzos · {money(orders * lunchPrice, cafe.currency)}
+            {orders} almuerzos · {money(orders * cafe.lunchPrice, cafe.currency)}
           </p>
           <p className="text-sm text-primary-600">Se cobran cada día del saldo o a la cuenta del día de cada hijo.</p>
         </div>

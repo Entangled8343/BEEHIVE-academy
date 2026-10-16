@@ -170,12 +170,12 @@ export const contents: Record<ProposalId, ProposalContent> = {
     coverPhones: ["cafe-familia-inicio", "cafe-controles"],
     overviewTitle: "Una plataforma solo para la cafetería",
     roles: [
-      { tag: "Familias", tagBg: "#fde7c7", tagFg: "#8a4b00", title: "Padres y tutores", items: ["Prepago o cuenta del día", "Recargas por transferencia", "Factura de cada compra", "Foto y clave de cada hijo", "Límite diario y bloqueos", "Alergias", "Almuerzo pedido con anticipación", "Aviso en cada compra"] },
-      { tag: "Caja · tablet", tagBg: "#d2f2dc", tagFg: "#1f6b3f", title: "Cajeras", items: ["Sin carné: sección, foto y clave", "Cobro en segundos", "Factura consecutiva por serie", "IVA desglosado", "Alertas de alergias", "Productos bloqueados", "Sigue facturando sin internet", "Ventas a docentes en efectivo"] },
-      { tag: "Administración", tagBg: "#dbeafe", tagFg: "#075985", title: "Cafetería", items: ["Panel de ventas e IVA", "Confirmar recargas", "Cuentas del día pendientes", "Cierre de caja y arqueo", "Productos, precios e impuestos", "Menú de la semana", "Reportes en Excel"] },
-      { tag: "Cumplimiento", tagBg: "#e4eee7", tagFg: "#183f2b", title: "DGI y contador", items: ["Usuario y clave por persona", "Respaldo diario automático", "Numeración inalterable", "Anulaciones con sello", "Talonario de contingencia", "Aviso previo a la DGI", "Libro de ventas para el contador"] },
+      { tag: "Familias", tagBg: "#fde7c7", tagFg: "#8a4b00", title: "Padres y tutores", items: ["Prepago o cuenta del día", "Recargas por transferencia", "Factura de cada compra", "Foto y clave de cada hijo", "Límite diario", "Sin lactosa, sin azúcar…: lo que elija", "Almuerzo pedido con anticipación", "Aviso en cada compra"] },
+      { tag: "Caja · tablet", tagBg: "#d2f2dc", tagFg: "#1f6b3f", title: "Cajeras", items: ["Sin carné: sección, foto y clave", "Cobro en segundos", "Factura consecutiva por serie", "IVA desglosado", "Respeta lo que la familia no permite", "Muestra lo que queda de cada producto", "Sigue facturando sin internet", "Ventas a docentes en efectivo"] },
+      { tag: "Administración", tagBg: "#dbeafe", tagFg: "#075985", title: "Cafetería", items: ["Panel de ventas e IVA", "Inventario que se descuenta al facturar", "Entradas y ajustes con motivo", "Confirmar recargas", "Cuentas del día pendientes", "Cierre de caja y arqueo", "Productos, precios e impuestos", "Menú de la semana"] },
+      { tag: "Cumplimiento", tagBg: "#e4eee7", tagFg: "#183f2b", title: "DGI y contador", items: ["Usuario y clave por persona", "Respaldo diario automático", "Numeración inalterable", "Anulaciones con sello", "Bitácora de cada acción", "Aviso previo a la DGI", "Libro de ventas para el contador"] },
     ],
-    ribbon: ["📱 Celular, 📟 tablet y 💻 PC", "Sin carné ni celular para los alumnos", "IVA 15 % desglosado", "Prepago o cuenta del día", "🔒 Usuario y clave por persona"],
+    ribbon: ["📱 Celular, 📟 tablet y 💻 PC", "Sin carné ni celular para los alumnos", "IVA 15 % desglosado", "Inventario al día", "Prepago o cuenta del día"],
     featurePages: [
       {
         chip: "Facturación computarizada",
@@ -188,7 +188,7 @@ export const contents: Record<ProposalId, ProposalContent> = {
           { title: "Numeración consecutiva", text: "Cada caja tiene su serie. Los números no se editan, no se borran y no se reutilizan." },
           { title: "IVA por separado", text: "Cada factura y cada cierre muestran lo gravado, el IVA 15 % y lo exento por separado." },
           { title: "Anulaciones", text: "Se conserva el original y las copias con el sello ANULADO, el motivo y quién autorizó." },
-          { title: "Contingencia", text: "Talonario preimpreso de imprenta autorizada y registro posterior de esas facturas en el sistema." },
+          { title: "Si se cae el internet", text: "Cada caja sigue facturando con su propia serie y se sincroniza al volver la conexión, sin repetir números." },
           { title: "Cambios del sistema", text: "Ningún cambio en la factura, la numeración o los impuestos se activa sin registrar antes el aviso a la DGI." },
           { title: "Formalidades", text: "Emisor y RUC, dirección, número, fecha, cliente, detalle, totales y leyenda de autorización." },
         ],
@@ -211,7 +211,7 @@ export const contents: Record<ProposalId, ProposalContent> = {
     ],
     steps: [
       ["Datos fiscales", "Razón social, RUC, series y formato de factura con su contador."],
-      ["Autorización DGI", "Solicitud del sistema de facturación computarizada y talonario de contingencia."],
+      ["Autorización DGI", "Solicitud de autorización del sistema de facturación computarizada."],
       ["Construcción", "Familias, caja, administración y reportes."],
       ["Piloto", "Una semana con un grado y la caja real."],
       ["Lanzamiento", "Fotos y claves de los alumnos, y capacitación a las cajeras."],

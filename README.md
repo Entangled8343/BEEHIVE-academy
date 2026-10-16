@@ -16,8 +16,8 @@ Es **un solo producto con una instalación por colegio**: cada colegio tiene su 
 
 Plataforma solo para la cafetería de Curie, con facturación computarizada según la DGI (Nicaragua): prepago o
 cuenta del día, identificación del alumno sin carné (sección, foto y clave de 4 dígitos), facturas consecutivas
-por serie con IVA desglosado, anulaciones con sello, cierre de caja, plan de contingencia, respaldos, bitácora y
-avisos previos a la DGI. Rutas en `/cafe` (`/cafe/familia/*`, `/cafe/caja/*`, `/cafe/admin/*`), datos en
+por serie con IVA desglosado, inventario que se descuenta al facturar, anulaciones con sello, cierre de caja,
+restricciones que elige la familia (lactosa, altos en azúcar…), respaldos, bitácora y avisos previos a la DGI. Rutas en `/cafe` (`/cafe/familia/*`, `/cafe/caja/*`, `/cafe/admin/*`), datos en
 `src/mocks/cafe.ts`. Propuesta: [`docs/mockups/curie-cafeteria/Curie-Cafeteria-Propuesta.pdf`](docs/mockups/curie-cafeteria/Curie-Cafeteria-Propuesta.pdf).
 
 ## Estado actual: Fase 0 · prototipo visual

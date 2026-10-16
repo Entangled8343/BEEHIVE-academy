@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 import { Pill } from "@/components/ui/pill";
+import { restrictionTag } from "@/features/cafe/labels";
 import { categoryIcon, categoryTone, money } from "@/features/cafeteria/shared";
 import { cn } from "@/lib/utils";
 import { cafe } from "@/mocks/cafe";
 
 export const metadata = { title: "Productos" };
 
-/** Productos con su tratamiento fiscal (IVA 15 % o exento) y alérgenos para las alertas de la caja. */
+/** Productos con su tratamiento fiscal (IVA 15 % o exento) y las características que las familias pueden restringir. */
 export default function Products() {
   return (
     <div>
@@ -30,12 +31,12 @@ export default function Products() {
               <th className="px-4 py-3">Categoría</th>
               <th className="px-4 py-3 text-right">Precio</th>
               <th className="px-4 py-3">Impuesto</th>
-              <th className="px-4 py-3">Alérgenos</th>
-              <th className="px-4 py-3">Disponible hoy</th>
+              <th className="px-4 py-3">Características</th>
+              <th className="px-4 py-3">Se vende por</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-primary-100">
-            {cafe.catalog.map((p) => {
+            {cafe.products.map((p) => {
               const Icon = categoryIcon[p.category];
               return (
                 <tr key={p.name}>
@@ -53,9 +54,19 @@ export default function Products() {
                     <Pill tone={p.tax === "Exento" ? "gray" : "blue"}>{p.tax}</Pill>
                   </td>
                   <td className="px-4 py-3">
-                    {p.allergens === "—" ? <span className="text-primary-400">—</span> : <Pill tone={p.allergens === "Maní" ? "red" : "orange"}>{p.allergens}</Pill>}
+                    {p.tags.length ? (
+                      <span className="flex flex-wrap gap-1.5">
+                        {p.tags.map((t) => (
+                          <Pill key={t} tone="orange">
+                            {restrictionTag[t]}
+                          </Pill>
+                        ))}
+                      </span>
+                    ) : (
+                      <span className="text-primary-400">—</span>
+                    )}
                   </td>
-                  <td className="px-4 py-3 font-semibold">{p.available}</td>
+                  <td className="px-4 py-3 font-semibold text-primary-600">{p.unit}</td>
                 </tr>
               );
             })}
@@ -63,7 +74,7 @@ export default function Products() {
         </table>
       </Card>
       <p className="mt-3 px-1 text-xs font-semibold text-primary-500">
-        Cada cambio de precio queda en la bitácora con el usuario, la fecha y el valor anterior.
+        Las características permiten que la caja respete lo que cada familia no quiere que su hijo consuma. Cada cambio de precio queda en la bitácora.
       </p>
     </div>
   );

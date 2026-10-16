@@ -28,7 +28,7 @@ export default function InvoiceRegister() {
         }
       />
       <div className="mb-4 flex flex-wrap gap-2">
-        {["Hoy", "Serie A", "Serie B", "Anuladas", "Contingencia (C)"].map((f, i) => (
+        {["Hoy", "Serie A", "Serie B", "Anuladas"].map((f, i) => (
           <span
             key={f}
             className={cn("rounded-full px-4 py-1.5 text-sm font-bold", i === 0 ? "bg-primary-800 text-white" : "bg-white text-primary-600 ring-1 ring-primary-100")}

@@ -147,21 +147,21 @@ const cafeShots: Shot[] = [
   { slug: "cafe-facturas", route: "/cafe/familia/facturas", device: "movil", section: "Familias", title: "Sus facturas", description: "Una factura por compra, con el IVA desglosado. Se descargan en PDF." },
   { slug: "cafe-factura-detalle", route: "/cafe/familia/facturas", device: "movil", section: "Familias", title: "La factura completa", description: "Emisor y RUC, número consecutivo, cliente, detalle e IVA por separado.", scrollTo: "Factura A-001245" },
   { slug: "cafe-controles", route: "/cafe/familia/hijos/diego", device: "movil", section: "Familias", title: "Foto y clave de cada hijo", description: "La familia sube la foto y define la clave de 4 dígitos con la que su hijo compra." },
-  { slug: "cafe-controles-limites", route: "/cafe/familia/hijos/diego", device: "movil", section: "Familias", title: "Límites, bloqueos y alergias", description: "Límite diario, productos bloqueados y alergias que la caja respeta.", scrollTo: "Forma de pago" },
+  { slug: "cafe-controles-limites", route: "/cafe/familia/hijos/diego", device: "movil", section: "Familias", title: "Lo que no queremos que consuma", description: "Límite diario y restricciones que elige la familia: lactosa, altos en azúcar, gaseosas o productos específicos.", scrollTo: "Forma de pago" },
   { slug: "cafe-menu", route: "/cafe/familia/menu", device: "movil", section: "Familias", title: "Almuerzo pedido con anticipación", description: "Su hijo no hace fila y la cafetería prepara lo justo." },
 
   // Caja
   { slug: "cafe-caja-identificar", route: "/cafe/caja", device: "tablet", section: "Caja (tablet)", title: "1. ¿Quién compra?", description: "Sin carné: la cajera elige la sección, toca la foto y el alumno escribe su clave de 4 dígitos." },
-  { slug: "cafe-caja-venta", route: "/cafe/caja/venta", device: "tablet", section: "Caja (tablet)", title: "2. Cobrar y facturar", description: "Saldo y límite del día, productos bloqueados por la familia, IVA desglosado y número de factura consecutivo." },
+  { slug: "cafe-caja-venta", route: "/cafe/caja/venta", device: "tablet", section: "Caja (tablet)", title: "2. Cobrar y facturar", description: "Lo que queda de cada producto, lo que la familia no permite, el límite del día, el IVA desglosado y el número de factura consecutivo." },
   { slug: "cafe-caja-factura", route: "/cafe/caja/factura", device: "tablet", section: "Caja (tablet)", title: "3. Factura emitida", description: "El original se imprime para el cliente, la copia queda en el archivo y la familia la ve en la app." },
 
   // Administración y DGI
   { slug: "cafe-admin-panel", route: "/cafe/admin", device: "escritorio", section: "Administración y DGI", title: "Panel de la cafetería", description: "Ventas e IVA del día, facturas emitidas y anuladas, pendientes y estado de los controles fiscales." },
   { slug: "cafe-admin-facturas", route: "/cafe/admin/facturas", device: "escritorio", section: "Administración y DGI", title: "Libro de ventas", description: "Numeración consecutiva por serie, con gravado, IVA y exento por separado. Se exporta a Excel para el contador." },
   { slug: "cafe-admin-anulada", route: "/cafe/admin/facturas/anulada", device: "escritorio", section: "Administración y DGI", title: "Anulaciones correctas", description: "Se conservan el original y la copia con el sello ANULADO, el motivo y la supervisora que autorizó." },
+  { slug: "cafe-admin-inventario", route: "/cafe/admin/inventario", device: "escritorio", section: "Administración y DGI", title: "Inventario", description: "Cada factura descuenta lo vendido y cada anulación lo devuelve. Entradas y ajustes con motivo, y aviso de productos por agotarse." },
   { slug: "cafe-admin-cierre", route: "/cafe/admin/cierre", device: "escritorio", section: "Administración y DGI", title: "Cierre de caja", description: "Rango de facturas del día, desglose fiscal, formas de pago y arqueo del efectivo." },
-  { slug: "cafe-admin-productos", route: "/cafe/admin/productos", device: "escritorio", section: "Administración y DGI", title: "Productos y precios", description: "IVA 15 % o exento por producto, y alérgenos que activan las alertas de la caja." },
-  { slug: "cafe-admin-contingencia", route: "/cafe/admin/contingencia", device: "escritorio", section: "Administración y DGI", title: "Plan de contingencia", description: "Talonario preimpreso de respaldo y registro posterior para que el libro de ventas quede completo." },
+  { slug: "cafe-admin-productos", route: "/cafe/admin/productos", device: "escritorio", section: "Administración y DGI", title: "Productos y precios", description: "IVA 15 % o exento por producto, y características como lactosa o alto en azúcar para respetar lo que cada familia no permite." },
   { slug: "cafe-admin-seguridad", route: "/cafe/admin/seguridad", device: "escritorio", section: "Administración y DGI", title: "Seguridad y DGI", description: "Usuario y clave por persona, respaldo diario, bitácora y versiones del sistema con aviso previo a la DGI." },
 ];
 

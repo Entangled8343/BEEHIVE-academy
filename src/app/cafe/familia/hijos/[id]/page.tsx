@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AlertTriangle, Ban, BellRing, Camera, Gauge, KeyRound, Plus, Wallet, X } from "lucide-react";
+import { Ban, BellRing, Camera, Check, Gauge, KeyRound, Plus, Wallet, X } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,11 +9,11 @@ import { Pill } from "@/components/ui/pill";
 import { IconTile } from "@/components/ui/tiles";
 import { money } from "@/features/cafeteria/shared";
 import { cn } from "@/lib/utils";
-import { cafe } from "@/mocks/cafe";
+import { cafe, restrictionLabels, type CafeRestriction } from "@/mocks/cafe";
 
 export const metadata = { title: "Controles" };
 
-/** Cómo compra cada hijo: identificación en caja (foto y clave), forma de pago, límite, bloqueos, alergias y avisos. */
+/** Cómo compra cada hijo: identificación en caja (foto y clave), forma de pago, límite, lo que la familia no permite y avisos. */
 export default async function ChildControls({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const child = cafe.children.find((c) => c.id === id);
@@ -94,34 +94,43 @@ export default async function ChildControls({ params }: { params: Promise<{ id: 
 
           <Card className="divide-y divide-primary-100 overflow-hidden">
             <Row icon={<Gauge />} title="Límite diario" detail={money(child.dailyLimit, cafe.currency)} />
-            <div className="flex items-start gap-3 px-4 py-3.5">
-              <IconTile size="sm" className="bg-primary-100 text-primary-700">
-                <Ban />
-              </IconTile>
-              <div className="min-w-0 flex-1">
-                <p className="font-bold">Productos bloqueados</p>
-                <div className="mt-1.5 flex flex-wrap gap-1.5">
-                  {child.blocked.map((b) => (
-                    <Pill key={b} tone="gray">
-                      {b} <X />
-                    </Pill>
-                  ))}
-                  <Pill tone="primary">
-                    <Plus /> Agregar
-                  </Pill>
+            <div className="px-4 py-3.5">
+              <div className="flex items-center gap-3">
+                <IconTile size="sm" className="bg-primary-100 text-primary-700">
+                  <Ban />
+                </IconTile>
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold">Lo que no queremos que consuma</p>
+                  <p className="text-sm text-primary-600">La caja no le deja comprar productos con estas características.</p>
                 </div>
               </div>
-            </div>
-            <div className="flex items-start gap-3 bg-rose-50/60 px-4 py-3.5">
-              <IconTile size="sm" className="bg-rose-100 text-rose-700">
-                <AlertTriangle />
-              </IconTile>
-              <div className="min-w-0 flex-1">
-                <p className="font-bold">Alergias</p>
-                <p className="text-sm text-primary-700">{child.allergies}</p>
-                {child.allergies.startsWith("Alergia") ? (
-                  <p className="mt-0.5 text-xs font-semibold text-rose-700">La caja no le deja comprar productos que la contengan.</p>
-                ) : null}
+              <div className="mt-3 flex flex-wrap gap-2">
+                {(Object.keys(restrictionLabels) as CafeRestriction[]).map((r) => {
+                  const on = child.restrictions.includes(r);
+                  return (
+                    <span
+                      key={r}
+                      className={cn(
+                        "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold ring-2",
+                        on ? "bg-primary-800 text-white ring-primary-800" : "bg-white text-primary-500 ring-primary-100",
+                      )}
+                    >
+                      {on ? <Check className="size-4" /> : null}
+                      {restrictionLabels[r]}
+                    </span>
+                  );
+                })}
+              </div>
+              <p className="mt-3 text-sm font-bold">Productos específicos</p>
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {child.blockedProducts.map((b) => (
+                  <Pill key={b} tone="gray">
+                    {b} <X />
+                  </Pill>
+                ))}
+                <Pill tone="primary">
+                  <Plus /> Agregar producto
+                </Pill>
               </div>
             </div>
             <Row icon={<BellRing />} title="Avisos" detail={child.notify} />

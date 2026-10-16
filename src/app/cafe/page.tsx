@@ -8,7 +8,7 @@ export const metadata = { title: "Cafetería Curie" };
 const views = [
   { href: "/cafe/familia", title: "Familias", text: "Saldo, cuenta del día, facturas y controles", icon: Users },
   { href: "/cafe/caja", title: "Caja", text: "Identificar al alumno, cobrar y facturar", icon: ScanLine },
-  { href: "/cafe/admin", title: "Administración", text: "Facturas, cierre de caja, contingencia y DGI", icon: LayoutDashboard },
+  { href: "/cafe/admin", title: "Administración", text: "Facturas, inventario, cierre de caja y DGI", icon: LayoutDashboard },
 ];
 
 /** Entrada de la demo: elige qué vista abrir. */
