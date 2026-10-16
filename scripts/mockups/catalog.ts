@@ -1,5 +1,8 @@
-/** Catálogo de pantallas para la propuesta visual (Fase 0), por colegio. */
+/** Catálogo de pantallas para cada propuesta visual (portal de cada colegio y productos aparte). */
 import type { SchoolId } from "../../src/schools/types";
+
+/** Una propuesta por colegio, más productos aparte como la cafetería de Curie (se capturan con el build de Curie). */
+export type ProposalId = SchoolId | "curie-cafeteria";
 
 export type Device = "movil" | "escritorio" | "tablet";
 
@@ -134,7 +137,36 @@ const curieShots: Shot[] = [
   { slug: "cafeteria-caja", route: "/cafeteria", device: "tablet", section: "Cafetería · módulo opcional", title: "Caja de la cafetería (tablet)", description: "Se escanea el carné y aparecen el saldo, lo que puede gastar hoy, alergias y productos bloqueados por la familia. Un toque por producto y se cobra del saldo o a la cuenta del día." },
 ];
 
-export const catalogs: Record<SchoolId, { sections: string[]; shots: Shot[] }> = {
+const cafeSections = ["Familias", "Caja (tablet)", "Administración y DGI"];
+
+const cafeShots: Shot[] = [
+  // Familias
+  { slug: "cafe-familia-inicio", route: "/cafe/familia", device: "movil", section: "Familias", title: "Saldo o cuenta del día", description: "Cada hijo con su forma de pago: saldo prepago que se recarga, o cuenta del día que se paga ese mismo día." },
+  { slug: "cafe-familia-hoy", route: "/cafe/familia", device: "movil", section: "Familias", title: "Lo que compró hoy", description: "Cada compra con hora, monto y número de factura, al momento.", scrollTo: "Hoy en la cafetería" },
+  { slug: "cafe-recargar", route: "/cafe/familia/recargar", device: "movil", section: "Familias", title: "Recargar o pagar", description: "Por transferencia: la familia sube la foto del comprobante y la cafetería lo confirma." },
+  { slug: "cafe-facturas", route: "/cafe/familia/facturas", device: "movil", section: "Familias", title: "Sus facturas", description: "Una factura por compra, con el IVA desglosado. Se descargan en PDF." },
+  { slug: "cafe-factura-detalle", route: "/cafe/familia/facturas", device: "movil", section: "Familias", title: "La factura completa", description: "Emisor y RUC, número consecutivo, cliente, detalle e IVA por separado.", scrollTo: "Factura A-001245" },
+  { slug: "cafe-controles", route: "/cafe/familia/hijos/diego", device: "movil", section: "Familias", title: "Foto y clave de cada hijo", description: "La familia sube la foto y define la clave de 4 dígitos con la que su hijo compra." },
+  { slug: "cafe-controles-limites", route: "/cafe/familia/hijos/diego", device: "movil", section: "Familias", title: "Límites, bloqueos y alergias", description: "Límite diario, productos bloqueados y alergias que la caja respeta.", scrollTo: "Forma de pago" },
+  { slug: "cafe-menu", route: "/cafe/familia/menu", device: "movil", section: "Familias", title: "Almuerzo pedido con anticipación", description: "Su hijo no hace fila y la cafetería prepara lo justo." },
+
+  // Caja
+  { slug: "cafe-caja-identificar", route: "/cafe/caja", device: "tablet", section: "Caja (tablet)", title: "1. ¿Quién compra?", description: "Sin carné: la cajera elige la sección, toca la foto y el alumno escribe su clave de 4 dígitos." },
+  { slug: "cafe-caja-venta", route: "/cafe/caja/venta", device: "tablet", section: "Caja (tablet)", title: "2. Cobrar y facturar", description: "Saldo y límite del día, productos bloqueados por la familia, IVA desglosado y número de factura consecutivo." },
+  { slug: "cafe-caja-factura", route: "/cafe/caja/factura", device: "tablet", section: "Caja (tablet)", title: "3. Factura emitida", description: "El original se imprime para el cliente, la copia queda en el archivo y la familia la ve en la app." },
+
+  // Administración y DGI
+  { slug: "cafe-admin-panel", route: "/cafe/admin", device: "escritorio", section: "Administración y DGI", title: "Panel de la cafetería", description: "Ventas e IVA del día, facturas emitidas y anuladas, pendientes y estado de los controles fiscales." },
+  { slug: "cafe-admin-facturas", route: "/cafe/admin/facturas", device: "escritorio", section: "Administración y DGI", title: "Libro de ventas", description: "Numeración consecutiva por serie, con gravado, IVA y exento por separado. Se exporta a Excel para el contador." },
+  { slug: "cafe-admin-anulada", route: "/cafe/admin/facturas/anulada", device: "escritorio", section: "Administración y DGI", title: "Anulaciones correctas", description: "Se conservan el original y la copia con el sello ANULADO, el motivo y la supervisora que autorizó." },
+  { slug: "cafe-admin-cierre", route: "/cafe/admin/cierre", device: "escritorio", section: "Administración y DGI", title: "Cierre de caja", description: "Rango de facturas del día, desglose fiscal, formas de pago y arqueo del efectivo." },
+  { slug: "cafe-admin-productos", route: "/cafe/admin/productos", device: "escritorio", section: "Administración y DGI", title: "Productos y precios", description: "IVA 15 % o exento por producto, y alérgenos que activan las alertas de la caja." },
+  { slug: "cafe-admin-contingencia", route: "/cafe/admin/contingencia", device: "escritorio", section: "Administración y DGI", title: "Plan de contingencia", description: "Talonario preimpreso de respaldo y registro posterior para que el libro de ventas quede completo." },
+  { slug: "cafe-admin-seguridad", route: "/cafe/admin/seguridad", device: "escritorio", section: "Administración y DGI", title: "Seguridad y DGI", description: "Usuario y clave por persona, respaldo diario, bitácora y versiones del sistema con aviso previo a la DGI." },
+];
+
+export const catalogs: Record<ProposalId, { sections: string[]; shots: Shot[] }> = {
   beehive: { sections: beehiveSections, shots: beehiveShots },
   curie: { sections: curieSections, shots: curieShots },
+  "curie-cafeteria": { sections: cafeSections, shots: cafeShots },
 };

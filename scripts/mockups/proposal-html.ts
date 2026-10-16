@@ -74,6 +74,18 @@ h1, h2, h3, .display { font-family: ${t.display}; font-weight: ${t.displayWeight
 .ribbon { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
 .ribbon span { background: ${t.dark}; color: ${t.darkText}; border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 14px; }
 
+.feature h2 { font-size: 38px; margin-top: 10px; }
+.feature .lead { font-size: 16px; color: ${t.muted}; margin-top: 8px; max-width: 900px; font-weight: 500; line-height: 1.45; }
+.fgrid { display: grid; gap: 16px; margin-top: 28px; }
+.fcard { background: #fff; border-radius: 22px; padding: 22px 24px; border: 1px solid ${t.soft}; }
+.fcard h3 { font-size: 23px; line-height: 1.15; }
+.fcard p { font-size: 15px; color: ${t.softText}; margin-top: 10px; line-height: 1.5; font-weight: 500; }
+.fcard .tag { display: inline-block; margin-bottom: 10px; font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: ${t.soft}; color: ${t.softText}; }
+.fcard.featured { background: ${t.dark}; border-color: ${t.dark}; }
+.fcard.featured h3 { color: ${t.darkText}; }
+.fcard.featured p { color: ${t.darkMuted}; }
+.fcard.featured .tag { background: ${t.accent}; color: ${t.accentText}; }
+.fnote { margin-top: 20px; font-size: 14px; font-weight: 600; color: ${t.muted}; }
 .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 30px; }
 .step { background: rgba(255,255,255,.08); border-radius: 22px; padding: 18px; }
 .step .n { width: 40px; height: 40px; display: grid; place-items: center; background: ${t.accent}; color: ${t.accentText}; font-family: ${t.display}; font-weight: 600; font-size: 20px; border-radius: 12px; }
@@ -132,6 +144,24 @@ export function buildProposalHtml(
     <div class="ribbon">${c.ribbon.map((r) => `<span>${esc(r)}</span>`).join("")}</div>
     ${footer()}
   </section>`);
+
+  for (const f of c.featurePages ?? []) {
+    pages.push(`
+  <section class="page feature pattern-light">
+    <span class="chip soft">${esc(f.chip)}</span>
+    <h2>${esc(f.title)}</h2>
+    ${f.lead ? `<p class="lead">${esc(f.lead)}</p>` : ""}
+    <div class="fgrid" style="grid-template-columns: repeat(${f.columns}, 1fr)">
+      ${f.items
+        .map(
+          (i) => `<div class="fcard${i.featured ? " featured" : ""}">${i.tag ? `<span class="tag">${esc(i.tag)}</span>` : ""}<h3>${esc(i.title)}</h3><p>${esc(i.text)}</p></div>`,
+        )
+        .join("")}
+    </div>
+    ${f.note ? `<p class="fnote">${esc(f.note)}</p>` : ""}
+    ${footer()}
+  </section>`);
+  }
 
   for (const section of sections) {
     const items = rendered.filter((r) => r.section === section);

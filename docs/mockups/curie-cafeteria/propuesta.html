@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"/>
+<title>Cafetería Curie · Propuesta de plataforma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+@page { size: 1280px 720px; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #fbf7e2; }
+body { font-family: "Poppins", system-ui, sans-serif; color: #12321f; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+h1, h2, h3, .display { font-family: "Newsreader", Georgia, serif; font-weight: 500; }
+.page { width: 1280px; height: 720px; position: relative; overflow: hidden; page-break-after: always; break-after: page; padding: 48px 56px; }
+.accent { color: #8edcaa; }
+.dark-bg { background: #131d3b; color: #fbf7e2; }
+.pattern-dark { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.5'%3E%3Ccircle cx='12' cy='18' r='1.1'/%3E%3Ccircle cx='64' cy='40' r='0.9'/%3E%3Ccircle cx='118' cy='22' r='1.3'/%3E%3Cpath d='M98 92l1.2 3.4 3.4 1.2-3.4 1.2L98 101.2l-1.2-3.4-3.4-1.2 3.4-1.2z'/%3E%3Ccircle cx='30' cy='96' r='1'/%3E%3Ccircle cx='76' cy='124' r='1.2'/%3E%3Cpath d='M40 58l0.8 2.2 2.2 0.8-2.2 0.8L40 64l-0.8-2.2-2.2-0.8 2.2-0.8z'/%3E%3C/g%3E%3C/svg%3E"); background-size: 140px 140px; }
+.pattern-light { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%232F6A4B' fill-opacity='0.25'%3E%3Ccircle cx='12' cy='18' r='1.1'/%3E%3Ccircle cx='64' cy='40' r='0.9'/%3E%3Ccircle cx='118' cy='22' r='1.3'/%3E%3Cpath d='M98 92l1.2 3.4 3.4 1.2-3.4 1.2L98 101.2l-1.2-3.4-3.4-1.2 3.4-1.2z'/%3E%3Ccircle cx='30' cy='96' r='1'/%3E%3Ccircle cx='76' cy='124' r='1.2'/%3E%3Cpath d='M40 58l0.8 2.2 2.2 0.8-2.2 0.8L40 64l-0.8-2.2-2.2-0.8 2.2-0.8z'/%3E%3C/g%3E%3C/svg%3E"); background-size: 140px 140px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 13px; background: #8edcaa; color: #12321f; }
+.chip.soft { background: #e4eee7; color: #183f2b; }
+.footer { position: absolute; left: 56px; right: 56px; bottom: 22px; display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; font-weight: 600; color: #2f6a4b; opacity: .75; }
+.footer .end { display: flex; align-items: baseline; gap: 16px; }
+.footer .credit { font-size: 10.5px; font-weight: 500; letter-spacing: .02em; opacity: .7; }
+.dark-bg .footer { color: #cfe0d5; }
+
+.cover { display: grid; grid-template-columns: 1fr 520px; gap: 24px; align-items: center; }
+.cover-logo { width: 120px; height: 120px; }
+.cover h1 { font-size: 62px; line-height: 1.02; color: #fbf7e2; margin-top: 22px; }
+.cover h1 .accent { font-style: italic; }
+.cover .lead { font-size: 20px; color: #cfe0d5; margin-top: 18px; max-width: 560px; line-height: 1.45; }
+.cover .eyebrow { margin-top: 26px; }
+.cover-phones { position: relative; height: 620px; }
+.cover-phones .phone { position: absolute; }
+.cover-phones .p1 { left: 10px; top: 40px; transform: rotate(-6deg); }
+.cover-phones .p2 { left: 250px; top: 10px; transform: rotate(5deg); }
+.cover-phones img { width: 230px; height: 497px; object-fit: cover; object-position: top; }
+
+/* Sin box-shadow con desenfoque: Chrome lo exporta al PDF como imagen con máscara y algunos visores
+   (p. ej. Vista Previa de macOS) lo pintan como un rectángulo gris. */
+.phone { background: #0b2116; border-radius: 34px; padding: 9px; }
+.phone img { display: block; border-radius: 26px; }
+
+.mobile-page { padding-top: 40px; }
+.mobile-page .head { display: flex; align-items: center; gap: 14px; }
+.mobile-page h2 { font-size: 32px; }
+.mobile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 18px; }
+.mobile-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.mobile-item .phone img { width: 204px; height: 441px; object-fit: cover; object-position: top; }
+.mobile-item h3 { font-size: 19px; margin-top: 12px; }
+.mobile-item p { font-size: 13px; color: #2f6a4b; margin-top: 4px; max-width: 300px; line-height: 1.4; font-weight: 500; }
+
+.wide-page { display: grid; grid-template-columns: 300px 1fr; gap: 36px; align-items: center; }
+.wide-page h2 { font-size: 34px; line-height: 1.1; margin-top: 14px; }
+.wide-page .desc { font-size: 16px; line-height: 1.5; color: #2f6a4b; margin-top: 14px; font-weight: 500; }
+.wide-page .device-label { margin-top: 22px; }
+.browser { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e4eee7; }
+.browser .bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 14px; background: #e4eee7; }
+.browser .dot { width: 11px; height: 11px; border-radius: 50%; }
+.browser .url { margin-left: 14px; flex: 1; height: 22px; border-radius: 999px; background: #fff; font-size: 11px; font-weight: 600; color: #2f6a4b; display: flex; align-items: center; padding-left: 12px; }
+.browser img { display: block; width: 100%; }
+.tablet { background: #0b2116; border-radius: 30px; padding: 16px; }
+.tablet img { display: block; width: 100%; border-radius: 14px; }
+
+.overview h2 { font-size: 40px; margin-top: 10px; }
+.roles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; }
+.role { background: #fff; border-radius: 26px; padding: 22px; border: 1px solid #e4eee7; }
+.role h3 { font-size: 22px; }
+.role .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+.role ul { list-style: none; margin-top: 10px; display: grid; gap: 7px; }
+.role li { font-size: 13.5px; font-weight: 600; color: #183f2b; display: flex; gap: 8px; align-items: flex-start; }
+.role li::before { content: ""; flex: none; width: 9px; height: 9px; margin-top: 5px; border-radius: 3px; background: #8edcaa; }
+.ribbon { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+.ribbon span { background: #131d3b; color: #fbf7e2; border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 14px; }
+
+.feature h2 { font-size: 38px; margin-top: 10px; }
+.feature .lead { font-size: 16px; color: #2f6a4b; margin-top: 8px; max-width: 900px; font-weight: 500; line-height: 1.45; }
+.fgrid { display: grid; gap: 16px; margin-top: 28px; }
+.fcard { background: #fff; border-radius: 22px; padding: 22px 24px; border: 1px solid #e4eee7; }
+.fcard h3 { font-size: 23px; line-height: 1.15; }
+.fcard p { font-size: 15px; color: #183f2b; margin-top: 10px; line-height: 1.5; font-weight: 500; }
+.fcard .tag { display: inline-block; margin-bottom: 10px; font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #e4eee7; color: #183f2b; }
+.fcard.featured { background: #131d3b; border-color: #131d3b; }
+.fcard.featured h3 { color: #fbf7e2; }
+.fcard.featured p { color: #cfe0d5; }
+.fcard.featured .tag { background: #8edcaa; color: #12321f; }
+.fnote { margin-top: 20px; font-size: 14px; font-weight: 600; color: #2f6a4b; }
+.steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 30px; }
+.step { background: rgba(255,255,255,.08); border-radius: 22px; padding: 18px; }
+.step .n { width: 40px; height: 40px; display: grid; place-items: center; background: #8edcaa; color: #12321f; font-family: "Newsreader", Georgia, serif; font-weight: 600; font-size: 20px; border-radius: 12px; }
+.step h3 { color: #fbf7e2; font-size: 18px; margin-top: 12px; line-height: 1.15; }
+.step p { color: #cfe0d5; font-size: 13px; margin-top: 6px; font-weight: 500; line-height: 1.4; }
+.dark-bg .ribbon span { background: rgba(255,255,255,.12); }
+.note { margin-top: 26px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.25); color: #8edcaa; padding: 14px 18px; border-radius: 18px; font-weight: 600; font-size: 14px; }
+</style></head>
+<body>
+  <section class="page cover dark-bg pattern-dark">
+    <div>
+      <img class="cover-logo" src="../../../public/brand/curie/sello.png" />
+      <div class="eyebrow"><span class="chip">Propuesta de plataforma · Octubre 2026</span></div>
+      <h1>Cafetería<br/><span class="accent">Curie</span></h1>
+      <p class="lead">Las familias pagan con saldo o con la cuenta del día, cada compra se factura como lo pide la DGI y la caja identifica a cada alumno sin carné.</p>
+    </div>
+    <div class="cover-phones">
+      <div class="phone p1"><img src="movil/01-cafe-familia-inicio.png" /></div>
+      <div class="phone p2"><img src="movil/06-cafe-controles.png" /></div>
+    </div>
+    <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>1</span></span></div>
+  </section>
+
+  <section class="page overview pattern-light">
+    <span class="chip soft">Resumen</span>
+    <h2>Una plataforma solo para la cafetería</h2>
+    <div class="roles">
+      <div class="role"><span class="tag" style="background:#fde7c7;color:#8a4b00">Familias</span><h3>Padres y tutores</h3>
+        <ul><li>Prepago o cuenta del día</li><li>Recargas por transferencia</li><li>Factura de cada compra</li><li>Foto y clave de cada hijo</li><li>Límite diario y bloqueos</li><li>Alergias</li><li>Almuerzo pedido con anticipación</li><li>Aviso en cada compra</li></ul></div><div class="role"><span class="tag" style="background:#d2f2dc;color:#1f6b3f">Caja · tablet</span><h3>Cajeras</h3>
+        <ul><li>Sin carné: sección, foto y clave</li><li>Cobro en segundos</li><li>Factura consecutiva por serie</li><li>IVA desglosado</li><li>Alertas de alergias</li><li>Productos bloqueados</li><li>Sigue facturando sin internet</li><li>Ventas a docentes en efectivo</li></ul></div><div class="role"><span class="tag" style="background:#dbeafe;color:#075985">Administración</span><h3>Cafetería</h3>
+        <ul><li>Panel de ventas e IVA</li><li>Confirmar recargas</li><li>Cuentas del día pendientes</li><li>Cierre de caja y arqueo</li><li>Productos, precios e impuestos</li><li>Menú de la semana</li><li>Reportes en Excel</li></ul></div><div class="role"><span class="tag" style="background:#e4eee7;color:#183f2b">Cumplimiento</span><h3>DGI y contador</h3>
+        <ul><li>Usuario y clave por persona</li><li>Respaldo diario automático</li><li>Numeración inalterable</li><li>Anulaciones con sello</li><li>Talonario de contingencia</li><li>Aviso previo a la DGI</li><li>Libro de ventas para el contador</li></ul></div>
+    </div>
+    <div class="ribbon"><span>📱 Celular, 📟 tablet y 💻 PC</span><span>Sin carné ni celular para los alumnos</span><span>IVA 15 % desglosado</span><span>Prepago o cuenta del día</span><span>🔒 Usuario y clave por persona</span></div>
+    <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>2</span></span></div>
+  </section>
+
+  <section class="page feature pattern-light">
+    <span class="chip soft">Facturación computarizada</span>
+    <h2>Lo que pide la DGI, resuelto</h2>
+    <p class="lead">Cada requisito del sistema de facturación computarizada tiene su lugar en la plataforma.</p>
+    <div class="fgrid" style="grid-template-columns: repeat(4, 1fr)">
+      <div class="fcard"><h3>Usuario y clave</h3><p>Cada cajera, supervisora y administrador entra con su propio usuario y clave. Cada acción queda a su nombre.</p></div><div class="fcard"><h3>Respaldo diario</h3><p>Copia automática cada noche, cifrada y guardada 30 días en otra ubicación.</p></div><div class="fcard"><h3>Numeración consecutiva</h3><p>Cada caja tiene su serie. Los números no se editan, no se borran y no se reutilizan.</p></div><div class="fcard"><h3>IVA por separado</h3><p>Cada factura y cada cierre muestran lo gravado, el IVA 15 % y lo exento por separado.</p></div><div class="fcard"><h3>Anulaciones</h3><p>Se conserva el original y las copias con el sello ANULADO, el motivo y quién autorizó.</p></div><div class="fcard"><h3>Contingencia</h3><p>Talonario preimpreso de imprenta autorizada y registro posterior de esas facturas en el sistema.</p></div><div class="fcard"><h3>Cambios del sistema</h3><p>Ningún cambio en la factura, la numeración o los impuestos se activa sin registrar antes el aviso a la DGI.</p></div><div class="fcard"><h3>Formalidades</h3><p>Emisor y RUC, dirección, número, fecha, cliente, detalle, totales y leyenda de autorización.</p></div>
+    </div>
+    <p class="fnote">El formato final de la factura, las series y el tratamiento del IVA de cada producto se definen con su contador antes de solicitar la autorización.</p>
+    <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>3</span></span></div>
+  </section>
+
+  <section class="page feature pattern-light">
+    <span class="chip soft">Sin carné</span>
+    <h2>¿Cómo sabemos que es el alumno?</h2>
+    <p class="lead">Los alumnos no tienen carné, así que la caja combina lo que la cajera ve con lo que solo el alumno sabe.</p>
+    <div class="fgrid" style="grid-template-columns: repeat(3, 1fr)">
+      <div class="fcard featured"><span class="tag">Recomendado</span><h3>Foto + clave de 4 dígitos</h3><p>La cajera elige la sección y toca la foto; el alumno escribe su clave. No necesita carné ni celular.</p></div><div class="fcard"><span class="tag">1° a 3° grado</span><h3>Solo foto, para los más pequeños</h3><p>Lista de su sección con fotos grandes, límite diario más bajo y aviso a la familia en cada compra.</p></div><div class="fcard"><span class="tag">Secundaria · opcional</span><h3>QR en el celular</h3><p>El alumno muestra un código desde la app, entrando con su cuenta de Office 365. Más rápido en horas pico.</p></div><div class="fcard"><span class="tag">Opcional</span><h3>Llavero o sticker con QR</h3><p>Sin carné: un llavero o un sticker para la mochila, de bajo costo. Si se pierde, se desactiva desde la app.</p></div><div class="fcard"><span class="tag">No recomendado al inicio</span><h3>Huella o reconocimiento facial</h3><p>Son datos biométricos de menores: requieren consentimiento expreso, equipos adicionales y más cuidado legal.</p></div><div class="fcard"><span class="tag">Seguridad</span><h3>Siempre activo</h3><p>Límite diario, aviso a la familia en cada compra y bloqueo después de 3 claves incorrectas.</p></div>
+    </div>
+    
+    <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>4</span></span></div>
+  </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/01-cafe-familia-inicio.png" /></div><h3>Saldo o cuenta del día</h3><p>Cada hijo con su forma de pago: saldo prepago que se recarga, o cuenta del día que se paga ese mismo día.</p></div><div class="mobile-item"><div class="phone "><img src="movil/02-cafe-familia-hoy.png" /></div><h3>Lo que compró hoy</h3><p>Cada compra con hora, monto y número de factura, al momento.</p></div><div class="mobile-item"><div class="phone "><img src="movil/03-cafe-recargar.png" /></div><h3>Recargar o pagar</h3><p>Por transferencia: la familia sube la foto del comprobante y la cafetería lo confirma.</p></div>
+        </div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>5</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/04-cafe-facturas.png" /></div><h3>Sus facturas</h3><p>Una factura por compra, con el IVA desglosado. Se descargan en PDF.</p></div><div class="mobile-item"><div class="phone "><img src="movil/05-cafe-factura-detalle.png" /></div><h3>La factura completa</h3><p>Emisor y RUC, número consecutivo, cliente, detalle e IVA por separado.</p></div><div class="mobile-item"><div class="phone "><img src="movil/06-cafe-controles.png" /></div><h3>Foto y clave de cada hijo</h3><p>La familia sube la foto y define la clave de 4 dígitos con la que su hijo compra.</p></div>
+        </div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>6</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/07-cafe-controles-limites.png" /></div><h3>Límites, bloqueos y alergias</h3><p>Límite diario, productos bloqueados y alergias que la caja respeta.</p></div><div class="mobile-item"><div class="phone "><img src="movil/08-cafe-menu.png" /></div><h3>Almuerzo pedido con anticipación</h3><p>Su hijo no hace fila y la cafetería prepara lo justo.</p></div>
+        </div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>7</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Caja (tablet)</span>
+          <h2>1. ¿Quién compra?</h2>
+          <p class="desc">Sin carné: la cajera elige la sección, toca la foto y el alumno escribe su clave de 4 dígitos.</p>
+          <div class="device-label"><span class="chip soft">📟 Tablet</span></div>
+        </div>
+        <div><div class="tablet"><img src="tablet/01-cafe-caja-identificar.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>8</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Caja (tablet)</span>
+          <h2>2. Cobrar y facturar</h2>
+          <p class="desc">Saldo y límite del día, productos bloqueados por la familia, IVA desglosado y número de factura consecutivo.</p>
+          <div class="device-label"><span class="chip soft">📟 Tablet</span></div>
+        </div>
+        <div><div class="tablet"><img src="tablet/02-cafe-caja-venta.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>9</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Caja (tablet)</span>
+          <h2>3. Factura emitida</h2>
+          <p class="desc">El original se imprime para el cliente, la copia queda en el archivo y la familia la ve en la app.</p>
+          <div class="device-label"><span class="chip soft">📟 Tablet</span></div>
+        </div>
+        <div><div class="tablet"><img src="tablet/03-cafe-caja-factura.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>10</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Administración y DGI</span>
+          <h2>Panel de la cafetería</h2>
+          <p class="desc">Ventas e IVA del día, facturas emitidas y anuladas, pendientes y estado de los controles fiscales.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /cafe/admin</span></div><img src="escritorio/01-cafe-admin-panel.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>11</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Administración y DGI</span>
+          <h2>Libro de ventas</h2>
+          <p class="desc">Numeración consecutiva por serie, con gravado, IVA y exento por separado. Se exporta a Excel para el contador.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /cafe/admin/facturas</span></div><img src="escritorio/02-cafe-admin-facturas.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>12</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Administración y DGI</span>
+          <h2>Anulaciones correctas</h2>
+          <p class="desc">Se conservan el original y la copia con el sello ANULADO, el motivo y la supervisora que autorizó.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /cafe/admin/facturas/anulada</span></div><img src="escritorio/03-cafe-admin-anulada.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>13</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Administración y DGI</span>
+          <h2>Cierre de caja</h2>
+          <p class="desc">Rango de facturas del día, desglose fiscal, formas de pago y arqueo del efectivo.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /cafe/admin/cierre</span></div><img src="escritorio/04-cafe-admin-cierre.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>14</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Administración y DGI</span>
+          <h2>Productos y precios</h2>
+          <p class="desc">IVA 15 % o exento por producto, y alérgenos que activan las alertas de la caja.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /cafe/admin/productos</span></div><img src="escritorio/05-cafe-admin-productos.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>15</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Administración y DGI</span>
+          <h2>Plan de contingencia</h2>
+          <p class="desc">Talonario preimpreso de respaldo y registro posterior para que el libro de ventas quede completo.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /cafe/admin/contingencia</span></div><img src="escritorio/06-cafe-admin-contingencia.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>16</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Administración y DGI</span>
+          <h2>Seguridad y DGI</h2>
+          <p class="desc">Usuario y clave por persona, respaldo diario, bitácora y versiones del sistema con aviso previo a la DGI.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /cafe/admin/seguridad</span></div><img src="escritorio/07-cafe-admin-seguridad.png" /></div></div>
+        <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>17</span></span></div>
+      </section>
+
+  <section class="page dark-bg pattern-dark">
+    <img src="../../../public/brand/curie/sello.png" style="width:84px;height:84px" />
+    <h2 style="font-size:44px;color:#fbf7e2;margin-top:16px">Próximos pasos</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Datos fiscales</h3><p>Razón social, RUC, series y formato de factura con su contador.</p></div><div class="step"><div class="n">2</div><h3>Autorización DGI</h3><p>Solicitud del sistema de facturación computarizada y talonario de contingencia.</p></div><div class="step"><div class="n">3</div><h3>Construcción</h3><p>Familias, caja, administración y reportes.</p></div><div class="step"><div class="n">4</div><h3>Piloto</h3><p>Una semana con un grado y la caja real.</p></div><div class="step"><div class="n">5</div><h3>Lanzamiento</h3><p>Fotos y claves de los alumnos, y capacitación a las cajeras.</p></div>
+    </div>
+    <div class="ribbon" style="margin-top:26px"><span>Web app en Vercel</span><span>Base de datos Turso</span><span>Acceso seguro con Clerk</span><span>Respaldo diario cifrado</span></div>
+    <p class="note">Los nombres, montos, RUC y números de factura son de ejemplo. Los requisitos de facturación se validan con su contador y con la DGI antes de la autorización.</p>
+    <div class="footer"><span>Cafetería Curie · Propuesta de plataforma</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>18</span></span></div>
+  </section></body></html>

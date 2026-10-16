@@ -5,6 +5,9 @@
  *   NEXT_PUBLIC_SCHOOL=curie pnpm build && pnpm start -p 3100      (en otra terminal)
  *   SCHOOL=curie BASE_URL=http://localhost:3100 pnpm screenshots
  *
+ * Productos aparte (con el build del colegio al que pertenecen):
+ *   PROPOSAL=curie-cafeteria BASE_URL=http://localhost:3100 pnpm screenshots
+ *
  * Solo rehacer el PDF con las capturas que ya existen (sin servidor):
  *   SCHOOL=curie PDF_ONLY=1 pnpm screenshots
  *
@@ -16,19 +19,26 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { chromium, type Browser } from "playwright-core";
-import type { SchoolId } from "../src/schools/types";
-import { catalogs, type Device } from "./mockups/catalog";
+import { catalogs, type Device, type ProposalId } from "./mockups/catalog";
 import { contents, themes } from "./mockups/proposal-content";
 import { buildProposalHtml, type RenderedShot } from "./mockups/proposal-html";
 
 const base = process.env.BASE_URL ?? "http://localhost:3100";
 const executablePath =
   process.env.CHROMIUM_PATH ?? "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
-const school = (process.env.SCHOOL ?? "beehive") as SchoolId;
-const { sections, shots } = catalogs[school];
-const outDir = path.resolve("docs/mockups", school);
-const logos: Record<SchoolId, string> = { beehive: "public/brand/logo-circle.png", curie: "public/brand/curie/sello.png" };
-const pdfNames: Record<SchoolId, string> = { beehive: "Beehive-Academy-Propuesta-UI.pdf", curie: "Curie-Propuesta-Plataforma.pdf" };
+const proposal = (process.env.PROPOSAL ?? process.env.SCHOOL ?? "beehive") as ProposalId;
+const { sections, shots } = catalogs[proposal];
+const outDir = path.resolve("docs/mockups", proposal);
+const logos: Record<ProposalId, string> = {
+  beehive: "public/brand/logo-circle.png",
+  curie: "public/brand/curie/sello.png",
+  "curie-cafeteria": "public/brand/curie/sello.png",
+};
+const pdfNames: Record<ProposalId, string> = {
+  beehive: "Beehive-Academy-Propuesta-UI.pdf",
+  curie: "Curie-Propuesta-Plataforma.pdf",
+  "curie-cafeteria": "Curie-Cafeteria-Propuesta.pdf",
+};
 
 const viewports: Record<
   Device,
@@ -107,15 +117,15 @@ async function main() {
   const browser = await chromium.launch({ executablePath });
   const { rendered, problems } = pdfOnly ? { rendered: existingShots(), problems: [] } : await capture(browser);
 
-  const logo = path.relative(outDir, path.resolve(logos[school]));
+  const logo = path.relative(outDir, path.resolve(logos[proposal]));
   const htmlPath = path.join(outDir, "propuesta.html");
-  await writeFile(htmlPath, buildProposalHtml(rendered, sections, logo, themes[school], contents[school]));
+  await writeFile(htmlPath, buildProposalHtml(rendered, sections, logo, themes[proposal], contents[proposal]));
 
   const page = await browser.newPage();
   await page.goto(pathToFileURL(htmlPath).href, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
   await page.pdf({
-    path: path.join(outDir, pdfNames[school]),
+    path: path.join(outDir, pdfNames[proposal]),
     width: "1280px",
     height: "720px",
     printBackground: true,
