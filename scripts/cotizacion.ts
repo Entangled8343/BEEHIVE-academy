@@ -22,7 +22,7 @@ const minStudents = 150;
 const months = 12;
 const setupList = 2200;
 const setupOff = 1000;
-const feeList = 3.5;
+const feeList = 4;
 const founderOff = 0.5;
 const familyPart = 2;
 const annualPrepayOff = 0.05;
@@ -113,6 +113,10 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: ${t.muted};
 .callout { margin-top: 12px; display: flex; gap: 14px; align-items: center; border-radius: 18px; padding: 14px 18px; background: #fff7d1; border: 1.5px solid ${t.accent}; }
 .callout .big { font-family: ${t.display}; font-weight: ${t.displayWeight}; font-size: 28px; line-height: 1; white-space: nowrap; }
 .callout p { font-weight: 700; color: ${t.softText}; }
+.callout.dark { background: ${t.dark}; border-color: ${t.dark}; }
+.callout.dark .big { color: ${t.accent}; }
+.callout.dark p { color: ${t.darkMuted}; font-weight: 600; }
+.callout.dark strong { color: ${t.darkText}; font-weight: 800; }
 
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
 .stat { background: #fff; border: 1px solid ${t.soft}; border-radius: 16px; padding: 12px 14px; }
@@ -207,11 +211,18 @@ const page1 = `
         </div>
         <ul class="check">
           <li>Reparto sugerido: las familias aportan ${usd(familyPart, true)} y el colegio ${usd(schoolPart, true)}</li>
+          <li>Usuarios de las maestras sin costo adicional</li>
           <li>Todos los módulos de la propuesta, incluido el estado de cuenta con comprobantes</li>
           <li>Servidores, respaldos diarios, soporte y actualizaciones</li>
           <li>Se paga por semestre, trimestre o año adelantado</li>
         </ul>
       </div>
+    </div>
+
+    <div class="callout dark">
+      <span class="big">$0</span>
+      <p><strong>Las maestras tienen su usuario sin ningún costo adicional.</strong> Cada maestra entra con su propia
+      cuenta para tareas, notas, asistencia y agenda diaria. La cuota se cobra solo por alumno matriculado.</p>
     </div>
 
     <h2>Calendario de trabajo</h2>
@@ -263,6 +274,7 @@ const page2 = `
       <div class="card">
         <h3>La cuota incluye</h3>
         <ul class="check">
+          <li>Usuarios para todas las maestras, sin costo adicional</li>
           <li>Todos los módulos de la propuesta, incluido el estado de cuenta con comprobantes</li>
           <li>Servidores, base de datos y almacenamiento de fotos y archivos</li>
           <li>Respaldos diarios y protección de los datos</li>

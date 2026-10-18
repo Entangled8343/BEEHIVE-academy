@@ -72,6 +72,10 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: #3a3c8c; }
 .callout { margin-top: 12px; display: flex; gap: 14px; align-items: center; border-radius: 18px; padding: 14px 18px; background: #fff7d1; border: 1.5px solid #f7d23e; }
 .callout .big { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; font-size: 28px; line-height: 1; white-space: nowrap; }
 .callout p { font-weight: 700; color: #2b2c6e; }
+.callout.dark { background: #2b2c6e; border-color: #2b2c6e; }
+.callout.dark .big { color: #f7d23e; }
+.callout.dark p { color: #d2d3ef; font-weight: 600; }
+.callout.dark strong { color: #ffffff; font-weight: 800; }
 
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
 .stat { background: #fff; border: 1px solid #e8e9f7; border-radius: 16px; padding: 12px 14px; }
@@ -155,18 +159,25 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: #3a3c8c; }
       <div class="card">
         <p class="kind">Por alumno al mes, pagada por adelantado</p>
         <h3>Cuota tecnológica</h3>
-        <div class="price"><span class="now">$3.00</span><span class="was">$3.50</span><span class="unit">por alumno</span></div>
+        <div class="price"><span class="now">$3.50</span><span class="was">$4.00</span><span class="unit">por alumno</span></div>
         <div class="lines">
-          <div><span>Precio regular</span><span>$3.50</span></div>
+          <div><span>Precio regular</span><span>$4.00</span></div>
           <div class="off"><span>Descuento de colegio fundador</span><span>−$0.50</span></div>
         </div>
         <ul class="check">
-          <li>Reparto sugerido: las familias aportan $2.00 y el colegio $1.00</li>
+          <li>Reparto sugerido: las familias aportan $2.00 y el colegio $1.50</li>
+          <li>Usuarios de las maestras sin costo adicional</li>
           <li>Todos los módulos de la propuesta, incluido el estado de cuenta con comprobantes</li>
           <li>Servidores, respaldos diarios, soporte y actualizaciones</li>
           <li>Se paga por semestre, trimestre o año adelantado</li>
         </ul>
       </div>
+    </div>
+
+    <div class="callout dark">
+      <span class="big">$0</span>
+      <p><strong>Las maestras tienen su usuario sin ningún costo adicional.</strong> Cada maestra entra con su propia
+      cuenta para tareas, notas, asistencia y agenda diaria. La cuota se cobra solo por alumno matriculado.</p>
     </div>
 
     <h2>Calendario de trabajo</h2>
@@ -186,18 +197,18 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: #3a3c8c; }
     <table>
       <thead><tr><th></th><th>Por alumno al mes</th><th>164 alumnos al mes</th><th>Al año (12 meses)</th></tr></thead>
       <tbody>
-        <tr><td>Precio regular</td><td>$3.50</td><td>$574</td><td>$6,888</td></tr>
+        <tr><td>Precio regular</td><td>$4.00</td><td>$656</td><td>$7,872</td></tr>
         <tr class="off"><td>Descuento de colegio fundador</td><td>−$0.50</td><td>−$82</td><td>−$984</td></tr>
-        <tr class="total"><td>Cuota con descuento</td><td>$3.00</td><td>$492</td><td>$5,904</td></tr>
+        <tr class="total"><td>Cuota con descuento</td><td>$3.50</td><td>$574</td><td>$6,888</td></tr>
         <tr class="sub"><td>Aporte de las familias (sugerido)</td><td>$2.00</td><td>$328</td><td>$3,936</td></tr>
-        <tr class="sub school"><td>Parte del colegio</td><td>$1.00</td><td>$164</td><td>$1,968</td></tr>
+        <tr class="sub school"><td>Parte del colegio</td><td>$1.50</td><td>$246</td><td>$2,952</td></tr>
       </tbody>
     </table>
     <div class="callout">
       <span class="big">$24 al año</span>
       <p>Sugerencia para las familias: una cuota tecnológica de $24 al año por alumno (unos
       C$ 880), cobrada con la matrícula 2027. Así a Beehive le queda
-      en $1.00 por alumno al mes. Les entregamos el comunicado listo para enviar.</p>
+      en $1.50 por alumno al mes. Les entregamos el comunicado listo para enviar.</p>
     </div>
 
     <h2>Formas de pago</h2>
@@ -205,10 +216,10 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: #3a3c8c; }
     <table>
       <thead><tr><th>Forma de pago</th><th>Cuándo</th><th>Cada pago</th><th>Al año</th></tr></thead>
       <tbody>
-        <tr class="pick"><td>Semestral <span class="chip small">Recomendada</span></td><td>Febrero y agosto</td><td>$2,952</td><td>$5,904</td></tr>
-        <tr><td>Trimestral</td><td>Febrero, mayo, agosto y noviembre</td><td>$1,476</td><td>$5,904</td></tr>
-        <tr><td>Anual por adelantado<span class="note">5 % de descuento adicional</span></td><td>Febrero</td><td>$5,608.80</td><td>$5,608.80</td></tr>
-        <tr><td>Mensual<span class="note">Sin el descuento de colegio fundador</span></td><td>Cada mes</td><td>$574</td><td>$6,888</td></tr>
+        <tr class="pick"><td>Semestral <span class="chip small">Recomendada</span></td><td>Febrero y agosto</td><td>$3,444</td><td>$6,888</td></tr>
+        <tr><td>Trimestral</td><td>Febrero, mayo, agosto y noviembre</td><td>$1,722</td><td>$6,888</td></tr>
+        <tr><td>Anual por adelantado<span class="note">5 % de descuento adicional</span></td><td>Febrero</td><td>$6,543.60</td><td>$6,543.60</td></tr>
+        <tr><td>Mensual<span class="note">Sin el descuento de colegio fundador</span></td><td>Cada mes</td><td>$656</td><td>$7,872</td></tr>
       </tbody>
     </table>
 
@@ -216,6 +227,7 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: #3a3c8c; }
       <div class="card">
         <h3>La cuota incluye</h3>
         <ul class="check">
+          <li>Usuarios para todas las maestras, sin costo adicional</li>
           <li>Todos los módulos de la propuesta, incluido el estado de cuenta con comprobantes</li>
           <li>Servidores, base de datos y almacenamiento de fotos y archivos</li>
           <li>Respaldos diarios y protección de los datos</li>
@@ -243,15 +255,15 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: #3a3c8c; }
       <thead><tr><th>Cuándo</th><th style="text-align:left">Concepto</th><th>Monto</th></tr></thead>
       <tbody>
         <tr><td>Al firmar, antes del 15 de noviembre de 2026</td><td style="text-align:left">Implementación</td><td>$1,200</td></tr>
-        <tr><td>Febrero 2027, con el inicio de clases</td><td style="text-align:left">Cuota de febrero a julio</td><td>$2,952</td></tr>
-        <tr><td>Agosto 2027</td><td style="text-align:left">Cuota de agosto 2027 a enero 2028</td><td>$2,952</td></tr>
-        <tr class="total"><td>Total del primer año</td><td></td><td>$7,104</td></tr>
+        <tr><td>Febrero 2027, con el inicio de clases</td><td style="text-align:left">Cuota de febrero a julio</td><td>$3,444</td></tr>
+        <tr><td>Agosto 2027</td><td style="text-align:left">Cuota de agosto 2027 a enero 2028</td><td>$3,444</td></tr>
+        <tr class="total"><td>Total del primer año</td><td></td><td>$8,088</td></tr>
       </tbody>
     </table>
     <div class="stats">
-      <div class="stat"><p class="v">$7,104</p><p class="k">Total del primer año</p></div>
+      <div class="stat"><p class="v">$8,088</p><p class="k">Total del primer año</p></div>
       <div class="stat"><p class="v">$3,936</p><p class="k">Lo aportan las familias</p></div>
-      <div class="stat dark"><p class="v">$3,168</p><p class="k">Costo neto para Beehive (unos $264 al mes)</p></div>
+      <div class="stat dark"><p class="v">$4,152</p><p class="k">Costo neto para Beehive (unos $346 al mes)</p></div>
       <div class="stat honey"><p class="v">$1,984</p><p class="k">Ahorro como colegio fundador en el primer año</p></div>
     </div>
 
