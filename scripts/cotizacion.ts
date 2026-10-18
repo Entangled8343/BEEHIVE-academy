@@ -20,13 +20,17 @@ const t = themes.beehive;
 const students = 164;
 const minStudents = 150;
 const months = 12;
-const setupList = 2200;
-const setupOff = 1000;
-const feeList = 4;
-const founderOff = 0.5;
-const familyPart = 2;
+// Montos en córdobas: desde 2025 el BCN exige ofrecer los precios en moneda nacional.
+const setupList = 80000;
+const setupOff = 36000;
+const feeList = 150;
+const founderOff = 20;
+const familyPart = 75;
 const annualPrepayOff = 0.05;
-const exchangeRate = 36.62;
+const exchangeRate = 36.6243;
+const storageGb = 100;
+const maxAdjustment = 0.1;
+const exampleStudents = 180;
 const domain = "beehiveacademyedu.com";
 
 const setup = setupList - setupOff;
@@ -40,9 +44,7 @@ const families = yearly(familyPart);
 const schoolNet = setup + yearly(schoolPart);
 const founderSavings = setupOff + yearly(founderOff);
 
-const usd = (n: number, cents = false) =>
-  "$" +
-  n.toLocaleString("en-US", { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: 2 });
+const cs = (n: number) => "C$\u00a0" + Math.round(n).toLocaleString("en-US");
 const less = (s: string) => "−" + s;
 
 const css = `
@@ -184,7 +186,7 @@ const page1 = `
     <p class="intro">
       Gracias por la confianza. Esta cotización cubre la puesta en marcha y el servicio de la plataforma de la propuesta de
       interfaz: una web app para familias, maestras, dirección, contabilidad y portería, en el celular o la computadora. Como
-      colegio fundador, Beehive recibe precios especiales congelados por dos años.
+      colegio fundador, Beehive recibe un descuento especial que se mantiene durante todo el contrato.
     </p>
 
     <h2>Inversión</h2>
@@ -192,10 +194,10 @@ const page1 = `
       <div class="card">
         <p class="kind">Pago único, al firmar</p>
         <h3>Implementación</h3>
-        <div class="price"><span class="now">${usd(setup)}</span><span class="was">${usd(setupList)}</span></div>
+        <div class="price"><span class="now">${cs(setup)}</span><span class="was">${cs(setupList)}</span></div>
         <div class="lines">
-          <div><span>Precio regular</span><span>${usd(setupList)}</span></div>
-          <div class="off"><span>Descuento de colegio fundador</span><span>${less(usd(setupOff))}</span></div>
+          <div><span>Precio regular</span><span>${cs(setupList)}</span></div>
+          <div class="off"><span>Descuento de colegio fundador</span><span>${less(cs(setupOff))}</span></div>
         </div>
         <ul class="check">
           <li>Configuración de grados, secciones, materias y escala de notas</li>
@@ -208,13 +210,13 @@ const page1 = `
       <div class="card">
         <p class="kind">Por alumno al mes, pagada por adelantado</p>
         <h3>Cuota tecnológica</h3>
-        <div class="price"><span class="now">${usd(fee, true)}</span><span class="was">${usd(feeList, true)}</span><span class="unit">por alumno</span></div>
+        <div class="price"><span class="now">${cs(fee)}</span><span class="was">${cs(feeList)}</span><span class="unit">por alumno</span></div>
         <div class="lines">
-          <div><span>Precio regular</span><span>${usd(feeList, true)}</span></div>
-          <div class="off"><span>Descuento de colegio fundador</span><span>${less(usd(founderOff, true))}</span></div>
+          <div><span>Precio regular</span><span>${cs(feeList)}</span></div>
+          <div class="off"><span>Descuento de colegio fundador</span><span>${less(cs(founderOff))}</span></div>
         </div>
         <ul class="check">
-          <li>Reparto sugerido: las familias aportan ${usd(familyPart, true)} y el colegio ${usd(schoolPart, true)}</li>
+          <li>Reparto sugerido: las familias aportan ${cs(familyPart)} y el colegio ${cs(schoolPart)}</li>
           <li>Usuarios de las maestras sin costo adicional</li>
           <li>Todos los módulos de la propuesta, incluido el estado de cuenta con comprobantes</li>
           <li>Se paga por semestre, trimestre o año adelantado</li>
@@ -247,7 +249,7 @@ const page1 = `
     </div>
 
   </div>
-  ${footer(1, 3)}
+  ${footer(1, 4)}
 </section>`;
 
 const page2 = `
@@ -257,18 +259,18 @@ const page2 = `
     <table>
       <thead><tr><th></th><th>Por alumno al mes</th><th>${students} alumnos al mes</th><th>Al año (${months} meses)</th></tr></thead>
       <tbody>
-        <tr><td>Precio regular</td><td>${usd(feeList, true)}</td><td>${usd(monthly(feeList))}</td><td>${usd(yearly(feeList))}</td></tr>
-        <tr class="off"><td>Descuento de colegio fundador</td><td>${less(usd(founderOff, true))}</td><td>${less(usd(monthly(founderOff)))}</td><td>${less(usd(yearly(founderOff)))}</td></tr>
-        <tr class="total"><td>Cuota con descuento</td><td>${usd(fee, true)}</td><td>${usd(monthly(fee))}</td><td>${usd(annual)}</td></tr>
-        <tr class="sub"><td>Aporte de las familias (sugerido)</td><td>${usd(familyPart, true)}</td><td>${usd(monthly(familyPart))}</td><td>${usd(families)}</td></tr>
-        <tr class="sub school"><td>Parte del colegio</td><td>${usd(schoolPart, true)}</td><td>${usd(monthly(schoolPart))}</td><td>${usd(yearly(schoolPart))}</td></tr>
+        <tr><td>Precio regular</td><td>${cs(feeList)}</td><td>${cs(monthly(feeList))}</td><td>${cs(yearly(feeList))}</td></tr>
+        <tr class="off"><td>Descuento de colegio fundador</td><td>${less(cs(founderOff))}</td><td>${less(cs(monthly(founderOff)))}</td><td>${less(cs(yearly(founderOff)))}</td></tr>
+        <tr class="total"><td>Cuota con descuento</td><td>${cs(fee)}</td><td>${cs(monthly(fee))}</td><td>${cs(annual)}</td></tr>
+        <tr class="sub"><td>Aporte de las familias (sugerido)</td><td>${cs(familyPart)}</td><td>${cs(monthly(familyPart))}</td><td>${cs(families)}</td></tr>
+        <tr class="sub school"><td>Parte del colegio</td><td>${cs(schoolPart)}</td><td>${cs(monthly(schoolPart))}</td><td>${cs(yearly(schoolPart))}</td></tr>
       </tbody>
     </table>
     <div class="callout">
-      <span class="big">${usd(familyPart * months)} al año</span>
-      <p>Sugerencia para las familias: una cuota tecnológica de ${usd(familyPart * months)} al año por alumno (unos
-      C$ ${Math.round((familyPart * months * exchangeRate) / 10) * 10}), cobrada con la matrícula 2027. Así a Beehive le queda
-      en ${usd(schoolPart, true)} por alumno al mes. Les entregamos el comunicado listo para enviar.</p>
+      <span class="big">${cs(familyPart * months)} al año</span>
+      <p>Sugerencia para las familias: una cuota tecnológica de ${cs(familyPart * months)} al año por alumno
+      (${cs(familyPart)} al mes), cobrada con la matrícula 2027. Así a Beehive le queda en ${cs(schoolPart)} por alumno al
+      mes. Les entregamos el comunicado listo para enviar.</p>
     </div>
 
     <h2>Formas de pago</h2>
@@ -276,10 +278,10 @@ const page2 = `
     <table>
       <thead><tr><th>Forma de pago</th><th>Cuándo</th><th>Cada pago</th><th>Al año</th></tr></thead>
       <tbody>
-        <tr class="pick"><td>Semestral <span class="chip small">Recomendada</span></td><td>Febrero y agosto</td><td>${usd(annual / 2)}</td><td>${usd(annual)}</td></tr>
-        <tr><td>Trimestral</td><td>Febrero, mayo, agosto y noviembre</td><td>${usd(annual / 4)}</td><td>${usd(annual)}</td></tr>
-        <tr><td>Anual por adelantado<span class="note">5 % de descuento adicional</span></td><td>Febrero</td><td>${usd(annual * (1 - annualPrepayOff), true)}</td><td>${usd(annual * (1 - annualPrepayOff), true)}</td></tr>
-        <tr><td>Mensual<span class="note">Sin el descuento de colegio fundador</span></td><td>Cada mes</td><td>${usd(monthly(feeList))}</td><td>${usd(yearly(feeList))}</td></tr>
+        <tr class="pick"><td>Semestral <span class="chip small">Recomendada</span></td><td>Febrero y agosto</td><td>${cs(annual / 2)}</td><td>${cs(annual)}</td></tr>
+        <tr><td>Trimestral</td><td>Febrero, mayo, agosto y noviembre</td><td>${cs(annual / 4)}</td><td>${cs(annual)}</td></tr>
+        <tr><td>Anual por adelantado<span class="note">5 % de descuento adicional</span></td><td>Febrero</td><td>${cs(annual * (1 - annualPrepayOff))}</td><td>${cs(annual * (1 - annualPrepayOff))}</td></tr>
+        <tr><td>Mensual<span class="note">Sin el descuento de colegio fundador</span></td><td>Cada mes</td><td>${cs(monthly(feeList))}</td><td>${cs(yearly(feeList))}</td></tr>
       </tbody>
     </table>
 
@@ -306,7 +308,7 @@ const page2 = `
       </div>
     </div>
   </div>
-  ${footer(2, 3)}
+  ${footer(2, 4)}
 </section>`;
 
 const page3 = `
@@ -316,17 +318,37 @@ const page3 = `
     <table>
       <thead><tr><th>Cuándo</th><th style="text-align:left">Concepto</th><th>Monto</th></tr></thead>
       <tbody>
-        <tr><td>Al firmar, antes del 15 de noviembre de 2026</td><td style="text-align:left">Implementación</td><td>${usd(setup)}</td></tr>
-        <tr><td>Febrero 2027, con el inicio de clases</td><td style="text-align:left">Cuota de febrero a julio</td><td>${usd(annual / 2)}</td></tr>
-        <tr><td>Agosto 2027</td><td style="text-align:left">Cuota de agosto 2027 a enero 2028</td><td>${usd(annual / 2)}</td></tr>
-        <tr class="total"><td>Total del primer año</td><td></td><td>${usd(year1)}</td></tr>
+        <tr><td>Al firmar, antes del 15 de noviembre de 2026</td><td style="text-align:left">Implementación</td><td>${cs(setup)}</td></tr>
+        <tr><td>Febrero 2027, con el inicio de clases</td><td style="text-align:left">Cuota de febrero a julio</td><td>${cs(annual / 2)}</td></tr>
+        <tr><td>Agosto 2027</td><td style="text-align:left">Cuota de agosto 2027 a enero 2028</td><td>${cs(annual / 2)}</td></tr>
+        <tr class="total"><td>Total del primer año</td><td></td><td>${cs(year1)}</td></tr>
       </tbody>
     </table>
     <div class="stats">
-      <div class="stat"><p class="v">${usd(year1)}</p><p class="k">Total del primer año</p></div>
-      <div class="stat"><p class="v">${usd(families)}</p><p class="k">Lo aportan las familias</p></div>
-      <div class="stat dark"><p class="v">${usd(schoolNet)}</p><p class="k">Costo neto para Beehive (unos ${usd(Math.round(schoolNet / months))} al mes)</p></div>
-      <div class="stat honey"><p class="v">${usd(founderSavings)}</p><p class="k">Ahorro como colegio fundador en el primer año</p></div>
+      <div class="stat"><p class="v">${cs(year1)}</p><p class="k">Total del primer año</p></div>
+      <div class="stat"><p class="v">${cs(families)}</p><p class="k">Lo aportan las familias</p></div>
+      <div class="stat dark"><p class="v">${cs(schoolNet)}</p><p class="k">Costo neto para Beehive (unos ${cs(Math.round(schoolNet / months / 10) * 10)} al mes)</p></div>
+      <div class="stat honey"><p class="v">${cs(founderSavings)}</p><p class="k">Ahorro como colegio fundador en el primer año</p></div>
+    </div>
+
+    <h2>Cómo se calcula y se ajusta la cuota</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Según la matrícula</h3>
+        <ul class="check">
+          <li>Se cobra por alumno matriculado. Cada pago se calcula con la matrícula al inicio del periodo, con un mínimo de ${minStudents} alumnos.</li>
+          <li>Si la matrícula sube o baja, el pago cambia en la misma proporción. Ejemplo: con ${exampleStudents} alumnos, cada semestre sería ${cs(fee * exampleStudents * 6)}.</li>
+          <li>Incluye hasta ${storageGb} GB de fotos y documentos; los videos se comparten por enlace. El espacio adicional se cotiza aparte.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ajustes de la tarifa</h3>
+        <ul class="check">
+          <li>La tarifa por alumno se mantiene durante el año escolar 2027.</li>
+          <li>Desde 2028 puede ajustarse una vez al año si suben los costos de servidores o almacenamiento en la nube, con aviso por escrito 60 días antes y un máximo de ${maxAdjustment * 100} %.</li>
+          <li>Con mantenimiento de valor según el tipo de cambio oficial del BCN (C$ ${exchangeRate} por dólar en 2026). Si cambia, la tarifa se ajusta en la misma proporción.</li>
+        </ul>
+      </div>
     </div>
 
     <h2>Calendario de trabajo</h2>
@@ -336,14 +358,19 @@ const page3 = `
       <div class="step"><p class="when">Enero 2027</p><h3>Pruebas con familias piloto y capacitación</h3></div>
       <div class="step"><p class="when">Febrero 2027</p><h3>Lanzamiento con el inicio de clases</h3></div>
     </div>
+  </div>
+  ${footer(3, 4)}
+</section>`;
 
-    <h2>Condiciones</h2>
+const page4 = `
+<section class="page pattern-light">
+  <div class="body" style="padding-top: 40px">
+    <h2 style="margin-top: 0">Otras condiciones</h2>
     <div class="card" style="margin-top: 12px">
       <ul class="check two">
-        <li>Precios en dólares de EE. UU. No incluyen IVA.</li>
-        <li>Precio congelado en los años escolares 2027 y 2028.</li>
-        <li>Contrato mínimo de 2 años escolares. Si termina antes, se cobra el descuento de implementación (${usd(setupOff)}).</li>
-        <li>La cuota se calcula con la matrícula al inicio de cada periodo de pago, con un mínimo de ${minStudents} alumnos.</li>
+        <li>Precios en córdobas. No incluyen IVA.</li>
+        <li>El descuento de colegio fundador se mantiene durante todo el contrato.</li>
+        <li>Contrato mínimo de 2 años escolares. Si termina antes, se cobra el descuento de implementación (${cs(setupOff)}).</li>
         <li>Pagos por transferencia bancaria contra factura.</li>
         <li>Los datos son del colegio y se pueden exportar cuando lo pidan.</li>
       </ul>
@@ -355,12 +382,13 @@ const page3 = `
       propuesta de interfaz y el que les dará soporte: un solo responsable de principio a fin, sin intermediarios.</p>
     </div>
 
+    <h2>Aceptación</h2>
     <div class="sign">
       <div><p class="who">Por Beehive Academy</p><div class="line"><span>Nombre y firma</span><span>Fecha</span></div></div>
       <div><p class="who">Por IA360</p><div class="line"><span>Nombre y firma</span><span>Fecha</span></div></div>
     </div>
   </div>
-  ${footer(3, 3)}
+  ${footer(4, 4)}
 </section>`;
 
 const html = `<!doctype html>
@@ -369,7 +397,7 @@ const html = `<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="${t.fontsHref}" rel="stylesheet">
 <style>${css}</style></head>
-<body>${page1}${page2}${page3}</body></html>`;
+<body>${page1}${page2}${page3}${page4}</body></html>`;
 
 async function main() {
   await mkdir(outDir, { recursive: true });
