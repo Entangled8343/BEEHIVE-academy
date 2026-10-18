@@ -130,6 +130,7 @@ export const contents: Record<ProposalId, ProposalContent> = {
     ],
     tech: ["Web app en Vercel", "Base de datos Turso", "Acceso seguro con Clerk", "Notificaciones push y correo"],
     note: "Los nombres, datos e ilustraciones de esta propuesta son de ejemplo. Las fotos reales del colegio se agregarán solo con autorización de las familias.",
+    credit: "Desarrollado por ia360.work",
   },
   curie: {
     docTitle: "Escuela Universal Pierre y Marie Curie · Propuesta de plataforma",

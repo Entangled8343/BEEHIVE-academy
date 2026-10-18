@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"/>
+<title>Beehive Academy · Cotización</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+@page { size: 816px 1056px; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #fffdf6; }
+body { font-family: "Nunito", system-ui, sans-serif; color: #1d1e55; font-size: 12.5px; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+h1, h2, h3, .display { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; }
+.page { width: 816px; height: 1056px; position: relative; overflow: hidden; page-break-after: always; break-after: page; }
+.body { padding: 26px 48px 0; }
+.dark { background: #2b2c6e; color: #ffffff; }
+.pattern-dark { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23FFFFFF' stroke-opacity='0.07' stroke-width='2'/%3E%3C/svg%3E"); background-size: 56px 98px; }
+.pattern-light { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23F7D23E' stroke-opacity='0.35' stroke-width='2'/%3E%3C/svg%3E"); background-size: 56px 98px; }
+.accent { color: #f7d23e; }
+.chip { display: inline-flex; align-items: center; border-radius: 999px; padding: 4px 12px; font-weight: 800; font-size: 11px; background: #f7d23e; color: #1d1e55; }
+.chip.soft { background: #e8e9f7; color: #2b2c6e; }
+.chip.small { padding: 2px 9px; font-size: 10px; vertical-align: 1px; margin-left: 6px; }
+
+.hero { padding: 30px 48px 28px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.hero .brand { display: flex; align-items: center; gap: 20px; }
+.hero .logo { width: 96px; height: 96px; border-radius: 50%; border: 3px solid #f7d23e; }
+.hero h1 { font-size: 34px; line-height: 1.05; margin-top: 10px; }
+.hero .meta { display: grid; grid-template-columns: auto auto; gap: 4px 14px; font-size: 12px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); border-radius: 18px; padding: 14px 18px; }
+.hero .meta dt { color: #d2d3ef; font-weight: 700; }
+.hero .meta dd { font-weight: 800; text-align: right; }
+
+.parties { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.party { background: #fff; border: 1px solid #e8e9f7; border-radius: 16px; padding: 12px 16px; }
+.party .label { font-size: 10.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #3a3c8c; opacity: .8; }
+.party .name { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; font-size: 17px; margin-top: 2px; }
+.party .sub { font-weight: 700; color: #3a3c8c; }
+
+.intro { margin-top: 16px; font-size: 13.5px; font-weight: 600; color: #2b2c6e; }
+h2 { font-size: 21px; margin-top: 22px; display: flex; align-items: center; gap: 10px; }
+h2::before { content: ""; width: 14px; height: 16px; background: #f7d23e; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.lead { color: #3a3c8c; font-weight: 600; margin-top: 4px; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.card { background: #fff; border: 1px solid #e8e9f7; border-radius: 20px; padding: 18px 20px; }
+.card h3 { font-size: 17px; }
+.card .kind { font-size: 11px; font-weight: 800; color: #3a3c8c; }
+.price { display: flex; align-items: baseline; gap: 10px; margin-top: 8px; }
+.price .now { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; font-size: 34px; line-height: 1; }
+.price .was { font-weight: 800; color: #3a3c8c; text-decoration: line-through; opacity: .7; font-size: 15px; }
+.price .unit { font-weight: 700; color: #3a3c8c; }
+.lines { margin-top: 10px; border-top: 1px dashed #e8e9f7; padding-top: 8px; display: grid; gap: 3px; font-weight: 700; }
+.lines div { display: flex; justify-content: space-between; }
+.lines .off { color: #1d7a4f; }
+ul.check { list-style: none; margin-top: 10px; display: grid; gap: 5px; }
+ul.check li { display: flex; gap: 8px; font-weight: 600; color: #2b2c6e; }
+ul.check li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 5px; border-radius: 3px; background: #f7d23e; }
+ul.check.two { grid-template-columns: 1fr 1fr; gap: 8px 22px; margin-top: 0; }
+ul.check.muted li::before { background: #e8e9f7; border: 1px solid #3a3c8c; }
+
+table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; background: #fff; border: 1px solid #e8e9f7; border-radius: 18px; overflow: hidden; }
+th, td { padding: 8px 14px; text-align: right; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+thead th { background: #e8e9f7; font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #2b2c6e; }
+tbody td { border-top: 1px solid #e8e9f7; font-weight: 700; }
+tbody tr:first-child td { border-top: 0; }
+tr.off td { color: #1d7a4f; }
+tr.total td { background: #2b2c6e; color: #ffffff; font-weight: 800; }
+tr.total td:first-child { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; font-size: 14px; }
+tr.sub td:first-child { padding-left: 30px; }
+tr.school td { background: #fff7d1; font-weight: 800; }
+tr.pick td { background: #fff7d1; }
+td .note { display: block; font-size: 11px; font-weight: 600; color: #3a3c8c; }
+
+.callout { margin-top: 12px; display: flex; gap: 14px; align-items: center; border-radius: 18px; padding: 14px 18px; background: #fff7d1; border: 1.5px solid #f7d23e; }
+.callout .big { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; font-size: 28px; line-height: 1; white-space: nowrap; }
+.callout p { font-weight: 700; color: #2b2c6e; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+.stat { background: #fff; border: 1px solid #e8e9f7; border-radius: 16px; padding: 12px 14px; }
+.stat .v { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; }
+.stat .k { font-size: 11px; font-weight: 800; color: #3a3c8c; }
+.stat.dark { background: #2b2c6e; border-color: #2b2c6e; }
+.stat.dark .k { color: #d2d3ef; }
+.stat.honey { background: #f7d23e; border-color: #f7d23e; }
+
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+.step { background: #fff; border: 1px solid #e8e9f7; border-radius: 16px; padding: 12px 14px; }
+.step .when { font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #3a3c8c; }
+.step h3 { font-size: 14px; line-height: 1.2; margin-top: 3px; }
+
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.cols h3 { font-size: 15px; }
+
+.dev { margin-top: 18px; border-radius: 20px; padding: 18px 22px; display: grid; grid-template-columns: 1fr 250px; gap: 22px; align-items: center; }
+.dev h3 { font-size: 19px; color: #ffffff; }
+.dev p { color: #d2d3ef; font-weight: 600; margin-top: 6px; }
+.dev .site { display: inline-block; margin-top: 10px; font-weight: 800; color: #f7d23e; }
+.dev .mark { text-align: center; border: 1px solid rgba(255,255,255,.25); border-radius: 16px; padding: 14px; background: rgba(255,255,255,.08); }
+.dev .mark .name { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; font-size: 30px; line-height: 1; color: #ffffff; }
+.dev .mark .tag { font-size: 11px; font-weight: 700; color: #d2d3ef; margin-top: 6px; }
+
+.sign { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 10px; }
+.sign .who { font-weight: 800; }
+.sign .line { margin-top: 34px; border-top: 1.5px solid #1d1e55; padding-top: 5px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #3a3c8c; }
+
+.footer { position: absolute; left: 48px; right: 48px; bottom: 20px; display: flex; justify-content: space-between; align-items: baseline; font-size: 10.5px; font-weight: 700; color: #3a3c8c; opacity: .8; }
+.footer .end { display: flex; gap: 14px; align-items: baseline; }
+.footer .credit { font-weight: 600; letter-spacing: .02em; opacity: .8; }
+</style></head>
+<body>
+<section class="page pattern-light">
+  <header class="hero dark pattern-dark">
+    <div class="brand">
+      <img class="logo" src="../../public/brand/logo-circle.png" />
+      <div>
+        <span class="chip">Cotización · Octubre 2026</span>
+        <h1>Plataforma escolar<br /><span class="accent">Beehive Academy</span></h1>
+      </div>
+    </div>
+    <dl class="meta">
+      <dt>Cotización</dt><dd>BH-2026-001</dd>
+      <dt>Fecha</dt><dd>18 de octubre de 2026</dd>
+      <dt>Válida hasta</dt><dd>15 de noviembre de 2026</dd>
+    </dl>
+  </header>
+
+  <div class="body">
+    <div class="parties">
+      <div class="party"><p class="label">Para</p><p class="name">Beehive Academy</p><p class="sub">Dirección · Masaya, Nicaragua</p></div>
+      <div class="party"><p class="label">Preparada por</p><p class="name">IA360</p><p class="sub">Diseño, desarrollo y soporte · ia360.work</p></div>
+    </div>
+
+    <p class="intro">
+      Gracias por la confianza. Esta cotización cubre la puesta en marcha y el servicio de la plataforma que vieron en la
+      propuesta de interfaz: una web app para familias, maestras, dirección, contabilidad y portería, que se usa desde el
+      celular o la computadora sin descargar nada. Como colegio fundador, Beehive recibe precios especiales y congelados por dos años.
+    </p>
+
+    <h2>Inversión</h2>
+    <div class="cards">
+      <div class="card">
+        <p class="kind">Pago único, al firmar</p>
+        <h3>Implementación</h3>
+        <div class="price"><span class="now">$1,200</span><span class="was">$2,200</span></div>
+        <div class="lines">
+          <div><span>Precio regular</span><span>$2,200</span></div>
+          <div class="off"><span>Descuento de colegio fundador</span><span>−$1,000</span></div>
+        </div>
+        <ul class="check">
+          <li>Configuración de grados, secciones, materias y escala de notas</li>
+          <li>Carga inicial de alumnos, familias y personal</li>
+          <li>Invitaciones de acceso para todas las familias</li>
+          <li>Capacitación a dirección, maestras, contabilidad y portería</li>
+          <li>Acompañamiento la primera semana de clases</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="kind">Por alumno al mes, pagada por adelantado</p>
+        <h3>Cuota tecnológica</h3>
+        <div class="price"><span class="now">$3.00</span><span class="was">$3.50</span><span class="unit">por alumno</span></div>
+        <div class="lines">
+          <div><span>Precio regular</span><span>$3.50</span></div>
+          <div class="off"><span>Descuento de colegio fundador</span><span>−$0.50</span></div>
+        </div>
+        <ul class="check">
+          <li>Reparto sugerido: las familias aportan $2.00 y el colegio $1.00</li>
+          <li>Todos los módulos de la propuesta, incluido el estado de cuenta con comprobantes</li>
+          <li>Servidores, respaldos diarios, soporte y actualizaciones</li>
+          <li>Se paga por semestre, trimestre o año adelantado</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Calendario de trabajo</h2>
+    <div class="steps">
+      <div class="step"><p class="when">Noviembre 2026</p><h3>Firma y pago de la implementación</h3></div>
+      <div class="step"><p class="when">Nov. – dic.</p><h3>Configuración y carga de datos del colegio</h3></div>
+      <div class="step"><p class="when">Enero 2027</p><h3>Pruebas con familias piloto y capacitación</h3></div>
+      <div class="step"><p class="when">Febrero 2027</p><h3>Lanzamiento con el inicio de clases</h3></div>
+    </div>
+
+  </div>
+  <div class="footer"><span>Beehive Academy · Cotización de la plataforma escolar</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>1 de 3</span></span></div>
+</section>
+<section class="page pattern-light">
+  <div class="body" style="padding-top: 40px">
+    <h2 style="margin-top: 0">Cuota tecnológica para 164 alumnos</h2>
+    <table>
+      <thead><tr><th></th><th>Por alumno al mes</th><th>164 alumnos al mes</th><th>Al año (12 meses)</th></tr></thead>
+      <tbody>
+        <tr><td>Precio regular</td><td>$3.50</td><td>$574</td><td>$6,888</td></tr>
+        <tr class="off"><td>Descuento de colegio fundador</td><td>−$0.50</td><td>−$82</td><td>−$984</td></tr>
+        <tr class="total"><td>Cuota con descuento</td><td>$3.00</td><td>$492</td><td>$5,904</td></tr>
+        <tr class="sub"><td>Aporte de las familias (sugerido)</td><td>$2.00</td><td>$328</td><td>$3,936</td></tr>
+        <tr class="sub school"><td>Parte del colegio</td><td>$1.00</td><td>$164</td><td>$1,968</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <span class="big">$24 al año</span>
+      <p>Sugerencia para las familias: una cuota tecnológica de $24 al año por alumno (unos
+      C$ 880), cobrada con la matrícula 2027. Así a Beehive le queda
+      en $1.00 por alumno al mes. Les entregamos el comunicado listo para enviar.</p>
+    </div>
+
+    <h2>Formas de pago</h2>
+    <p class="lead">La implementación se paga al firmar. La cuota se paga por adelantado, en una de estas formas:</p>
+    <table>
+      <thead><tr><th>Forma de pago</th><th>Cuándo</th><th>Cada pago</th><th>Al año</th></tr></thead>
+      <tbody>
+        <tr class="pick"><td>Semestral <span class="chip small">Recomendada</span></td><td>Febrero y agosto</td><td>$2,952</td><td>$5,904</td></tr>
+        <tr><td>Trimestral</td><td>Febrero, mayo, agosto y noviembre</td><td>$1,476</td><td>$5,904</td></tr>
+        <tr><td>Anual por adelantado<span class="note">5 % de descuento adicional</span></td><td>Febrero</td><td>$5,608.80</td><td>$5,608.80</td></tr>
+        <tr><td>Mensual<span class="note">Sin el descuento de colegio fundador</span></td><td>Cada mes</td><td>$574</td><td>$6,888</td></tr>
+      </tbody>
+    </table>
+
+    <div class="cols">
+      <div class="card">
+        <h3>La cuota incluye</h3>
+        <ul class="check">
+          <li>Todos los módulos de la propuesta, incluido el estado de cuenta con comprobantes</li>
+          <li>Servidores, base de datos y almacenamiento de fotos y archivos</li>
+          <li>Respaldos diarios y protección de los datos</li>
+          <li>Notificaciones en el celular y por correo</li>
+          <li>Soporte en horario escolar por WhatsApp y correo</li>
+          <li>Actualizaciones y mejoras sin costo adicional</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>No incluye</h3>
+        <ul class="check muted">
+          <li>Módulos nuevos hechos a la medida (se cotizan aparte)</li>
+          <li>Pasarela de pago en línea</li>
+          <li>Equipos: tablet de portería, celulares o computadoras</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Beehive Academy · Cotización de la plataforma escolar</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>2 de 3</span></span></div>
+</section>
+<section class="page pattern-light">
+  <div class="body" style="padding-top: 40px">
+    <h2 style="margin-top: 0">Primer año con pago semestral</h2>
+    <table>
+      <thead><tr><th>Cuándo</th><th style="text-align:left">Concepto</th><th>Monto</th></tr></thead>
+      <tbody>
+        <tr><td>Al firmar, antes del 15 de noviembre de 2026</td><td style="text-align:left">Implementación</td><td>$1,200</td></tr>
+        <tr><td>Febrero 2027, con el inicio de clases</td><td style="text-align:left">Cuota de febrero a julio</td><td>$2,952</td></tr>
+        <tr><td>Agosto 2027</td><td style="text-align:left">Cuota de agosto 2027 a enero 2028</td><td>$2,952</td></tr>
+        <tr class="total"><td>Total del primer año</td><td></td><td>$7,104</td></tr>
+      </tbody>
+    </table>
+    <div class="stats">
+      <div class="stat"><p class="v">$7,104</p><p class="k">Total del primer año</p></div>
+      <div class="stat"><p class="v">$3,936</p><p class="k">Lo aportan las familias</p></div>
+      <div class="stat dark"><p class="v">$3,168</p><p class="k">Costo neto para Beehive (unos $264 al mes)</p></div>
+      <div class="stat honey"><p class="v">$1,984</p><p class="k">Ahorro como colegio fundador en el primer año</p></div>
+    </div>
+
+    <h2>Condiciones</h2>
+    <div class="card" style="margin-top: 12px">
+      <ul class="check two">
+        <li>Precios en dólares de EE. UU. No incluyen IVA.</li>
+        <li>Precio congelado en los años escolares 2027 y 2028.</li>
+        <li>Contrato mínimo de 2 años escolares. Si termina antes, se cobra el descuento de implementación ($1,000).</li>
+        <li>La cuota se calcula con la matrícula al inicio de cada periodo de pago, con un mínimo de 150 alumnos.</li>
+        <li>Pagos por transferencia bancaria contra factura.</li>
+        <li>Los datos son del colegio y se pueden exportar cuando lo pidan.</li>
+      </ul>
+    </div>
+
+    <div class="dev dark pattern-dark">
+      <div>
+        <h3>Desarrollado por IA360</h3>
+        <p>IA360 diseña, construye, pone en marcha y mantiene la plataforma de Beehive Academy. Es el mismo equipo que
+        preparó la propuesta de interfaz y el que les dará soporte: un solo responsable de principio a fin, sin intermediarios.</p>
+        <span class="site">ia360.work</span>
+      </div>
+      <div class="mark"><p class="name">IA360</p><p class="tag">Responsable del proyecto</p></div>
+    </div>
+
+    <h2>Aceptación</h2>
+    <div class="sign">
+      <div><p class="who">Por Beehive Academy</p><div class="line"><span>Nombre y firma</span><span>Fecha</span></div></div>
+      <div><p class="who">Por IA360</p><div class="line"><span>Nombre y firma</span><span>Fecha</span></div></div>
+    </div>
+  </div>
+  <div class="footer"><span>Beehive Academy · Cotización de la plataforma escolar</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>3 de 3</span></span></div>
+</section></body></html>
