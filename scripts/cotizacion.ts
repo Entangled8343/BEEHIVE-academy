@@ -27,6 +27,7 @@ const founderOff = 0.5;
 const familyPart = 2;
 const annualPrepayOff = 0.05;
 const exchangeRate = 36.62;
+const domain = "beehiveacademyedu.com";
 
 const setup = setupList - setupOff;
 const fee = feeList - founderOff;
@@ -60,7 +61,7 @@ h1, h2, h3, .display { font-family: ${t.display}; font-weight: ${t.displayWeight
 .chip.soft { background: ${t.soft}; color: ${t.softText}; }
 .chip.small { padding: 2px 9px; font-size: 10px; vertical-align: 1px; margin-left: 6px; }
 
-.hero { padding: 30px 48px 28px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.hero { padding: 24px 48px 22px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .hero .brand { display: flex; align-items: center; gap: 20px; }
 .hero .logo { width: 96px; height: 96px; border-radius: 50%; border: 3px solid ${t.accent}; }
 .hero h1 { font-size: 34px; line-height: 1.05; margin-top: 10px; }
@@ -74,8 +75,8 @@ h1, h2, h3, .display { font-family: ${t.display}; font-weight: ${t.displayWeight
 .party .name { font-family: ${t.display}; font-weight: ${t.displayWeight}; font-size: 17px; margin-top: 2px; }
 .party .sub { font-weight: 700; color: ${t.muted}; }
 
-.intro { margin-top: 16px; font-size: 13.5px; font-weight: 600; color: ${t.softText}; }
-h2 { font-size: 21px; margin-top: 22px; display: flex; align-items: center; gap: 10px; }
+.intro { margin-top: 14px; font-size: 13.5px; font-weight: 600; color: ${t.softText}; }
+h2 { font-size: 21px; margin-top: 18px; display: flex; align-items: center; gap: 10px; }
 h2::before { content: ""; width: 14px; height: 16px; background: ${t.accent}; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
 .lead { color: ${t.muted}; font-weight: 600; margin-top: 4px; }
 
@@ -126,6 +127,12 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: ${t.muted};
 .stat.dark .k { color: ${t.darkMuted}; }
 .stat.honey { background: ${t.accent}; border-color: ${t.accent}; }
 
+.gifts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+.gift { background: #fff7d1; border: 1.5px solid ${t.accent}; border-radius: 16px; padding: 12px 14px; }
+.gift h3 { font-size: 14px; line-height: 1.2; }
+.gift p { font-size: 11.5px; font-weight: 600; color: ${t.softText}; margin-top: 4px; line-height: 1.4; }
+.gift .fine { font-size: 10.5px; color: ${t.muted}; margin-top: 5px; }
+
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
 .step { background: #fff; border: 1px solid ${t.soft}; border-radius: 16px; padding: 12px 14px; }
 .step .when { font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: ${t.muted}; }
@@ -134,15 +141,12 @@ td .note { display: block; font-size: 11px; font-weight: 600; color: ${t.muted};
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
 .cols h3 { font-size: 15px; }
 
-.dev { margin-top: 18px; border-radius: 20px; padding: 18px 22px; display: grid; grid-template-columns: 1fr 250px; gap: 22px; align-items: center; }
+.dev { margin-top: 18px; border-radius: 20px; padding: 16px 22px; }
 .dev h3 { font-size: 19px; color: ${t.darkText}; }
 .dev p { color: ${t.darkMuted}; font-weight: 600; margin-top: 6px; }
-.dev .site { display: inline-block; margin-top: 10px; font-weight: 800; color: ${t.accent}; }
-.dev .mark { text-align: center; border: 1px solid rgba(255,255,255,.25); border-radius: 16px; padding: 14px; background: rgba(255,255,255,.08); }
-.dev .mark .name { font-family: ${t.display}; font-weight: ${t.displayWeight}; font-size: 30px; line-height: 1; color: ${t.darkText}; }
-.dev .mark .tag { font-size: 11px; font-weight: 700; color: ${t.darkMuted}; margin-top: 6px; }
+.dev .site { margin-left: 8px; font-family: ${t.body}; font-size: 13px; font-weight: 800; color: ${t.accent}; }
 
-.sign { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 10px; }
+.sign { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 26px; }
 .sign .who { font-weight: 800; }
 .sign .line { margin-top: 34px; border-top: 1.5px solid ${t.text}; padding-top: 5px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: ${t.muted}; }
 
@@ -178,9 +182,9 @@ const page1 = `
     </div>
 
     <p class="intro">
-      Gracias por la confianza. Esta cotización cubre la puesta en marcha y el servicio de la plataforma que vieron en la
-      propuesta de interfaz: una web app para familias, maestras, dirección, contabilidad y portería, que se usa desde el
-      celular o la computadora sin descargar nada. Como colegio fundador, Beehive recibe precios especiales y congelados por dos años.
+      Gracias por la confianza. Esta cotización cubre la puesta en marcha y el servicio de la plataforma de la propuesta de
+      interfaz: una web app para familias, maestras, dirección, contabilidad y portería, en el celular o la computadora. Como
+      colegio fundador, Beehive recibe precios especiales congelados por dos años.
     </p>
 
     <h2>Inversión</h2>
@@ -213,7 +217,6 @@ const page1 = `
           <li>Reparto sugerido: las familias aportan ${usd(familyPart, true)} y el colegio ${usd(schoolPart, true)}</li>
           <li>Usuarios de las maestras sin costo adicional</li>
           <li>Todos los módulos de la propuesta, incluido el estado de cuenta con comprobantes</li>
-          <li>Servidores, respaldos diarios, soporte y actualizaciones</li>
           <li>Se paga por semestre, trimestre o año adelantado</li>
         </ul>
       </div>
@@ -225,12 +228,22 @@ const page1 = `
       cuenta para tareas, notas, asistencia y agenda diaria. La cuota se cobra solo por alumno matriculado.</p>
     </div>
 
-    <h2>Calendario de trabajo</h2>
-    <div class="steps">
-      <div class="step"><p class="when">Noviembre 2026</p><h3>Firma y pago de la implementación</h3></div>
-      <div class="step"><p class="when">Nov. – dic.</p><h3>Configuración y carga de datos del colegio</h3></div>
-      <div class="step"><p class="when">Enero 2027</p><h3>Pruebas con familias piloto y capacitación</h3></div>
-      <div class="step"><p class="when">Febrero 2027</p><h3>Lanzamiento con el inicio de clases</h3></div>
+    <h2>Cortesías de IA360</h2>
+    <div class="gifts">
+      <div class="gift">
+        <h3>Su dominio</h3>
+        <p>${domain} para la plataforma, el sitio web y los correos del colegio.</p>
+        <p class="fine">Sujeto a disponibilidad al firmar.</p>
+      </div>
+      <div class="gift">
+        <h3>Correos con su dominio</h3>
+        <p>Configuramos los correos del colegio en Gmail, como direccion@${domain}.</p>
+        <p class="fine">Licencias de Google Workspace aparte, si se necesitan.</p>
+      </div>
+      <div class="gift">
+        <h3>En todos los celulares</h3>
+        <p>La web y la plataforma en el celular de familias, maestras y personal, sin apps ni costo por dispositivo.</p>
+      </div>
     </div>
 
   </div>
@@ -316,6 +329,14 @@ const page3 = `
       <div class="stat honey"><p class="v">${usd(founderSavings)}</p><p class="k">Ahorro como colegio fundador en el primer año</p></div>
     </div>
 
+    <h2>Calendario de trabajo</h2>
+    <div class="steps">
+      <div class="step"><p class="when">Noviembre 2026</p><h3>Firma y pago de la implementación</h3></div>
+      <div class="step"><p class="when">Nov. – dic.</p><h3>Configuración y carga de datos del colegio</h3></div>
+      <div class="step"><p class="when">Enero 2027</p><h3>Pruebas con familias piloto y capacitación</h3></div>
+      <div class="step"><p class="when">Febrero 2027</p><h3>Lanzamiento con el inicio de clases</h3></div>
+    </div>
+
     <h2>Condiciones</h2>
     <div class="card" style="margin-top: 12px">
       <ul class="check two">
@@ -329,16 +350,11 @@ const page3 = `
     </div>
 
     <div class="dev dark pattern-dark">
-      <div>
-        <h3>Desarrollado por IA360</h3>
-        <p>IA360 diseña, construye, pone en marcha y mantiene la plataforma de Beehive Academy. Es el mismo equipo que
-        preparó la propuesta de interfaz y el que les dará soporte: un solo responsable de principio a fin, sin intermediarios.</p>
-        <span class="site">ia360.work</span>
-      </div>
-      <div class="mark"><p class="name">IA360</p><p class="tag">Responsable del proyecto</p></div>
+      <h3>Desarrollado por IA360 <span class="site">ia360.work</span></h3>
+      <p>IA360 diseña, construye, pone en marcha y mantiene la plataforma de Beehive Academy. Es el mismo equipo que preparó la
+      propuesta de interfaz y el que les dará soporte: un solo responsable de principio a fin, sin intermediarios.</p>
     </div>
 
-    <h2>Aceptación</h2>
     <div class="sign">
       <div><p class="who">Por Beehive Academy</p><div class="line"><span>Nombre y firma</span><span>Fecha</span></div></div>
       <div><p class="who">Por IA360</p><div class="line"><span>Nombre y firma</span><span>Fecha</span></div></div>
