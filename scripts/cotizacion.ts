@@ -27,12 +27,15 @@ const feeList = 4;
 const founderOff = 0.5;
 const familyPart = 2;
 const annualPrepayOff = 0.05;
+// La implementación se paga en tres momentos: al firmar, al 50 % del proyecto y a la entrega.
+const setupShares = [40, 30, 30] as const;
 const storageGb = 100;
 const maxAdjustment = 0.1;
 const exampleStudents = 180;
 const domain = "beehiveacademyedu.com";
 
 const setup = setupList - setupOff;
+const setupPayment = (i: 0 | 1 | 2) => (setup * setupShares[i]) / 100;
 const fee = feeList - founderOff;
 const schoolPart = fee - familyPart;
 const monthly = (perStudent: number) => perStudent * students;
@@ -193,7 +196,7 @@ const page1 = `
     <h2>Inversión</h2>
     <div class="cards">
       <div class="card">
-        <p class="kind">Pago único, al firmar</p>
+        <p class="kind">En 3 pagos: al firmar, al 50 % del proyecto y a la entrega</p>
         <h3>Implementación</h3>
         <div class="price"><span class="now">${usd(setup)}</span><span class="was">${usd(setupList)}</span></div>
         <div class="lines">
@@ -275,13 +278,13 @@ const page2 = `
     </div>
 
     <h2>Formas de pago</h2>
-    <p class="lead">La implementación se paga al firmar. La cuota se paga por adelantado, en una de estas formas:</p>
+    <p class="lead">La cuota se paga por adelantado, en una de estas formas:</p>
     <table>
       <thead><tr><th>Forma de pago</th><th>Cuándo</th><th>Cada pago</th><th>Al año</th></tr></thead>
       <tbody>
-        <tr class="pick"><td>Semestral <span class="chip small">Recomendada</span></td><td>Febrero y agosto</td><td>${usd(annual / 2)}</td><td>${usd(annual)}</td></tr>
-        <tr><td>Trimestral</td><td>Febrero, mayo, agosto y noviembre</td><td>${usd(annual / 4)}</td><td>${usd(annual)}</td></tr>
-        <tr><td>Anual por adelantado<span class="note">5 % de descuento adicional</span></td><td>Febrero</td><td>${usd(annual * (1 - annualPrepayOff), true)}</td><td>${usd(annual * (1 - annualPrepayOff), true)}</td></tr>
+        <tr class="pick"><td>Semestral <span class="chip small">Recomendada</span></td><td>Enero y julio</td><td>${usd(annual / 2)}</td><td>${usd(annual)}</td></tr>
+        <tr><td>Trimestral</td><td>Enero, abril, julio y octubre</td><td>${usd(annual / 4)}</td><td>${usd(annual)}</td></tr>
+        <tr><td>Anual por adelantado<span class="note">5 % de descuento adicional</span></td><td>Enero</td><td>${usd(annual * (1 - annualPrepayOff), true)}</td><td>${usd(annual * (1 - annualPrepayOff), true)}</td></tr>
         <tr><td>Mensual<span class="note">Sin el descuento de colegio fundador</span></td><td>Cada mes</td><td>${usd(monthly(feeList))}</td><td>${usd(yearly(feeList))}</td></tr>
       </tbody>
     </table>
@@ -319,9 +322,11 @@ const page3 = `
     <table>
       <thead><tr><th>Cuándo</th><th style="text-align:left">Concepto</th><th>Monto</th></tr></thead>
       <tbody>
-        <tr><td>Al firmar, antes del 15 de noviembre de 2026</td><td style="text-align:left">Implementación</td><td>${usd(setup)}</td></tr>
-        <tr><td>Febrero 2027, con el inicio de clases</td><td style="text-align:left">Cuota de febrero a julio</td><td>${usd(annual / 2)}</td></tr>
-        <tr><td>Agosto 2027</td><td style="text-align:left">Cuota de agosto 2027 a enero 2028</td><td>${usd(annual / 2)}</td></tr>
+        <tr><td>Al firmar, antes del 15 de noviembre de 2026</td><td style="text-align:left">Implementación: primer pago (${setupShares[0]} %)</td><td>${usd(setupPayment(0))}</td></tr>
+        <tr><td>Al 50 % del proyecto (diciembre 2026)</td><td style="text-align:left">Implementación: segundo pago (${setupShares[1]} %)</td><td>${usd(setupPayment(1))}</td></tr>
+        <tr><td>A la entrega de la plataforma (enero 2027)</td><td style="text-align:left">Implementación: tercer pago (${setupShares[2]} %)</td><td>${usd(setupPayment(2))}</td></tr>
+        <tr><td>Fin de enero 2027, con el inicio de clases</td><td style="text-align:left">Cuota de enero a junio</td><td>${usd(annual / 2)}</td></tr>
+        <tr><td>Julio 2027</td><td style="text-align:left">Cuota de julio a diciembre</td><td>${usd(annual / 2)}</td></tr>
         <tr class="total"><td>Total del primer año</td><td></td><td>${usd(year1)}</td></tr>
       </tbody>
     </table>
@@ -353,10 +358,10 @@ const page3 = `
 
     <h2>Calendario de trabajo</h2>
     <div class="steps">
-      <div class="step"><p class="when">Noviembre 2026</p><h3>Firma y pago de la implementación</h3></div>
+      <div class="step"><p class="when">Noviembre 2026</p><h3>Firma y primer pago de la implementación</h3></div>
       <div class="step"><p class="when">Nov. – dic.</p><h3>Configuración y carga de datos del colegio</h3></div>
-      <div class="step"><p class="when">Enero 2027</p><h3>Pruebas con familias piloto y capacitación</h3></div>
-      <div class="step"><p class="when">Febrero 2027</p><h3>Lanzamiento con el inicio de clases</h3></div>
+      <div class="step"><p class="when">Enero 2027</p><h3>Entrega, pruebas con familias piloto y capacitación</h3></div>
+      <div class="step"><p class="when">Fin de enero 2027</p><h3>Lanzamiento con el inicio de clases</h3></div>
     </div>
   </div>
   ${footer(3, 4)}
