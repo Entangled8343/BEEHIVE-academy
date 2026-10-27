@@ -1,4 +1,4 @@
-export type SchoolId = "beehive" | "curie";
+export type SchoolId = "beehive" | "curie" | "montessori";
 export type Locale = "es" | "en";
 
 /** Módulos que se pueden activar o desactivar por colegio. */
@@ -41,12 +41,14 @@ export type SchoolConfig = {
     logoSize: [number, number];
     wordmark?: string;
     wordmarkSize?: [number, number];
+    /** Logotipo completo en blanco para fondos oscuros. */
+    wordmarkOnDark?: string;
     icon: string;
     appleIcon: string;
     themeColor: string;
-    mascot: "bee" | "comet";
-    kidAvatar: "hex" | "rounded";
-    badgeStyle: "hex" | "element";
+    mascot: "bee" | "comet" | "globe";
+    kidAvatar: "hex" | "rounded" | "circle";
+    badgeStyle: "hex" | "element" | "circle";
   };
   copy: {
     badgesTitle: string;
@@ -54,5 +56,7 @@ export type SchoolConfig = {
     badgesSubtitle: string;
     portalWelcome: string;
     portalSubtitle: string;
+    /** Textos de la pantalla de la docente para entregar insignias, si el colegio usa otras palabras. */
+    award?: { title: string; subtitle: string; pick: string; button: string; automatic: string; recent: string };
   };
 };

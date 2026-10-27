@@ -45,7 +45,10 @@ export async function TopBar({ role }: { role: Role }) {
         <Link href={homes[role]} className="flex min-w-0 items-center gap-2.5 lg:hidden">
           <LogoCircle className="size-10" />
           <div className="min-w-0 leading-none">
-            <p className="truncate font-display text-[17px] font-semibold text-primary-900">
+            {schoolConfig.id === "montessori" ? (
+              <p className="truncate font-script text-[23px] leading-[0.9] text-primary-900">Mundo Montessori</p>
+            ) : null}
+            <p className={cn("truncate font-display text-[17px] font-semibold text-primary-900", schoolConfig.id === "montessori" && "hidden")}>
               {schoolConfig.id === "curie" ? (
                 <>
                   Portal <span className="text-primary-600 italic">Curie</span>

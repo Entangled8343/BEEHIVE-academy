@@ -33,11 +33,17 @@ const logos: Record<ProposalId, string> = {
   beehive: "public/brand/logo-circle.png",
   curie: "public/brand/curie/sello.png",
   "curie-cafeteria": "public/brand/curie/sello.png",
+  montessori: "public/brand/montessori/logo.png",
+};
+/** Logo en blanco para la lámina final oscura, cuando el de la portada es para fondo claro. */
+const closingLogos: Partial<Record<ProposalId, string>> = {
+  montessori: "public/brand/montessori/logo-white.png",
 };
 const pdfNames: Record<ProposalId, string> = {
   beehive: "Beehive-Academy-Propuesta-UI.pdf",
   curie: "Curie-Propuesta-Plataforma.pdf",
   "curie-cafeteria": "Curie-Cafeteria-Propuesta.pdf",
+  montessori: "Mundo-Montessori-Propuesta-UI.pdf",
 };
 
 const viewports: Record<
@@ -118,8 +124,10 @@ async function main() {
   const { rendered, problems } = pdfOnly ? { rendered: existingShots(), problems: [] } : await capture(browser);
 
   const logo = path.relative(outDir, path.resolve(logos[proposal]));
+  const closing = closingLogos[proposal];
+  const closingLogo = closing ? path.relative(outDir, path.resolve(closing)) : undefined;
   const htmlPath = path.join(outDir, "propuesta.html");
-  await writeFile(htmlPath, buildProposalHtml(rendered, sections, logo, themes[proposal], contents[proposal]));
+  await writeFile(htmlPath, buildProposalHtml(rendered, sections, logo, themes[proposal], contents[proposal], closingLogo));
 
   const page = await browser.newPage();
   await page.goto(pathToFileURL(htmlPath).href, { waitUntil: "networkidle" });

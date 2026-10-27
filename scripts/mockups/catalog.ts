@@ -172,8 +172,67 @@ const cafeShots: Shot[] = [
   { slug: "cafe-admin-seguridad", route: "/cafe/admin/seguridad", device: "escritorio", section: "Administración y cumplimiento", title: "Seguridad y cumplimiento", description: "Usuario y clave por persona, respaldo diario, bitácora y versiones del sistema con aviso previo de cambios." },
 ];
 
+const montessoriSections = ["Sitio web público", "Acceso", "Familias", "Estado de cuenta y mensualidades", "Guías", "Dirección y portería"];
+
+const montessoriShots: Shot[] = [
+  // Sitio web público
+  { slug: "sitio-inicio", route: "/", device: "escritorio", section: "Sitio web público", title: "Sitio web de Mundo Montessori", description: "Ambientes, método, Summer Camp, galería y contacto con WhatsApp. Lleva directo a la pre-inscripción y a agendar visitas." },
+  { slug: "sitio-inicio", route: "/", device: "movil", section: "Sitio web público", title: "Sitio web en el celular", description: "Diseñado primero para celular, con los colores y los círculos del logo." },
+  { slug: "pre-inscripcion", route: "/inscripcion", device: "movil", section: "Sitio web público", title: "Pre-inscripción en línea", description: "Formulario por pasos. Los documentos se suben con fotos del celular." },
+  { slug: "agenda-tu-cita", route: "/agenda-tu-cita", device: "movil", section: "Sitio web público", title: "Agenda tu visita al ambiente", description: "Horarios disponibles y confirmación por correo con recordatorio.", scrollTo: "1. Elige el día" },
+  { slug: "sitio-metodo", route: "/", device: "escritorio", section: "Sitio web público", title: "Ambientes y método", description: "Comunidad Infantil, Casa de Niños y Taller, y las áreas Montessori explicadas para las familias que buscan colegio.", scrollTo: "Nuestros ambientes" },
+
+  // Acceso
+  { slug: "ingresar", route: "/ingresar", device: "escritorio", section: "Acceso", title: "Inicio de sesión seguro", description: "Acceso solo por invitación del colegio, con correo y contraseña y recuperación de acceso. Lo gestiona Clerk, un servicio especializado en seguridad." },
+  { slug: "ingresar", route: "/ingresar", device: "movil", section: "Acceso", title: "Ingreso desde el celular", description: "Funciona en Chrome o Safari con un link. No hay que descargar nada de App Store ni Play Store." },
+
+  // Familias
+  { slug: "familia-inicio", route: "/padres", device: "movil", section: "Familias", title: "Inicio de la familia", description: "Todos los hijos de un vistazo: llegada, trabajos, retiro de hoy y pendientes." },
+  { slug: "familia-agenda", route: "/padres/agenda", device: "movil", section: "Familias", title: "Agenda diaria", description: "Ánimo, comidas, descanso y trabajos del día en Comunidad Infantil y Casa de Niños, con una nota de la guía." },
+  { slug: "familia-perfil-logros", route: "/padres/hijos/lucas", device: "movil", section: "Familias", title: "Perfil y logros", description: "Logros de independencia, no premios: vestirse solo, cuidar las plantas, leer, ayudar a un compañero.", scrollTo: "Mis logros" },
+  { slug: "familia-tareas", route: "/padres/tareas", device: "movil", section: "Familias", title: "Trabajos para casa", description: "Pendientes, entregados y revisados, por hijo y por área." },
+  { slug: "familia-entregar-tarea", route: "/padres/tareas/lectura-oruga", device: "movil", section: "Familias", title: "Entregar un trabajo", description: "Fotos del cuaderno o PDF. Se optimizan solas para subir rápido.", scrollTo: "Fotos de la tarea" },
+  { slug: "familia-calificaciones", route: "/padres/calificaciones", device: "movil", section: "Familias", title: "Avances de Taller", description: "Notas por corte con la escala del MINED (AA, AS, AF, AI) y boleta en PDF." },
+  { slug: "familia-retiro", route: "/padres/retiro", device: "movil", section: "Familias", title: "¿Quién recoge hoy?", description: "Aviso con QR o código de un solo día. Portería verifica foto y cédula." },
+  { slug: "familia-ausencia", route: "/padres/ausencias", device: "movil", section: "Familias", title: "Reportar ausencia", description: "La guía la ve al pasar lista; se puede adjuntar constancia médica." },
+  { slug: "familia-comunicados", route: "/padres/comunicados", device: "movil", section: "Familias", title: "Comunicados", description: "Avisos de Dirección y de las guías con confirmación de lectura." },
+  { slug: "familia-calendario", route: "/padres/calendario", device: "movil", section: "Familias", title: "Calendario y actividades del mes", description: "Semana de la paz, excursiones, reuniones de familias y entregas en un solo lugar." },
+  { slug: "familia-galeria", route: "/padres/galeria", device: "movil", section: "Familias", title: "Galería privada", description: "Fotos del ambiente, del huerto y del Summer Camp, visibles solo para las familias." },
+  { slug: "familia-mensajes", route: "/padres/mensajes", device: "movil", section: "Familias", title: "Mensajes con la guía", description: "Chat dentro de la plataforma, sin compartir números personales." },
+  { slug: "familia-permiso-firma", route: "/padres/autorizaciones", device: "movil", section: "Familias", title: "Permisos con firma digital", description: "La familia firma con el dedo; queda registro con fecha y hora.", scrollTo: "Mi respuesta" },
+  { slug: "familia-mas", route: "/padres/mas", device: "movil", section: "Familias", title: "Todos los módulos", description: "Menú con todas las secciones y ajustes de notificaciones." },
+  { slug: "familia-inicio", route: "/padres", device: "escritorio", section: "Familias", title: "La misma plataforma en la computadora", description: "En PC el menú pasa a una barra lateral y la información se reparte en columnas." },
+  { slug: "familia-calificaciones", route: "/padres/calificaciones", device: "escritorio", section: "Familias", title: "Avances en la computadora", description: "Resumen del corte, avance respecto al anterior y descarga de la boleta." },
+
+  // Estado de cuenta y mensualidades (sin pasarela de pago: comprobante + validación de contabilidad)
+  { slug: "familia-estado-cuenta", route: "/padres/estado-cuenta", device: "movil", section: "Estado de cuenta y mensualidades", title: "Estado de cuenta", description: "Saldo, mensualidad de cada hijo y otros cobros como excursiones, con recibos descargables." },
+  { slug: "familia-subir-comprobante", route: "/padres/estado-cuenta/comprobante", device: "movil", section: "Estado de cuenta y mensualidades", title: "Subir el comprobante", description: "La familia elige qué paga, anota la referencia y sube la foto de la transferencia o del depósito." },
+  { slug: "familia-comprobantes", route: "/padres/estado-cuenta", device: "movil", section: "Estado de cuenta y mensualidades", title: "Seguimiento del pago", description: "En revisión, aprobado con su recibo, o rechazado con el motivo para enviar otro.", scrollTo: "Comprobantes enviados" },
+  { slug: "direccion-cobros", route: "/admin/cuentas", device: "escritorio", section: "Estado de cuenta y mensualidades", title: "Cobros y pagos", description: "Familias al día y con saldo pendiente, comprobantes por revisar, recordatorios y exportación a Excel." },
+  { slug: "contabilidad-comprobantes", route: "/admin/cuentas/comprobantes", device: "escritorio", section: "Estado de cuenta y mensualidades", title: "Validación de contabilidad", description: "El equipo contable compara el comprobante con lo pendiente y lo aprueba, con envío del recibo, o lo rechaza con el motivo." },
+
+  // Guías
+  { slug: "docente-hoy", route: "/maestro", device: "movil", section: "Guías", title: "El día de la guía", description: "Pasar lista, trabajos por revisar, ausencias reportadas y el horario del ambiente." },
+  { slug: "docente-asistencia", route: "/maestro/asistencia", device: "movil", section: "Guías", title: "Pasar lista en segundos", description: "Un toque por niño. Las ausencias reportadas por las familias ya aparecen como justificadas." },
+  { slug: "docente-revisar", route: "/maestro/tareas", device: "movil", section: "Guías", title: "Revisar trabajos", description: "Ver fotos, poner nota y comentario, y pasar al siguiente niño." },
+  { slug: "docente-actividades", route: "/maestro/actividades", device: "movil", section: "Guías", title: "Actividades del mes", description: "Publicar actividades y, si hace falta, pedir permiso firmado." },
+  { slug: "docente-logros", route: "/maestro/insignias", device: "movil", section: "Guías", title: "Registrar logros", description: "La guía registra un hito de independencia y la familia lo celebra desde casa." },
+  { slug: "docente-temario", route: "/maestro/temario", device: "movil", section: "Guías", title: "Subir el temario", description: "Temas por semana con objetivos y materiales; las familias lo ven publicado." },
+  { slug: "docente-agenda-diaria", route: "/maestro/agenda", device: "escritorio", section: "Guías", title: "Agenda diaria de todo el ambiente", description: "La guía de Comunidad Infantil o Casa de Niños llena la agenda de todos en una sola pantalla y la publica a las familias." },
+  { slug: "docente-libro-notas", route: "/maestro/calificaciones", device: "escritorio", section: "Guías", title: "Libro de notas de Taller", description: "Funciona como Excel: Enter baja de fila y se puede pegar desde Excel. Se guarda solo. Al publicar el corte, las notas se bloquean y las familias las ven." },
+  { slug: "docente-revisar", route: "/maestro/tareas", device: "escritorio", section: "Guías", title: "Revisión de trabajos en la computadora", description: "Lista de entregas a la izquierda, revisión a la derecha. Se marcan las entregas tardías." },
+  { slug: "docente-temario", route: "/maestro/temario", device: "escritorio", section: "Guías", title: "Temario por corte", description: "Organizado por semanas, con PDF y enlaces de apoyo." },
+
+  // Dirección y portería
+  { slug: "direccion-panel", route: "/admin", device: "escritorio", section: "Dirección y portería", title: "Panel de Dirección", description: "Asistencia por ambiente, admisiones 2027, comunicados leídos y alertas del día." },
+  { slug: "direccion-inscripciones", route: "/admin/inscripciones", device: "escritorio", section: "Dirección y portería", title: "Tablero de pre-inscripciones", description: "Cada solicitud avanza por etapas: recibida, en revisión, visita y aceptada. Al aceptarla se crea el niño y se invita a la familia." },
+  { slug: "porteria", route: "/porteria", device: "tablet", section: "Dirección y portería", title: "Portería (tablet)", description: "Lista de retiros del día actualizada al momento. Escanea el QR, verifica la cédula, confirma la entrega y la familia recibe el aviso al instante." },
+  { slug: "direccion-panel", route: "/admin", device: "movil", section: "Dirección y portería", title: "Dirección desde el celular", description: "Los indicadores del colegio, en cualquier lugar." },
+];
+
 export const catalogs: Record<ProposalId, { sections: string[]; shots: Shot[] }> = {
   beehive: { sections: beehiveSections, shots: beehiveShots },
   curie: { sections: curieSections, shots: curieShots },
+  montessori: { sections: montessoriSections, shots: montessoriShots },
   "curie-cafeteria": { sections: cafeSections, shots: cafeShots },
 };

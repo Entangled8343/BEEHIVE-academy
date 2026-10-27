@@ -8,20 +8,30 @@ import { Pill } from "@/components/ui/pill";
 import { BadgeTile } from "@/features/insignias/badge-tile";
 import { cn } from "@/lib/utils";
 import { badgeAward, badges, roster } from "@/mocks";
+import { schoolConfig } from "@/schools";
 import { requireModule } from "@/schools/guard";
 
 export const metadata = { title: "Insignias" };
+
+const award = schoolConfig.copy.award ?? {
+  title: "Otorgar insignia",
+  subtitle: "Reconoce los logros de tus alumnos",
+  pick: "1. Elige la insignia",
+  button: "Otorgar a {n} alumnos",
+  automatic: "El sistema las entrega cada noche cuando se cumplen las reglas.",
+  recent: "Entregadas esta semana",
+};
 
 export default function AwardBadgePage() {
   requireModule("insignias");
   const all = badges.map((b) => ({ ...b, earned: true }));
   return (
     <div>
-      <PageHeader title="Otorgar insignia" subtitle="Reconoce los logros de tus alumnos" />
+      <PageHeader title={award.title} subtitle={award.subtitle} />
       <div className="grid gap-6 lg:grid-cols-5">
         <div className="space-y-5 lg:col-span-3">
           <Card className="p-5">
-            <p className="mb-4 font-display text-lg font-semibold">1. Elige la insignia</p>
+            <p className="mb-4 font-display text-lg font-semibold">{award.pick}</p>
             <div className="grid grid-cols-3 gap-x-2 gap-y-5 sm:grid-cols-4">
               {all.slice(0, 8).map((b) => (
                 <div key={b.id} className={cn("rounded-3xl py-2", b.id === badgeAward.selectedId && "bg-accent-100 ring-2 ring-accent-400")}>
@@ -50,7 +60,7 @@ export default function AwardBadgePage() {
               <Input defaultValue={badgeAward.reason} />
             </Field>
             <Button block className="mt-4">
-              Otorgar a {badgeAward.selected.length} alumnos
+              {award.button.replace("{n}", String(badgeAward.selected.length))}
             </Button>
           </Card>
         </div>
@@ -61,7 +71,7 @@ export default function AwardBadgePage() {
               <Zap className="size-5" /> Automáticas
             </p>
             <p className="mt-1 text-sm text-primary-100">
-              El sistema las entrega cada noche cuando se cumplen las reglas.
+              {award.automatic}
             </p>
             <ul className="mt-3 space-y-2 text-sm font-semibold">
                {badgeAward.rules.map((r) => (
@@ -72,7 +82,7 @@ export default function AwardBadgePage() {
             </ul>
           </Card>
           <section>
-            <SectionTitle>Entregadas esta semana</SectionTitle>
+            <SectionTitle>{award.recent}</SectionTitle>
             <Card className="divide-y divide-primary-100">
               {badgeAward.recent.map(([n, b]) => (
                 <div key={n} className="flex items-center gap-3 px-4 py-3">

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fredoka, Newsreader, Nunito, Poppins } from "next/font/google";
+import { Fredoka, Newsreader, Nunito, Poppins, Quicksand, Sacramento } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { schoolConfig } from "@/schools";
@@ -20,9 +20,13 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const quicksand = Quicksand({ subsets: ["latin"], variable: "--font-quicksand", display: "swap" });
+const sacramento = Sacramento({ subsets: ["latin"], weight: "400", variable: "--font-sacramento", display: "swap" });
+
 const fonts = {
   beehive: `${fredoka.variable} ${nunito.variable}`,
   curie: `${newsreader.variable} ${poppins.variable}`,
+  montessori: `${quicksand.variable} ${nunito.variable} ${sacramento.variable}`,
 };
 
 export const metadata: Metadata = {

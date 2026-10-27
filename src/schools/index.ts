@@ -1,10 +1,11 @@
 import { beehive } from "./beehive";
 import { curie } from "./curie";
+import { montessori } from "./montessori";
 import type { ModuleKey, SchoolConfig, SchoolId } from "./types";
 
 export type { ModuleKey, SchoolConfig, SchoolId } from "./types";
 
-const schools: Record<SchoolId, SchoolConfig> = { beehive, curie };
+const schools: Record<SchoolId, SchoolConfig> = { beehive, curie, montessori };
 
 /**
  * Cada colegio es una instalación independiente del mismo producto.

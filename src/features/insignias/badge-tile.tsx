@@ -1,6 +1,7 @@
 import type { BadgeDef } from "@/mocks";
 import { schoolConfig } from "@/schools";
 import { BadgeHex } from "./badge-hex";
+import { CircleBadge } from "./circle-badge";
 import { ElementBadge } from "./element-badge";
 
 type Props = {
@@ -10,7 +11,9 @@ type Props = {
   showStatus?: boolean;
 };
 
-/** Insignia con el estilo del colegio: hexágono (Beehive) o elemento químico (Curie). */
+/** Insignia con el estilo del colegio: hexágono (Beehive), elemento químico (Curie) o círculo (Mundo Montessori). */
 export function BadgeTile(props: Props) {
-  return schoolConfig.brand.badgeStyle === "element" ? <ElementBadge {...props} /> : <BadgeHex {...props} />;
+  if (schoolConfig.brand.badgeStyle === "element") return <ElementBadge {...props} />;
+  if (schoolConfig.brand.badgeStyle === "circle") return <CircleBadge {...props} />;
+  return <BadgeHex {...props} />;
 }

@@ -4,8 +4,24 @@ import { schoolConfig } from "@/schools";
 
 const { brand, nameLines } = schoolConfig;
 
-/** Logo circular / sello del colegio. */
+const wideMark = brand.logoSize[0] / brand.logoSize[1] > 1.3;
+
+/** Logo circular / sello del colegio. Una marca horizontal se centra en un círculo blanco. */
 export function LogoCircle({ className, priority }: { className?: string; priority?: boolean }) {
+  if (wideMark) {
+    return (
+      <span className={cn("flex size-12 shrink-0 items-center justify-center rounded-full bg-white", className)}>
+        <Image
+          src={brand.logo}
+          alt={schoolConfig.name}
+          width={brand.logoSize[0]}
+          height={brand.logoSize[1]}
+          priority={priority}
+          className="h-auto w-[82%]"
+        />
+      </span>
+    );
+  }
   return (
     <Image
       src={brand.logo}

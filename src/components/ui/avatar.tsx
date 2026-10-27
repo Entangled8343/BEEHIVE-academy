@@ -35,8 +35,8 @@ const sizes = {
   "2xl": "size-28 text-4xl",
 };
 
-/** Adultos: círculo. Alumnos: hexágono (Beehive) o cuadrado redondeado (Curie). */
-const kidShape = schoolConfig.brand.kidAvatar === "hex" ? "hex" : "rounded-[32%]";
+/** Adultos: círculo. Alumnos: hexágono (Beehive), cuadrado redondeado (Curie) o círculo (Mundo Montessori). */
+const kidShape = { hex: "hex", rounded: "rounded-[32%]", circle: "rounded-full" }[schoolConfig.brand.kidAvatar];
 
 export function Avatar({
   name,

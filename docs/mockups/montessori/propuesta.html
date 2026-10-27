@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"/>
+<title>Mundo Montessori · Propuesta de interfaz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito:wght@600;700;800&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+@page { size: 1280px 720px; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #fffcf6; }
+body { font-family: "Nunito", system-ui, sans-serif; color: #16323f; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+h1, h2, h3, .display { font-family: "Quicksand", "Nunito", sans-serif; font-weight: 700; }
+.page { width: 1280px; height: 720px; position: relative; overflow: hidden; page-break-after: always; break-after: page; padding: 48px 56px; }
+.accent { color: #c0d84e; }
+.dark-bg { background: #1f4456; color: #ffffff; }
+.pattern-dark { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-opacity='0.07' stroke-width='2'%3E%3Ccircle cx='30' cy='30' r='14'/%3E%3Ccircle cx='120' cy='50' r='9'/%3E%3Ccircle cx='70' cy='120' r='18'/%3E%3Ccircle cx='146' cy='136' r='6'/%3E%3C/g%3E%3C/svg%3E"); background-size: 160px 160px; }
+.pattern-light { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Ccircle cx='22' cy='26' r='7' fill='%2391C2C9' fill-opacity='0.22'/%3E%3Ccircle cx='96' cy='18' r='4' fill='%23C0D84E' fill-opacity='0.308'/%3E%3Ccircle cx='136' cy='70' r='8' fill='%23FBE176' fill-opacity='0.308'/%3E%3Ccircle cx='62' cy='92' r='5' fill='%23E8796A' fill-opacity='0.17600000000000002'/%3E%3Ccircle cx='20' cy='136' r='4' fill='%23C0D84E' fill-opacity='0.308'/%3E%3Ccircle cx='112' cy='140' r='6' fill='%2391C2C9' fill-opacity='0.22'/%3E%3C/svg%3E"); background-size: 160px 160px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 13px; background: #c0d84e; color: #16323f; }
+.chip.soft { background: #e6f1f4; color: #1f4456; }
+.footer { position: absolute; left: 56px; right: 56px; bottom: 22px; display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; font-weight: 600; color: #2a576d; opacity: .75; }
+.footer .end { display: flex; align-items: baseline; gap: 16px; }
+.footer .credit { font-size: 10.5px; font-weight: 500; letter-spacing: .02em; opacity: .7; }
+.dark-bg .footer { color: #cfe2e9; }
+
+.cover { display: grid; grid-template-columns: 1fr 520px; gap: 24px; align-items: center; }
+.cover-logo { width: 120px; height: 120px; }
+.cover h1 { font-size: 62px; line-height: 1.02; color: #ffffff; margin-top: 22px; }
+.cover h1 .accent { font-style: normal; }
+.cover .lead { font-size: 20px; color: #cfe2e9; margin-top: 18px; max-width: 560px; line-height: 1.45; }
+.cover .eyebrow { margin-top: 26px; }
+.cover-phones { position: relative; height: 620px; }
+.cover-phones .phone { position: absolute; }
+.cover-phones .p1 { left: 10px; top: 40px; transform: rotate(-6deg); }
+.cover-phones .p2 { left: 250px; top: 10px; transform: rotate(5deg); }
+.cover-phones img { width: 230px; height: 497px; object-fit: cover; object-position: top; }
+
+/* Portada clara: manchas de color en las esquinas, como en los afiches del colegio. */
+.light-cover { background: #fffcf6; }
+.light-cover > div { position: relative; z-index: 1; }
+.light-cover .blob { position: absolute; border-radius: 50%; z-index: 0; }
+.light-cover .cover-logo { width: 300px; height: auto; }
+.light-cover h1 { color: #16323f; }
+.light-cover h1 .accent { font-family: "Sacramento", cursive; font-weight: 400; font-style: normal; color: #2a576d; font-size: 92px; line-height: 0.95; }
+.light-cover .lead { color: #2a576d; }
+.light-cover .footer { color: #2a576d; }
+.closing-logo-wide { width: 250px; height: auto; }
+
+/* Sin box-shadow con desenfoque: Chrome lo exporta al PDF como imagen con máscara y algunos visores
+   (p. ej. Vista Previa de macOS) lo pintan como un rectángulo gris. */
+.phone { background: #16323f; border-radius: 34px; padding: 9px; }
+.phone img { display: block; border-radius: 26px; }
+
+.mobile-page { padding-top: 40px; }
+.mobile-page .head { display: flex; align-items: center; gap: 14px; }
+.mobile-page h2 { font-size: 32px; }
+.mobile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 18px; }
+.mobile-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.mobile-item .phone img { width: 204px; height: 441px; object-fit: cover; object-position: top; }
+.mobile-item h3 { font-size: 19px; margin-top: 12px; }
+.mobile-item p { font-size: 13px; color: #2a576d; margin-top: 4px; max-width: 300px; line-height: 1.4; font-weight: 500; }
+
+.wide-page { display: grid; grid-template-columns: 300px 1fr; gap: 36px; align-items: center; }
+.wide-page h2 { font-size: 34px; line-height: 1.1; margin-top: 14px; }
+.wide-page .desc { font-size: 16px; line-height: 1.5; color: #2a576d; margin-top: 14px; font-weight: 500; }
+.wide-page .device-label { margin-top: 22px; }
+.browser { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e6f1f4; }
+.browser .bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 14px; background: #e6f1f4; }
+.browser .dot { width: 11px; height: 11px; border-radius: 50%; }
+.browser .url { margin-left: 14px; flex: 1; height: 22px; border-radius: 999px; background: #fff; font-size: 11px; font-weight: 600; color: #2a576d; display: flex; align-items: center; padding-left: 12px; }
+.browser img { display: block; width: 100%; }
+.tablet { background: #16323f; border-radius: 30px; padding: 16px; }
+.tablet img { display: block; width: 100%; border-radius: 14px; }
+
+.overview h2 { font-size: 40px; margin-top: 10px; }
+.roles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; }
+.role { background: #fff; border-radius: 26px; padding: 22px; border: 1px solid #e6f1f4; }
+.role h3 { font-size: 22px; }
+.role .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+.role ul { list-style: none; margin-top: 10px; display: grid; gap: 7px; }
+.role li { font-size: 13.5px; font-weight: 600; color: #1f4456; display: flex; gap: 8px; align-items: flex-start; }
+.role li::before { content: ""; flex: none; width: 9px; height: 9px; margin-top: 5px; border-radius: 3px; background: #c0d84e; }
+.ribbon { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+.ribbon span { background: #1f4456; color: #ffffff; border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 14px; }
+
+.feature h2 { font-size: 38px; margin-top: 10px; }
+.feature .lead { font-size: 16px; color: #2a576d; margin-top: 8px; max-width: 900px; font-weight: 500; line-height: 1.45; }
+.fgrid { display: grid; gap: 16px; margin-top: 28px; }
+.fcard { background: #fff; border-radius: 22px; padding: 22px 24px; border: 1px solid #e6f1f4; }
+.fcard h3 { font-size: 23px; line-height: 1.15; }
+.fcard p { font-size: 15px; color: #1f4456; margin-top: 10px; line-height: 1.5; font-weight: 500; }
+.fcard .tag { display: inline-block; margin-bottom: 10px; font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #e6f1f4; color: #1f4456; }
+.fcard.featured { background: #1f4456; border-color: #1f4456; }
+.fcard.featured h3 { color: #ffffff; }
+.fcard.featured p { color: #cfe2e9; }
+.fcard.featured .tag { background: #c0d84e; color: #16323f; }
+.fnote { margin-top: 20px; font-size: 14px; font-weight: 600; color: #2a576d; }
+.steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 30px; }
+.step { background: rgba(255,255,255,.08); border-radius: 22px; padding: 18px; }
+.step .n { width: 40px; height: 40px; display: grid; place-items: center; background: #c0d84e; color: #16323f; font-family: "Quicksand", "Nunito", sans-serif; font-weight: 600; font-size: 20px; border-radius: 12px; }
+.step h3 { color: #ffffff; font-size: 18px; margin-top: 12px; line-height: 1.15; }
+.step p { color: #cfe2e9; font-size: 13px; margin-top: 6px; font-weight: 500; line-height: 1.4; }
+.dark-bg .ribbon span { background: rgba(255,255,255,.12); }
+.note { margin-top: 26px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.25); color: #c0d84e; padding: 14px 18px; border-radius: 18px; font-weight: 600; font-size: 14px; }
+</style></head>
+<body>
+  <section class="page cover light-cover">
+    <span class="blob" style="width:420px;height:420px;left:-170px;top:-190px;background:rgba(145,194,201,.35)"></span><span class="blob" style="width:300px;height:300px;left:-110px;bottom:-150px;background:rgba(232,121,106,.18)"></span><span class="blob" style="width:280px;height:280px;right:-100px;top:-120px;background:rgba(251,225,118,.5)"></span><span class="blob" style="width:380px;height:380px;right:-170px;bottom:-190px;background:rgba(192,216,78,.3)"></span>
+    <div>
+      <img class="cover-logo" src="../../../public/brand/montessori/logo.png" />
+      <div class="eyebrow"><span class="chip">Propuesta de interfaz · Octubre 2026</span></div>
+      <h1>Plataforma escolar<br/><span class="accent">Mundo Montessori</span></h1>
+      <p class="lead">Web app para familias, guías y Dirección de Comunidad Infantil, Casa de Niños y Taller. Funciona en celular y en computadora desde el navegador: no hay que descargar nada.</p>
+    </div>
+    <div class="cover-phones">
+      <div class="phone p1"><img src="movil/05-familia-inicio.png" /></div>
+      <div class="phone p2"><img src="movil/06-familia-agenda.png" /></div>
+    </div>
+    <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>1</span></span></div>
+  </section>
+
+  <section class="page overview pattern-light">
+    <span class="chip soft">Resumen</span>
+    <h2>¿Qué incluye la plataforma?</h2>
+    <div class="roles">
+      <div class="role"><span class="tag" style="background:#fdf3c4;color:#7a5a00">Familias</span><h3>Padres y tutores</h3>
+        <ul><li>Agenda diaria de su hijo</li><li>Logros de independencia</li><li>Trabajos para casa con fotos</li><li>Avances y boleta de Taller</li><li>¿Quién recoge? con QR</li><li>Reportar ausencias</li><li>Estado de cuenta y comprobantes</li><li>Comunicados, calendario y galería</li><li>Chat con la guía</li><li>Permisos con firma digital</li></ul></div><div class="role"><span class="tag" style="background:#e7f0b8;color:#55691a">Guías</span><h3>Guías y Lead Teachers</h3>
+        <ul><li>Su perfil y su ambiente</li><li>Agenda diaria de todo el ambiente</li><li>Pasar lista</li><li>Trabajos y revisión</li><li>Registrar logros</li><li>Libro de notas de Taller</li><li>Temario por semana</li><li>Actividades del mes</li></ul></div><div class="role"><span class="tag" style="background:#e6f1f4;color:#1f4456">Dirección</span><h3>Administración</h3>
+        <ul><li>Panel con indicadores</li><li>Pre-inscripciones y visitas</li><li>Niños, familias y guías</li><li>Mensualidades y cobros</li><li>Validación de pagos (contabilidad)</li><li>Publicar y cerrar cortes</li><li>Comunicados con acuse</li><li>Galería y permisos de fotos</li></ul></div><div class="role"><span class="tag" style="background:#fbe1dc;color:#a8402f">Portería y web</span><h3>Seguridad y sitio</h3>
+        <ul><li>Retiros del día en vivo</li><li>Verificación por QR o código</li><li>Personas restringidas en rojo</li><li>Bitácora de entregas</li><li>Sitio web público</li><li>Summer Camp en el sitio</li><li>Pre-inscripción en línea</li><li>Agenda tu visita</li></ul></div>
+    </div>
+    <div class="ribbon"><span>📱 Celular y 💻 PC</span><span>Sin App Store ni Play Store</span><span>🔔 Notificaciones</span><span>Para niños de 2 a 9 años</span><span>🔒 Datos protegidos</span></div>
+    <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>2</span></span></div>
+  </section>
+
+  <section class="page feature pattern-light">
+    <span class="chip soft">Pensada para Montessori</span>
+    <h2>Hecha a la medida de Mundo Montessori</h2>
+    <p class="lead">La plataforma usa el lenguaje y la forma de trabajar de un ambiente Montessori.</p>
+    <div class="fgrid" style="grid-template-columns: repeat(3, 1fr)">
+      <div class="fcard"><h3>Ambientes, no solo grados</h3><p>Comunidad Infantil, Casa de Niños y Taller, cada uno con su guía. En Taller se lleva la escala del MINED y la boleta.</p></div><div class="fcard featured"><span class="tag">En lugar de premios</span><h3>Logros de independencia</h3><p>La guía registra hitos de vida práctica, lenguaje, matemática y cultura, y la familia los celebra desde casa.</p></div><div class="fcard"><h3>Agenda diaria</h3><p>Ánimo, comidas, descanso y trabajos del día para los más pequeños, publicada por la guía en una sola pantalla.</p></div><div class="fcard"><h3>Retiro seguro</h3><p>Con niños de 2 a 9 años, ningún retiro sin aviso: QR o código de un día y verificación de cédula en portería.</p></div><div class="fcard"><h3>Mensualidades sin pasarela</h3><p>La familia sube la foto de la transferencia o del depósito y contabilidad lo valida y envía el recibo.</p></div><div class="fcard"><h3>Su identidad</h3><p>Los círculos y colores del logo, letra manuscrita como la de la marca y un sitio web con su Summer Camp.</p></div>
+    </div>
+    
+    <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>3</span></span></div>
+  </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Sitio web público</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/01-sitio-inicio.png" /></div><h3>Sitio web en el celular</h3><p>Diseñado primero para celular, con los colores y los círculos del logo.</p></div><div class="mobile-item"><div class="phone "><img src="movil/02-pre-inscripcion.png" /></div><h3>Pre-inscripción en línea</h3><p>Formulario por pasos. Los documentos se suben con fotos del celular.</p></div><div class="mobile-item"><div class="phone "><img src="movil/03-agenda-tu-cita.png" /></div><h3>Agenda tu visita al ambiente</h3><p>Horarios disponibles y confirmación por correo con recordatorio.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>4</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Sitio web público</span>
+          <h2>Sitio web de Mundo Montessori</h2>
+          <p class="desc">Ambientes, método, Summer Camp, galería y contacto con WhatsApp. Lleva directo a la pre-inscripción y a agendar visitas.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /</span></div><img src="escritorio/01-sitio-inicio.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>5</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Sitio web público</span>
+          <h2>Ambientes y método</h2>
+          <p class="desc">Comunidad Infantil, Casa de Niños y Taller, y las áreas Montessori explicadas para las familias que buscan colegio.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /</span></div><img src="escritorio/02-sitio-metodo.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>6</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Acceso</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/04-ingresar.png" /></div><h3>Ingreso desde el celular</h3><p>Funciona en Chrome o Safari con un link. No hay que descargar nada de App Store ni Play Store.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>7</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Acceso</span>
+          <h2>Inicio de sesión seguro</h2>
+          <p class="desc">Acceso solo por invitación del colegio, con correo y contraseña y recuperación de acceso. Lo gestiona Clerk, un servicio especializado en seguridad.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /ingresar</span></div><img src="escritorio/03-ingresar.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>8</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/05-familia-inicio.png" /></div><h3>Inicio de la familia</h3><p>Todos los hijos de un vistazo: llegada, trabajos, retiro de hoy y pendientes.</p></div><div class="mobile-item"><div class="phone "><img src="movil/06-familia-agenda.png" /></div><h3>Agenda diaria</h3><p>Ánimo, comidas, descanso y trabajos del día en Comunidad Infantil y Casa de Niños, con una nota de la guía.</p></div><div class="mobile-item"><div class="phone "><img src="movil/07-familia-perfil-logros.png" /></div><h3>Perfil y logros</h3><p>Logros de independencia, no premios: vestirse solo, cuidar las plantas, leer, ayudar a un compañero.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>9</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/08-familia-tareas.png" /></div><h3>Trabajos para casa</h3><p>Pendientes, entregados y revisados, por hijo y por área.</p></div><div class="mobile-item"><div class="phone "><img src="movil/09-familia-entregar-tarea.png" /></div><h3>Entregar un trabajo</h3><p>Fotos del cuaderno o PDF. Se optimizan solas para subir rápido.</p></div><div class="mobile-item"><div class="phone "><img src="movil/10-familia-calificaciones.png" /></div><h3>Avances de Taller</h3><p>Notas por corte con la escala del MINED (AA, AS, AF, AI) y boleta en PDF.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>10</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/11-familia-retiro.png" /></div><h3>¿Quién recoge hoy?</h3><p>Aviso con QR o código de un solo día. Portería verifica foto y cédula.</p></div><div class="mobile-item"><div class="phone "><img src="movil/12-familia-ausencia.png" /></div><h3>Reportar ausencia</h3><p>La guía la ve al pasar lista; se puede adjuntar constancia médica.</p></div><div class="mobile-item"><div class="phone "><img src="movil/13-familia-comunicados.png" /></div><h3>Comunicados</h3><p>Avisos de Dirección y de las guías con confirmación de lectura.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>11</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/14-familia-calendario.png" /></div><h3>Calendario y actividades del mes</h3><p>Semana de la paz, excursiones, reuniones de familias y entregas en un solo lugar.</p></div><div class="mobile-item"><div class="phone "><img src="movil/15-familia-galeria.png" /></div><h3>Galería privada</h3><p>Fotos del ambiente, del huerto y del Summer Camp, visibles solo para las familias.</p></div><div class="mobile-item"><div class="phone "><img src="movil/16-familia-mensajes.png" /></div><h3>Mensajes con la guía</h3><p>Chat dentro de la plataforma, sin compartir números personales.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>12</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Familias</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/17-familia-permiso-firma.png" /></div><h3>Permisos con firma digital</h3><p>La familia firma con el dedo; queda registro con fecha y hora.</p></div><div class="mobile-item"><div class="phone "><img src="movil/18-familia-mas.png" /></div><h3>Todos los módulos</h3><p>Menú con todas las secciones y ajustes de notificaciones.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>13</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Familias</span>
+          <h2>La misma plataforma en la computadora</h2>
+          <p class="desc">En PC el menú pasa a una barra lateral y la información se reparte en columnas.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /padres</span></div><img src="escritorio/04-familia-inicio.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>14</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Familias</span>
+          <h2>Avances en la computadora</h2>
+          <p class="desc">Resumen del corte, avance respecto al anterior y descarga de la boleta.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /padres/calificaciones</span></div><img src="escritorio/05-familia-calificaciones.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>15</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Estado de cuenta y mensualidades</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/19-familia-estado-cuenta.png" /></div><h3>Estado de cuenta</h3><p>Saldo, mensualidad de cada hijo y otros cobros como excursiones, con recibos descargables.</p></div><div class="mobile-item"><div class="phone "><img src="movil/20-familia-subir-comprobante.png" /></div><h3>Subir el comprobante</h3><p>La familia elige qué paga, anota la referencia y sube la foto de la transferencia o del depósito.</p></div><div class="mobile-item"><div class="phone "><img src="movil/21-familia-comprobantes.png" /></div><h3>Seguimiento del pago</h3><p>En revisión, aprobado con su recibo, o rechazado con el motivo para enviar otro.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>16</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Estado de cuenta y mensualidades</span>
+          <h2>Cobros y pagos</h2>
+          <p class="desc">Familias al día y con saldo pendiente, comprobantes por revisar, recordatorios y exportación a Excel.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /admin/cuentas</span></div><img src="escritorio/06-direccion-cobros.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>17</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Estado de cuenta y mensualidades</span>
+          <h2>Validación de contabilidad</h2>
+          <p class="desc">El equipo contable compara el comprobante con lo pendiente y lo aprueba, con envío del recibo, o lo rechaza con el motivo.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /admin/cuentas/comprobantes</span></div><img src="escritorio/07-contabilidad-comprobantes.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>18</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Guías</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/22-docente-hoy.png" /></div><h3>El día de la guía</h3><p>Pasar lista, trabajos por revisar, ausencias reportadas y el horario del ambiente.</p></div><div class="mobile-item"><div class="phone "><img src="movil/23-docente-asistencia.png" /></div><h3>Pasar lista en segundos</h3><p>Un toque por niño. Las ausencias reportadas por las familias ya aparecen como justificadas.</p></div><div class="mobile-item"><div class="phone "><img src="movil/24-docente-revisar.png" /></div><h3>Revisar trabajos</h3><p>Ver fotos, poner nota y comentario, y pasar al siguiente niño.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>19</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Guías</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/25-docente-actividades.png" /></div><h3>Actividades del mes</h3><p>Publicar actividades y, si hace falta, pedir permiso firmado.</p></div><div class="mobile-item"><div class="phone "><img src="movil/26-docente-logros.png" /></div><h3>Registrar logros</h3><p>La guía registra un hito de independencia y la familia lo celebra desde casa.</p></div><div class="mobile-item"><div class="phone "><img src="movil/27-docente-temario.png" /></div><h3>Subir el temario</h3><p>Temas por semana con objetivos y materiales; las familias lo ven publicado.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>20</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Guías</span>
+          <h2>Agenda diaria de todo el ambiente</h2>
+          <p class="desc">La guía de Comunidad Infantil o Casa de Niños llena la agenda de todos en una sola pantalla y la publica a las familias.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /maestro/agenda</span></div><img src="escritorio/08-docente-agenda-diaria.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>21</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Guías</span>
+          <h2>Libro de notas de Taller</h2>
+          <p class="desc">Funciona como Excel: Enter baja de fila y se puede pegar desde Excel. Se guarda solo. Al publicar el corte, las notas se bloquean y las familias las ven.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /maestro/calificaciones</span></div><img src="escritorio/09-docente-libro-notas.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>22</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Guías</span>
+          <h2>Revisión de trabajos en la computadora</h2>
+          <p class="desc">Lista de entregas a la izquierda, revisión a la derecha. Se marcan las entregas tardías.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /maestro/tareas</span></div><img src="escritorio/10-docente-revisar.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>23</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Guías</span>
+          <h2>Temario por corte</h2>
+          <p class="desc">Organizado por semanas, con PDF y enlaces de apoyo.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /maestro/temario</span></div><img src="escritorio/11-docente-temario.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>24</span></span></div>
+      </section>
+
+      <section class="page mobile-page">
+        <div class="head"><h2>Dirección y portería</h2><span class="chip soft">📱 En el celular</span></div>
+        <div class="mobile-grid">
+          <div class="mobile-item"><div class="phone "><img src="movil/28-direccion-panel.png" /></div><h3>Dirección desde el celular</h3><p>Los indicadores del colegio, en cualquier lugar.</p></div>
+        </div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>25</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Dirección y portería</span>
+          <h2>Panel de Dirección</h2>
+          <p class="desc">Asistencia por ambiente, admisiones 2027, comunicados leídos y alertas del día.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /admin</span></div><img src="escritorio/12-direccion-panel.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>26</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Dirección y portería</span>
+          <h2>Tablero de pre-inscripciones</h2>
+          <p class="desc">Cada solicitud avanza por etapas: recibida, en revisión, visita y aceptada. Al aceptarla se crea el niño y se invita a la familia.</p>
+          <div class="device-label"><span class="chip soft">💻 Computadora</span></div>
+        </div>
+        <div><div class="browser"><div class="bar"><span class="dot" style="background:#ef5b4c"></span><span class="dot" style="background:#f7d23e"></span><span class="dot" style="background:#2fae7a"></span><span class="url">🔒 /admin/inscripciones</span></div><img src="escritorio/13-direccion-inscripciones.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>27</span></span></div>
+      </section>
+
+      <section class="page wide-page">
+        <div>
+          <span class="chip">Dirección y portería</span>
+          <h2>Portería (tablet)</h2>
+          <p class="desc">Lista de retiros del día actualizada al momento. Escanea el QR, verifica la cédula, confirma la entrega y la familia recibe el aviso al instante.</p>
+          <div class="device-label"><span class="chip soft">📟 Tablet</span></div>
+        </div>
+        <div><div class="tablet"><img src="tablet/01-porteria.png" /></div></div>
+        <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>28</span></span></div>
+      </section>
+
+  <section class="page dark-bg pattern-dark">
+    <img class="closing-logo-wide" src="../../../public/brand/montessori/logo-white.png" />
+    <h2 style="font-size:44px;color:#ffffff;margin-top:16px">Próximos pasos</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Aprobación del diseño</h3><p>Ajustes de colores, textos y pantallas con Dirección.</p></div><div class="step"><div class="n">2</div><h3>Base de datos y acceso</h3><p>Usuarios por invitación, roles y seguridad de la información.</p></div><div class="step"><div class="n">3</div><h3>Construcción de módulos</h3><p>Familias, guías, Dirección, portería y sitio web.</p></div><div class="step"><div class="n">4</div><h3>Pruebas reales</h3><p>Con guías y familias piloto antes del lanzamiento.</p></div><div class="step"><div class="n">5</div><h3>Lanzamiento 2027</h3><p>Listo para el inicio de clases, con guías rápidas de uso.</p></div>
+    </div>
+    <div class="ribbon" style="margin-top:26px"><span>Web app en Vercel</span><span>Base de datos Turso</span><span>Acceso seguro con Clerk</span><span>Notificaciones push y correo</span></div>
+    <p class="note">Los nombres, montos, datos e ilustraciones de esta propuesta son de ejemplo. Las fotos reales de los niños se agregarán solo con autorización de las familias.</p>
+    <div class="footer"><span>Mundo Montessori · Propuesta de interfaz</span><span class="end"><span class="credit">Desarrollado por ia360.work</span><span>29</span></span></div>
+  </section></body></html>

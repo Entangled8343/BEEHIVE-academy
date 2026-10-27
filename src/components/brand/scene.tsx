@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { schoolConfig } from "@/schools";
 import { Mascot } from "./mascot";
 
 /**
@@ -17,6 +18,8 @@ const themes = {
 } as const;
 
 export type SceneName = keyof typeof themes;
+
+const round = schoolConfig.brand.kidAvatar === "circle";
 
 export function Scene({
   name,
@@ -41,11 +44,18 @@ export function Scene({
           <path d="M40 110 L95 45 L108 45 L170 110 Z" fill={t.accent} opacity="0.85" />
         ) : null}
         <path d="M0 105 Q50 90 100 102 T200 98 V140 H0 Z" fill={t.ground} />
-        {/* hexágonos */}
-        <g opacity="0.95">
-          <polygon points="30,70 42,63 54,70 54,84 42,91 30,84" fill={t.accent2} />
-          <polygon points="150,78 160,72 170,78 170,90 160,96 150,90" fill={t.accent} opacity="0.8" />
-        </g>
+        {/* hexágonos (o círculos, como en el logo de Mundo Montessori) */}
+        {round ? (
+          <g opacity="0.95">
+            <circle cx="42" cy="77" r="13" fill={t.accent2} />
+            <circle cx="160" cy="84" r="11" fill={t.accent} opacity="0.8" />
+          </g>
+        ) : (
+          <g opacity="0.95">
+            <polygon points="30,70 42,63 54,70 54,84 42,91 30,84" fill={t.accent2} />
+            <polygon points="150,78 160,72 170,78 170,90 160,96 150,90" fill={t.accent} opacity="0.8" />
+          </g>
+        )}
         {/* figuras sencillas */}
         <g>
           <circle cx="82" cy="78" r="7" fill={t.accent} />

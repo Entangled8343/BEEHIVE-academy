@@ -91,6 +91,47 @@ html[data-school="curie"] {
   --shadow-lift: 0 2px 4px rgb(18 50 31 / 0.06), 0 12px 32px -8px rgb(18 50 31 / 0.2);
 }
 
+/* Mundo Montessori: azul de las siluetas del logo, verde lima del círculo central y fondo cálido. */
+html[data-school="montessori"] {
+  --school-font-display: var(--font-quicksand), ui-rounded, "Nunito", system-ui, sans-serif;
+  --school-font-sans: var(--font-nunito), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --school-font-script: var(--font-sacramento), "Brush Script MT", cursive;
+  --display-weight: 700;
+
+  --color-primary-950: #0f2530;
+  --color-primary-900: #16323f;
+  --color-primary-800: #1f4456;
+  --color-primary-700: #2a576d;
+  --color-primary-600: #376d86;
+  --color-primary-500: #4f88a0;
+  --color-primary-400: #78a7ba;
+  --color-primary-300: #a6c7d4;
+  --color-primary-200: #cfe2e9;
+  --color-primary-100: #e6f1f4;
+  --color-primary-50: #f3f8fa;
+
+  --color-accent-700: #55691a;
+  --color-accent-600: #74901f;
+  --color-accent-500: #a2c034;
+  --color-accent-400: #c0d84e;
+  --color-accent-300: #d5e584;
+  --color-accent-200: #e7f0b8;
+  --color-accent-100: #f2f8da;
+  --color-accent-50: #f9fcee;
+
+  --color-night-800: #1f4456;
+  --color-night-900: #16323f;
+  --color-sidebar: #1c3e4f;
+  --color-surface: #fffcf6;
+
+  --pattern-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Ccircle cx='22' cy='26' r='7' fill='%2391C2C9' fill-opacity='0.28'/%3E%3Ccircle cx='96' cy='18' r='4' fill='%23C0D84E' fill-opacity='0.4'/%3E%3Ccircle cx='136' cy='70' r='8' fill='%23FBE176' fill-opacity='0.4'/%3E%3Ccircle cx='62' cy='92' r='5' fill='%23E8796A' fill-opacity='0.22'/%3E%3Ccircle cx='20' cy='136' r='4' fill='%23C0D84E' fill-opacity='0.4'/%3E%3Ccircle cx='112' cy='140' r='6' fill='%2391C2C9' fill-opacity='0.28'/%3E%3C/svg%3E");
+  --pattern-light-size: 160px 160px;
+  --pattern-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-opacity='0.07' stroke-width='2'%3E%3Ccircle cx='30' cy='30' r='14'/%3E%3Ccircle cx='120' cy='50' r='9'/%3E%3Ccircle cx='70' cy='120' r='18'/%3E%3Ccircle cx='146' cy='136' r='6'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-dark-size: 160px 160px;
+  --shadow-soft: 0 1px 2px rgb(22 50 63 / 0.04), 0 4px 16px -4px rgb(22 50 63 / 0.09);
+  --shadow-lift: 0 2px 4px rgb(22 50 63 / 0.05), 0 12px 32px -8px rgb(22 50 63 / 0.18);
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
@@ -139,4 +180,15 @@ html[data-school="curie"] {
 /* Curie usa la serif de su sitio en peso regular, como en curie.edu.ni. */
 html[data-school="curie"] :is(h1, h2, h3, h4, .font-display) {
   font-weight: var(--display-weight);
+}
+
+/* Quicksand solo se lee bien en negrita. */
+html[data-school="montessori"] :is(h1, h2, h3, h4, .font-display) {
+  font-weight: var(--display-weight);
+}
+
+/* Letra manuscrita como la del logo de Mundo Montessori. */
+@utility font-script {
+  font-family: var(--school-font-script, cursive);
+  font-weight: 400;
 }

@@ -101,7 +101,7 @@ export default function ParentHome() {
                 <div className="p-4">
                   <p className="text-xs font-bold text-primary-500">{schoolConfig.copy.badgesShort}</p>
                   <p className="font-display text-xl font-semibold">
-                    {c.badges} {schoolConfig.brand.badgeStyle === "element" ? "⚛️" : "🏅"}
+                    {c.badges} {{ element: "⚛️", circle: "🌱", hex: "🏅" }[schoolConfig.brand.badgeStyle]}
                   </p>
                   <p className="mt-0.5 text-xs font-semibold text-primary-500">2 nuevas este mes</p>
                 </div>

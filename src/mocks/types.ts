@@ -82,7 +82,12 @@ export type BadgeIcon =
   | "lightbulb"
   | "flag"
   | "music"
-  | "medal";
+  | "medal"
+  | "shirt"
+  | "sprout"
+  | "hands"
+  | "globe"
+  | "puzzle";
 
 export type BadgeDef = {
   id: string;

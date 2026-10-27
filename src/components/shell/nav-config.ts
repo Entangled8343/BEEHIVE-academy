@@ -184,7 +184,7 @@ const bottomAll: Record<Role, NavItem[]> = {
 };
 
 const enabled = (i: NavItem) => !i.module || hasModule(i.module);
-const badgesKey = schoolConfig.brand.badgeStyle === "element" ? "elementos" : "insignias";
+const badgesKey = { element: "elementos", circle: "logros", hex: "insignias" }[schoolConfig.brand.badgeStyle];
 const localize = (i: NavItem): NavItem => (i.key === "insignias" ? { ...i, key: badgesKey } : i);
 
 export const sidebarNav: Record<Role, NavGroup[]> = Object.fromEntries(

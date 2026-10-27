@@ -5,12 +5,13 @@
 import { schoolConfig } from "@/schools";
 import { beehiveData } from "./beehive";
 import { curieData } from "./curie";
+import { montessoriData } from "./montessori";
 import type { MockData } from "./types";
 
 export type { BadgeDef, CafeteriaCategory, Child, GradeRow, Homework, MockData, Role, TodoItem } from "./types";
 export { band } from "./shared";
 
-const data: MockData = schoolConfig.id === "curie" ? curieData : beehiveData;
+const data: MockData = { beehive: beehiveData, curie: curieData, montessori: montessoriData }[schoolConfig.id];
 
 export const {
   school,

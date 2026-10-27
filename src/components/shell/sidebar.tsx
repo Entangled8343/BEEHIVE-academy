@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -20,21 +21,34 @@ export function Sidebar({ role }: { role: Role }) {
   const [line1, line2] = schoolConfig.nameLines;
   return (
     <aside className="pattern-dark fixed inset-y-0 left-0 z-30 hidden w-72 flex-col bg-sidebar text-white lg:flex">
-      <Link href="/" className="flex items-center gap-3 px-6 pt-6 pb-5">
-        <LogoCircle className="size-12" />
-        {schoolConfig.id === "curie" ? (
-          <p className="font-display text-[13px] leading-snug font-semibold tracking-[0.1em] text-white uppercase">
-            {line1}
-            <br />
-            {line2}
-          </p>
-        ) : (
-          <div>
-            <p className="font-display text-xl leading-none font-semibold text-accent-400">{line1}</p>
-            <p className="font-display text-lg leading-tight font-medium text-white">{line2}</p>
-          </div>
-        )}
-      </Link>
+      {schoolConfig.brand.wordmarkOnDark ? (
+        <Link href="/" className="block px-6 pt-5 pb-4">
+          <Image
+            src={schoolConfig.brand.wordmarkOnDark}
+            alt={schoolConfig.name}
+            width={schoolConfig.brand.wordmarkSize?.[0] ?? 600}
+            height={schoolConfig.brand.wordmarkSize?.[1] ?? 300}
+            priority
+            className="h-auto w-44"
+          />
+        </Link>
+      ) : (
+        <Link href="/" className="flex items-center gap-3 px-6 pt-6 pb-5">
+          <LogoCircle className="size-12" />
+          {schoolConfig.id === "curie" ? (
+            <p className="font-display text-[13px] leading-snug font-semibold tracking-[0.1em] text-white uppercase">
+              {line1}
+              <br />
+              {line2}
+            </p>
+          ) : (
+            <div>
+              <p className="font-display text-xl leading-none font-semibold text-accent-400">{line1}</p>
+              <p className="font-display text-lg leading-tight font-medium text-white">{line2}</p>
+            </div>
+          )}
+        </Link>
+      )}
       <nav className="scrollbar-none flex-1 overflow-y-auto px-4 pb-4">
         {groups.map((g, gi) => (
           <div key={gi} className="mb-4">

@@ -7,6 +7,7 @@ const esc = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 function css(t: ProposalTheme) {
+  const sizeOf = (pattern: string) => t.patternSize ?? (pattern.includes("140") ? "140px 140px" : "56px 98px");
   return `
 @page { size: 1280px 720px; margin: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,8 +17,8 @@ h1, h2, h3, .display { font-family: ${t.display}; font-weight: ${t.displayWeight
 .page { width: 1280px; height: 720px; position: relative; overflow: hidden; page-break-after: always; break-after: page; padding: 48px 56px; }
 .accent { color: ${t.accent}; }
 .dark-bg { background: ${t.dark}; color: ${t.darkText}; }
-.pattern-dark { background-image: ${t.patternDark}; background-size: ${t.patternDark.includes("140") ? "140px 140px" : "56px 98px"}; }
-.pattern-light { background-image: ${t.patternLight}; background-size: ${t.patternLight.includes("140") ? "140px 140px" : "56px 98px"}; }
+.pattern-dark { background-image: ${t.patternDark}; background-size: ${sizeOf(t.patternDark)}; }
+.pattern-light { background-image: ${t.patternLight}; background-size: ${sizeOf(t.patternLight)}; }
 .chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 13px; background: ${t.accent}; color: ${t.accentText}; }
 .chip.soft { background: ${t.soft}; color: ${t.softText}; }
 .footer { position: absolute; left: 56px; right: 56px; bottom: 22px; display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; font-weight: 600; color: ${t.muted}; opacity: .75; }
@@ -36,6 +37,17 @@ h1, h2, h3, .display { font-family: ${t.display}; font-weight: ${t.displayWeight
 .cover-phones .p1 { left: 10px; top: 40px; transform: rotate(-6deg); }
 .cover-phones .p2 { left: 250px; top: 10px; transform: rotate(5deg); }
 .cover-phones img { width: 230px; height: 497px; object-fit: cover; object-position: top; }
+
+/* Portada clara: manchas de color en las esquinas, como en los afiches del colegio. */
+.light-cover { background: ${t.surface}; }
+.light-cover > div { position: relative; z-index: 1; }
+.light-cover .blob { position: absolute; border-radius: 50%; z-index: 0; }
+.light-cover .cover-logo { width: 300px; height: auto; }
+.light-cover h1 { color: ${t.text}; }
+.light-cover h1 .accent { font-family: ${t.lightCover?.script ?? t.display}; font-weight: 400; font-style: normal; color: ${t.muted}; font-size: 92px; line-height: 0.95; }
+.light-cover .lead { color: ${t.muted}; }
+.light-cover .footer { color: ${t.muted}; }
+.closing-logo-wide { width: 250px; height: auto; }
 
 /* Sin box-shadow con desenfoque: Chrome lo exporta al PDF como imagen con máscara y algunos visores
    (p. ej. Vista Previa de macOS) lo pintan como un rectángulo gris. */
@@ -106,6 +118,8 @@ export function buildProposalHtml(
   logoSrc: string,
   theme: ProposalTheme,
   c: ProposalContent,
+  /** Logo para la lámina final oscura cuando el de la portada no se ve sobre fondo oscuro. */
+  closingLogoSrc?: string,
 ) {
   const pages: string[] = [];
   let n = 1;
@@ -114,8 +128,20 @@ export function buildProposalHtml(
   const byKey = (slug: string) => rendered.find((r) => r.slug === slug && r.device === "movil");
 
   const [s1, s2] = c.coverPhones.map(byKey);
+  const light = theme.lightCover;
+  const blobs = light
+    ? [
+        "width:420px;height:420px;left:-170px;top:-190px",
+        "width:300px;height:300px;left:-110px;bottom:-150px",
+        "width:280px;height:280px;right:-100px;top:-120px",
+        "width:380px;height:380px;right:-170px;bottom:-190px",
+      ]
+        .map((pos, i) => `<span class="blob" style="${pos};background:${light.blobs[i]}"></span>`)
+        .join("")
+    : "";
   pages.push(`
-  <section class="page cover dark-bg pattern-dark">
+  <section class="page cover ${light ? "light-cover" : "dark-bg pattern-dark"}">
+    ${blobs}
     <div>
       <img class="cover-logo" src="${logoSrc}" />
       <div class="eyebrow"><span class="chip">${esc(c.coverChip)}</span></div>
@@ -199,7 +225,7 @@ export function buildProposalHtml(
 
   pages.push(`
   <section class="page dark-bg pattern-dark">
-    <img src="${logoSrc}" style="width:84px;height:84px" />
+    ${closingLogoSrc ? `<img class="closing-logo-wide" src="${closingLogoSrc}" />` : `<img src="${logoSrc}" style="width:84px;height:84px" />`}
     <h2 style="font-size:44px;color:${theme.darkText};margin-top:16px">Próximos pasos</h2>
     <div class="steps">
       ${c.steps.map(([t, d], i) => `<div class="step"><div class="n">${i + 1}</div><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join("")}

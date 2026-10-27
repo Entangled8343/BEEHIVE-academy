@@ -19,6 +19,10 @@ export type ProposalTheme = {
   phoneFrame: string;
   patternDark: string;
   patternLight: string;
+  /** Tamaño del motivo de fondo cuando no es el panal ni las estrellas. */
+  patternSize?: string;
+  /** Portada clara con manchas de color (Mundo Montessori) en lugar de la portada oscura. */
+  lightCover?: { script: string; blobs: [string, string, string, string] };
 };
 
 export type ProposalContent = {
@@ -77,6 +81,12 @@ const curieTheme: ProposalTheme = {
   patternLight: stars("2F6A4B", 0.25),
 };
 
+const dots = (opacity: number) =>
+  `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Ccircle cx='22' cy='26' r='7' fill='%2391C2C9' fill-opacity='${opacity}'/%3E%3Ccircle cx='96' cy='18' r='4' fill='%23C0D84E' fill-opacity='${opacity * 1.4}'/%3E%3Ccircle cx='136' cy='70' r='8' fill='%23FBE176' fill-opacity='${opacity * 1.4}'/%3E%3Ccircle cx='62' cy='92' r='5' fill='%23E8796A' fill-opacity='${opacity * 0.8}'/%3E%3Ccircle cx='20' cy='136' r='4' fill='%23C0D84E' fill-opacity='${opacity * 1.4}'/%3E%3Ccircle cx='112' cy='140' r='6' fill='%2391C2C9' fill-opacity='${opacity}'/%3E%3C/svg%3E")`;
+
+const rings = (opacity: number) =>
+  `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-opacity='${opacity}' stroke-width='2'%3E%3Ccircle cx='30' cy='30' r='14'/%3E%3Ccircle cx='120' cy='50' r='9'/%3E%3Ccircle cx='70' cy='120' r='18'/%3E%3Ccircle cx='146' cy='136' r='6'/%3E%3C/g%3E%3C/svg%3E")`;
+
 export const themes: Record<ProposalId, ProposalTheme> = {
   beehive: {
     fontsHref:
@@ -99,6 +109,31 @@ export const themes: Record<ProposalId, ProposalTheme> = {
     patternLight: honeycomb("F7D23E", 0.35),
   },
   curie: curieTheme,
+  montessori: {
+    fontsHref:
+      "https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito:wght@600;700;800&family=Sacramento&display=swap",
+    display: '"Quicksand", "Nunito", sans-serif',
+    body: '"Nunito", system-ui, sans-serif',
+    displayWeight: 700,
+    dark: "#1f4456",
+    darkText: "#ffffff",
+    darkMuted: "#cfe2e9",
+    accent: "#c0d84e",
+    accentText: "#16323f",
+    surface: "#fffcf6",
+    text: "#16323f",
+    muted: "#2a576d",
+    soft: "#e6f1f4",
+    softText: "#1f4456",
+    phoneFrame: "#16323f",
+    patternDark: rings(0.07),
+    patternLight: dots(0.22),
+    patternSize: "160px 160px",
+    lightCover: {
+      script: '"Sacramento", cursive',
+      blobs: ["rgba(145,194,201,.35)", "rgba(232,121,106,.18)", "rgba(251,225,118,.5)", "rgba(192,216,78,.3)"],
+    },
+  },
   // La cafetería usa la identidad de Curie.
   "curie-cafeteria": curieTheme,
 };
@@ -158,6 +193,50 @@ export const contents: Record<ProposalId, ProposalContent> = {
     ],
     tech: ["Web app en Vercel", "Base de datos Turso", "Acceso con Clerk y Office 365", "Notificaciones push y correo"],
     note: "Los nombres, montos e ilustraciones son de ejemplo. El sitio curie.edu.ni se mantiene; el portal vive en un subdominio (p. ej. portal.curie.edu.ni).",
+    credit: "Desarrollado por ia360.work",
+  },
+  montessori: {
+    docTitle: "Mundo Montessori · Propuesta de interfaz",
+    footer: "Mundo Montessori · Propuesta de interfaz",
+    coverChip: "Propuesta de interfaz · Octubre 2026",
+    coverTitle: "Plataforma escolar",
+    coverTitleAccent: "Mundo Montessori",
+    coverLead:
+      "Web app para familias, guías y Dirección de Comunidad Infantil, Casa de Niños y Taller. Funciona en celular y en computadora desde el navegador: no hay que descargar nada.",
+    coverPhones: ["familia-inicio", "familia-agenda"],
+    overviewTitle: "¿Qué incluye la plataforma?",
+    roles: [
+      { tag: "Familias", tagBg: "#fdf3c4", tagFg: "#7a5a00", title: "Padres y tutores", items: ["Agenda diaria de su hijo", "Logros de independencia", "Trabajos para casa con fotos", "Avances y boleta de Taller", "¿Quién recoge? con QR", "Reportar ausencias", "Estado de cuenta y comprobantes", "Comunicados, calendario y galería", "Chat con la guía", "Permisos con firma digital"] },
+      { tag: "Guías", tagBg: "#e7f0b8", tagFg: "#55691a", title: "Guías y Lead Teachers", items: ["Su perfil y su ambiente", "Agenda diaria de todo el ambiente", "Pasar lista", "Trabajos y revisión", "Registrar logros", "Libro de notas de Taller", "Temario por semana", "Actividades del mes"] },
+      { tag: "Dirección", tagBg: "#e6f1f4", tagFg: "#1f4456", title: "Administración", items: ["Panel con indicadores", "Pre-inscripciones y visitas", "Niños, familias y guías", "Mensualidades y cobros", "Validación de pagos (contabilidad)", "Publicar y cerrar cortes", "Comunicados con acuse", "Galería y permisos de fotos"] },
+      { tag: "Portería y web", tagBg: "#fbe1dc", tagFg: "#a8402f", title: "Seguridad y sitio", items: ["Retiros del día en vivo", "Verificación por QR o código", "Personas restringidas en rojo", "Bitácora de entregas", "Sitio web público", "Summer Camp en el sitio", "Pre-inscripción en línea", "Agenda tu visita"] },
+    ],
+    ribbon: ["📱 Celular y 💻 PC", "Sin App Store ni Play Store", "🔔 Notificaciones", "Para niños de 2 a 9 años", "🔒 Datos protegidos"],
+    featurePages: [
+      {
+        chip: "Pensada para Montessori",
+        title: "Hecha a la medida de Mundo Montessori",
+        lead: "La plataforma usa el lenguaje y la forma de trabajar de un ambiente Montessori.",
+        columns: 3,
+        items: [
+          { title: "Ambientes, no solo grados", text: "Comunidad Infantil, Casa de Niños y Taller, cada uno con su guía. En Taller se lleva la escala del MINED y la boleta." },
+          { title: "Logros de independencia", tag: "En lugar de premios", featured: true, text: "La guía registra hitos de vida práctica, lenguaje, matemática y cultura, y la familia los celebra desde casa." },
+          { title: "Agenda diaria", text: "Ánimo, comidas, descanso y trabajos del día para los más pequeños, publicada por la guía en una sola pantalla." },
+          { title: "Retiro seguro", text: "Con niños de 2 a 9 años, ningún retiro sin aviso: QR o código de un día y verificación de cédula en portería." },
+          { title: "Mensualidades sin pasarela", text: "La familia sube la foto de la transferencia o del depósito y contabilidad lo valida y envía el recibo." },
+          { title: "Su identidad", text: "Los círculos y colores del logo, letra manuscrita como la de la marca y un sitio web con su Summer Camp." },
+        ],
+      },
+    ],
+    steps: [
+      ["Aprobación del diseño", "Ajustes de colores, textos y pantallas con Dirección."],
+      ["Base de datos y acceso", "Usuarios por invitación, roles y seguridad de la información."],
+      ["Construcción de módulos", "Familias, guías, Dirección, portería y sitio web."],
+      ["Pruebas reales", "Con guías y familias piloto antes del lanzamiento."],
+      ["Lanzamiento 2027", "Listo para el inicio de clases, con guías rápidas de uso."],
+    ],
+    tech: ["Web app en Vercel", "Base de datos Turso", "Acceso seguro con Clerk", "Notificaciones push y correo"],
+    note: "Los nombres, montos, datos e ilustraciones de esta propuesta son de ejemplo. Las fotos reales de los niños se agregarán solo con autorización de las familias.",
     credit: "Desarrollado por ia360.work",
   },
   "curie-cafeteria": {

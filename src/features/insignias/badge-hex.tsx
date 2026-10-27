@@ -2,7 +2,9 @@ import {
   BookOpen,
   Calculator,
   Clock,
+  Earth,
   Flag,
+  HandHeart,
   Heart,
   Leaf,
   Lightbulb,
@@ -10,13 +12,16 @@ import {
   Medal,
   Music,
   Palette,
+  Puzzle,
+  Shirt,
+  Sprout,
   Star,
   Trophy,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { BadgeDef } from "@/mocks";
 
-const icons = {
+export const badgeIcons = {
   clock: Clock,
   book: BookOpen,
   calc: Calculator,
@@ -29,6 +34,11 @@ const icons = {
   flag: Flag,
   music: Music,
   medal: Medal,
+  shirt: Shirt,
+  sprout: Sprout,
+  hands: HandHeart,
+  globe: Earth,
+  puzzle: Puzzle,
 };
 
 export function BadgeHex({
@@ -42,7 +52,7 @@ export function BadgeHex({
   showLabel?: boolean;
   showStatus?: boolean;
 }) {
-  const Icon = badge.earned ? icons[badge.icon] : Lock;
+  const Icon = badge.earned ? badgeIcons[badge.icon] : Lock;
   const dims = { sm: "size-14", md: "size-20", lg: "size-24" }[size];
   const icon = { sm: "size-6", md: "size-8", lg: "size-10" }[size];
   return (

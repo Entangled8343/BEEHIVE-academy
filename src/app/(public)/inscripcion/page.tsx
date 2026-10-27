@@ -31,7 +31,8 @@ export default function EnrollmentForm() {
               <li key={s} className="flex flex-col items-center gap-1.5 text-center">
                 <span
                   className={cn(
-                    "hex grid size-10 place-items-center font-display font-semibold",
+                    "grid size-10 place-items-center font-display font-semibold",
+                    schoolConfig.brand.kidAvatar === "circle" ? "rounded-full" : "hex",
                     i === 0 ? "bg-accent-400 text-primary-900" : "bg-primary-100 text-primary-400",
                   )}
                 >

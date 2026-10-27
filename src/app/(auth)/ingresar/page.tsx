@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Eye, Globe, ShieldCheck } from "lucide-react";
 import { Comet, Star } from "@/components/brand/comet";
 import { LogoCircle, LogoWordmark, Tagline } from "@/components/brand/logo";
@@ -27,7 +28,18 @@ export default function SignInPage() {
           curie ? "bg-night-900" : "bg-primary-800",
         )}
       >
-        <LogoCircle className="size-16" priority />
+        {schoolConfig.brand.wordmarkOnDark ? (
+          <Image
+            src={schoolConfig.brand.wordmarkOnDark}
+            alt={schoolConfig.name}
+            width={schoolConfig.brand.wordmarkSize?.[0] ?? 600}
+            height={schoolConfig.brand.wordmarkSize?.[1] ?? 300}
+            priority
+            className="h-auto w-64"
+          />
+        ) : (
+          <LogoCircle className="size-16" priority />
+        )}
         <div>
           <h1 className="text-5xl leading-tight font-semibold text-white">
             {curie ? (
