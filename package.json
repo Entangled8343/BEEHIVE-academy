@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "screenshots": "tsx scripts/screenshots.ts",
     "cotizacion": "tsx scripts/cotizacion.ts",
+    "cotizacion:cafeteria": "tsx scripts/cotizacion-cafeteria.ts",
     "shot": "tsx scripts/shot.ts"
   },
   "dependencies": {
