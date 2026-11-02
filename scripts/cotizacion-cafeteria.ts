@@ -212,6 +212,7 @@ const page2 = `
           <li>Alumnos por sección, con su foto</li>
           <li>Capacitación a la dueña y a las cajeras</li>
           <li>Acompañamiento en los primeros recreos</li>
+          <li>Información técnica para la autorización ante la DGI</li>
         </ul>
       </div>
       <div class="card">
@@ -238,17 +239,16 @@ const page2 = `
       <div class="card">
         <h3>Para más adelante</h3>
         <ul class="check muted">
-          <li>Facturar sin internet (por ahora, un celular con datos de respaldo)</li>
           <li>Menú de la semana con pedido de almuerzos</li>
-          <li>QR o llavero para identificar al alumno</li>
+          <li>QR en el celular para identificar al alumno</li>
         </ul>
       </div>
       <div class="card">
         <h3>Lo que aporta la cafetería</h3>
         <ul class="check muted">
-          <li>Una tablet o un celular Android e internet en la caja</li>
-          <li>Impresora térmica, solo si van a imprimir facturas</li>
-          <li>El trámite de autorización de la facturación, con su contador</li>
+          <li>Tablet o celular Android, con internet</li>
+          <li>Impresora térmica, si van a imprimir</li>
+          <li>Autorización ante la DGI, con su contador</li>
         </ul>
       </div>
     </div>
