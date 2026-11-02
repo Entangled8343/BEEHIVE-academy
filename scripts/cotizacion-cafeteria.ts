@@ -173,7 +173,7 @@ const page1 = `
         </ul>
       </div>
       <div class="card">
-        <p class="kind">Para la dueña</p>
+        <p class="kind">Para la administración</p>
         <h3>Administración</h3>
         <ul class="check">
           <li>Productos y precios</li>
@@ -210,7 +210,7 @@ const page2 = `
         <ul class="check">
           <li>Productos, precios y existencias cargados</li>
           <li>Alumnos por sección, con su foto</li>
-          <li>Capacitación a la dueña y a las cajeras</li>
+          <li>Capacitación a la administración y a las cajeras</li>
           <li>Acompañamiento en los primeros recreos</li>
           <li>Información técnica para la autorización ante la DGI</li>
         </ul>
@@ -223,7 +223,7 @@ const page2 = `
           <li>Servidores, base de datos y respaldo diario</li>
           <li>Soporte por WhatsApp en horario escolar</li>
           <li>Actualizaciones y mejoras</li>
-          <li>Usuarios para la dueña y las cajeras</li>
+          <li>Usuarios para la administración y las cajeras</li>
           <li>App para todas las familias, sin costo por usuario</li>
         </ul>
       </div>
